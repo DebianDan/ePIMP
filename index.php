@@ -6,3 +6,7 @@ if( !file_exists( 'config.php' ) ){
 }
 
 require_once( 'config.php' );
+
+$DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DB );
+
+
