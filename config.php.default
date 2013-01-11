@@ -1,6 +1,0 @@
-<?php
-define( 'DB_HOST', 'db.expensiparty.com' );
-define( 'DB_DATABASE', 'expensiparty' );
-define( 'DB_USER', 'expensiparty_dev' );
-define( 'DB_PASSWORD', 'asdfASDF00' );
-
