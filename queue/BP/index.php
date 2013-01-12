@@ -132,10 +132,11 @@
 		$query = "select beer_pong.state, beer_pong.beer_pong_pk from beer_pong inner join accounts a on a.accounts_pk = user_a inner join accounts b on b.accounts_pk = user_b where ";
 		$query = $query."(state = 1 or state =2) and ( ( a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."' ) OR (b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."' ) )";
 		$result =  $DB->query($query);
-		//echo "Query:" . $query . "<BR>";
+		echo "Query:" . $query . "<BR>";
 		//in queue
 		$row = $result->fetch_assoc();
 
+		echo $row['state'];
 		if ($row['state'] == 1 || $row['state'] == 2)
 		{
 			$bp_pk = $row['beer_pong_pk'];
@@ -199,7 +200,7 @@
 		}
 
 		//MAKE SURE (NOT IN QUEUE) ADDING A PAIR WORKS
-	// not in queue
+		// not in queue
 		else
 		{
 			$query = "SELECT accounts_pk FROM accounts WHERE pgid='". $safe_pgid . "' AND token='" .$safe_token. "'";
