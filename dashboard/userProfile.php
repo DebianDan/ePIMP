@@ -27,7 +27,7 @@ $friend = get_user_info($friendID);
     <?php
       echo "<p>" . $friend['intro'] . "</p>";
       echo "<a href='#' id='addfriend' data-role='button' data-icon='check'>I have met this person!</a>";
-      echo "<a href='index.php?pgid=" . $pgid . "&token=" . $token . "' data-role='button' data-theme='c' data-ajax='false'>Go Back</a>";
+      echo "<a href='index.php?pgid=" . $pgid . "&token=" . $token . "' data-role='button'>Go Back</a>";
     ?>
 
 	  <p id="messages">
