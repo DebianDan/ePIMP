@@ -1,6 +1,5 @@
 <?php
 
-$pk_id = $_POST['pk_id'];
 $token = $_POST['token'];
 $pg_id = $_POST['pg_id'];
 $first_name = $_POST['first_name'];
@@ -27,14 +26,16 @@ $result = $DB->query($query);
 if( $DB->error ){
     fatalErrorContactMatt( 'Insert acc:' . $DB->error );
 }
+$pk_id = $DB->insert_id;
 
-$query = 'INSERT INTO points(accounts_fk, points, reason, created) VALUES (LAST_INSERT_ID(), ' . STARTING . ', "starting points", CURRENT_TIMESTAMP())';
+$query = "INSERT INTO points(accounts_fk, points, reason, created) VALUES ( $pk_id, '" . STARTING . "', 'starting points', CURRENT_TIMESTAMP() )";
 $result = $DB->query( $query );
 if( $DB->error ){
     fatalErrorContactMatt( 'Insert init pt:' . $DB->error );
 }
 
 // Send the welcome email
+error_log( "Sending email to $pk_id" );
 email_person( $pk_id, "Welcome", array(
     "name" => $first_name,
     "url" => "http://expensiparty.com?pgid=$pg_id&token=$token"

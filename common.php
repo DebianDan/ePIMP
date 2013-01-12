@@ -62,7 +62,7 @@ function email_person( $pk, $template, $variables ){
         $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
         $safePK = $DB->real_escape_string( $pk );
 
-        $query = 'SELECT first_name, last_name, email FROM accounts WHERE accounts_pk = "' . $safePK . '"';
+        $query = "SELECT first_name, last_name, email FROM accounts WHERE accounts_pk = $safePK;";
         $result = $DB->query( $query );
         $row = $result->fetch_assoc();
 
@@ -93,6 +93,7 @@ function email_person( $pk, $template, $variables ){
     $headers = array ('From' => $from,
       'To' => $to,
       'Subject' => $subject);
+
     $smtp = Mail::factory('smtp',
       array ('host' => 'email-smtp.us-east-1.amazonaws.com',
         'auth' => true,
