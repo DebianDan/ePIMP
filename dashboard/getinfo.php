@@ -1,6 +1,7 @@
 <?php
 //get the user data
 require_once('user_info.php');
+require_once('../common.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,13 +14,14 @@ require_once('user_info.php');
 
 <div data-role="page">
   <div data-role="header">
-    <h1><?php echo $first_name . $last_name;?></h1>
+    <h1><?php echo $first_name . " ". $last_name;?></h1>
   </div><!-- /header -->
   <div data-role="content">
     <!--form to send data-->
     <form action="saveIntroData.php" method="get" data-ajax="false">
-      <?php echo "<label for='intro'>Tell us a little about yourself, " . $first_name . ". We will use this for the Mingle game. </label>";?>
-      <textarea name="intro" required="required" placeholder="Example: Once I ate so much mochi that it globbed up my intestines and I nearly died."></textarea>
+      <?php echo "<label for='intro'>Tell us how to find you, " . $first_name . ". We will use this for the Mingle game. </label>";?>
+      <textarea name="intro" required="required" placeholder="Example: I am wearing a blue shirt and look like a supermodel"></textarea>
+
       <input type="checkbox" name="optout" id="optoutcheckbox" class="custom" value="false">
       <label for="optoutcheckbox">Opt out of playing Mingle</label>
       <?php echo "<input name='token' type='hidden' value=" . $token . ">";?>

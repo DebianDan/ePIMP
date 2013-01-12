@@ -1,7 +1,7 @@
 <?php
 require_once("/var/www/config.php");
 $con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or
-    die("Could not connect: " . mysql_error());
+    pimplog("Could not connect: " . mysql_error(), true );
 mysql_select_db(DB_DATABASE, $con);
 
 /*
@@ -16,6 +16,7 @@ while ($row = mysql_fetch_array($result, MYSQL_NUM)) {
 /*
 Build adjacent map between users.
 */
+pimplog( 'Building adjascent map between users...');
 foreach ($users as $user_a)
 	foreach ($users as $user_b)
 		$map[$user_a][$user_b] = 0;
@@ -27,6 +28,7 @@ Get how many open friendship each specific user holding by
 check the health of all friendship.
 OPEN => friendship is not broken and the user haven't confirmed yet
 */
+pimplog( 'Getting how many open friendships each specific user...' );
 $result = mysql_query("SELECT * FROM mingle_status");
 while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$map[$row["user_a"]][$row["user_b"]] = 1;
@@ -57,7 +59,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 /*
 Find new friends (to meet) for each user who has less than 5 friends.
 */
-
+pimplog( 'Finding new friends!' );
 foreach ($users as $user_a) {
 	$got = true;
 	while ($open_friend[$user_a] < 5 && $got) {
@@ -81,6 +83,5 @@ foreach ($users as $user_a) {
 }
 
 mysql_close($con);
-
-echo "done!";
+pimplog( 'Finished running buildmap.php');
 ?>
