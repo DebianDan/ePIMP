@@ -10,7 +10,7 @@ $friend = get_user_info($friendID);
 	<head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
-	<title><?php $friend['first_name'] . ' ' . $friend['last_name']?></title>
+	<title><?php echo $friend['first_name'] . ' ' . $friend['last_name'];?></title>
   <link rel="stylesheet" href="/css/jquery.mobile.min.css"/>
   <script src="/js/jquery-latest.js"></script>
   <script src="/js/jquery.mobile-1.2.0.min.js"></script>
@@ -20,7 +20,7 @@ $friend = get_user_info($friendID);
 <div data-role="page" data-theme="e">
 
 	<div data-role="header" data-theme="e">
-    <h1><?php $friend['first_name'] . ' ' . $friend['last_name']?></h1>
+    <h1><?php echo $friend['first_name'] . ' ' . $friend['last_name'];?></h1>
 	</div><!-- /header -->
 
 	<div data-role="content">
