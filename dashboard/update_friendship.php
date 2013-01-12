@@ -36,7 +36,8 @@ $row = mysql_fetch_array($result, MYSQL_ASSOC);
 if ($row["status"] > 0 && time() - strtotime($row['time']) > 61) {// friendship broken
   echo $row['time'] . "<br />";
   echo strtotime( $row['time']) . "<br />";
-  echo time() - strtotime($row['time']);
+  echo time() - strtotime($row['time']) . "<br />";
+	echo "quit" . "<br />";
 	die();
 }
 
