@@ -58,16 +58,18 @@ if ($row["user_a"] == $pgid_a) {
 }
 
 $query = "UPDATE mingle_status SET status = '" . $status . "', time = CURRENT_TIMESTAMP WHERE mingle_status_pk = '" . $mingle_status_pk . "'";
-echo $query;
+// echo $query;
 mysql_query($query);
-if( mysql_error() ){
-  echo "MYSQL ERROR:  ZOMG: " .mysql_error();
+// if( mysql_error() ){
+  // echo "MYSQL ERROR:  ZOMG: " .mysql_error();
 
 }
 
 
 // update points
 if ($status == 3) {
+	echo "Congratulations! Enjoy the party!";
+	
 	$friend_count_a = 0;
 	$friend_count_b = 0;
 
@@ -91,11 +93,13 @@ if ($status == 3) {
 	$pk_b = get_accounts_pk($pgid_b);
 	$score_a = get_points($friend_count_a);
 	$score_b = get_points($friend_count_b);
-	$curtime = gettimeofday(true);
+
 	if ($score_a > 0)
 		mysql_query("INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_a . "', '" . $score_a . "', 'Mingling with " . $name_b . "', CURRENT_TIMESTAMP)");
 	if ($score_b > 0)
 		mysql_query("INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_b . "', '" . $score_b . "', 'Mingling with " . $name_a . "', CURRENT_TIMESTAMP)");
+} else {
+	echo "Congratulations! Make sure your new friend clicks on your name right away, otherwise you won't be awarded Bling!";
 }
 
 header("Location:index.php?". $_SERVER['QUERY_STRING']);
