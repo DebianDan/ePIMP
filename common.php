@@ -18,6 +18,8 @@ function getBling( $pk ){
     $account = intval( $pk );
     $result = $DB->query( 'SELECT sum( points ) as sum FROM points WHERE accounts_fk = ' . $account );
     $row = $result->fetch_assoc();
+    if( !isset( $row['sum'] ) )
+        return 0;
     return $row['sum'];
 }
 
