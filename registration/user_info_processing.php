@@ -21,28 +21,16 @@ $safe_twitter = $DB->real_escape_string($twitter);
 $query = 'UPDATE accounts SET first_name = "'.$safe_first_name.'", last_name = "'.$safe_last_name.'", email = "'.$safe_email.'", phone_number = "'.$safe_phone.'", twitter = "'.$safe_twitter.'" WHERE accounts_pk = '.$pk_id.' AND token = "'.$token.'" AND pgid = "'.$pg_id.'"';
 if ($result = $DB->query($query)) {
     $row_cnt = $result->num_rows;
-
-    if($row_cnt == 1) {
-    	echo "Successful registration";
-    } else {
-    	echo "You must think you're a 1337 HAXOR";
-    }
 	/* close result set */
+	header("Location:/registration/index.html");
+	exit;
 	$result->close();
 } else {
-	echo "Problem talking to database";
+	header("Location:/registration/index.html");
+	exit;
 }
-// $row = $result->fetch_assoc();
-// if( $DB->query($query) )
-// {
-// }
-// else
-// {
-// 	echo "failure";
-// }
-
-
-/* close connection */
 $DB->close();
 
+header("Location:/registration/index.html");
+exit;
 ?>

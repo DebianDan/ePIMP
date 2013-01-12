@@ -4,9 +4,9 @@
 	<title>Bootstrap 101 Template</title>
 	<!-- Bootstrap -->
 	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<meta http-equiv="refresh" content="5;URL='./index.php'">
 </head>
 <body>
-	<h1>Hello, world!</h1>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 
@@ -88,16 +88,20 @@
 	//no params
 	else{
 		//show query list
-		$query = 'SELECT a.first_name af, a.last_name al, FROM photoshop ps JOIN accounts a ON ps.user_fk = a.accounts_pk WHERE ps.state = 1';
+		$query = 'SELECT a.first_name f, a.last_name l FROM photoshop ps JOIN accounts a ON ps.users_fk = a.accounts_pk WHERE ps.state=1 LIMIT 5';
 		$result = $DB->query($query) or die($DB->error.__LINE__);
 
 		$pos = 1;
 
+		//array holds the a string of the top 5 users on in queue
+		$array = array();
 		while($row = $result->fetch_assoc()) {
-			echo $position.'  ';
-			echo $row['af'].' ';
-			echo $row['al'];
-			echo "<BR>";
+			$line = "";
+			$line = $pos.'  ';
+			$line = $line . $row['f'].' ';
+			$line = $line . $row['l'];
+			$line = $line . "<BR>";
+			array_push($array, $line);
 			$pos = $pos + 1;
 		}
 	}

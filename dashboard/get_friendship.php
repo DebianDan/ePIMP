@@ -41,6 +41,9 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$frind_result = mysql_query("SELECT first_name, last_name, intro FROM accounts WHERE pgid=" . $friend_id);
 	$friend_info = mysql_fetch_array($frind_result, MYSQL_ASSOC);
 	$friends[] = array("pk" => $row["mingle_status_pk"], "pgid" => $friend_id, "first_name" => $friend_info["first_name"], "last_name" => $friend_info["last_name"], "info" => $friend_info["intro"]);
+
+  print_r($friends);
+
 }
 
 mysql_close($con);
