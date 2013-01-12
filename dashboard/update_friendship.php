@@ -33,11 +33,13 @@ $result = mysql_query( "SELECT * FROM mingle_status WHERE mingle_status_pk='" . 
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 
 //echo "status: " . $row["status"];
+if ($row["status"] == 3)
+	die();
 if ($row["status"] > 0 && time() - strtotime($row['time']) > 61) {// friendship broken
-  echo $row['time'] . "<br />";
-  echo strtotime( $row['time']) . "<br />";
-  echo time() - strtotime($row['time']) . "<br />";
-	echo "quit" . "<br />";
+  //echo $row['time'] . "<br />";
+  //echo strtotime( $row['time']) . "<br />";
+  //echo time() - strtotime($row['time']) . "<br />";
+	//echo "quit" . "<br />";
 	die();
 }
 
@@ -80,6 +82,10 @@ if ($status == 3) {
 	$score_a = get_points($friend_count_a);
 	$score_b = get_points($friend_count_b);
 	$curtime = gettimeofday(true);
+	
+	echo $score_a . "<br />";
+	echo $score_b . "<br />";
+	
 	if ($score_a > 0)
 		mysql_query("INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_a . "', " . $score_a . ", 'Mingling with " . $pk_b . "', CURRENT_TIMESTAMP");
 	if ($score_b > 0)
