@@ -86,5 +86,9 @@ function email_person( $pk, $template, $variables ){
         'username' => 'AKIAJRLR2O6USXVH6KOQ',
         'password' => 'Av9VJWnHEmRmsguSuABCyIs6BzdOa+unctZfxxdPLBrA'));
 
+    if( $smtp != true ){
+       print_r( $smtp ); 
+    }
+
     return true;
 }
