@@ -33,15 +33,16 @@ $result = mysql_query( "SELECT * FROM mingle_status WHERE mingle_status_pk='" . 
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 
 //echo "status: " . $row["status"];
-if ($row["status"] == 3)
+if ($row["status"] == 3) {
 	header("Location:index.php?". $_SERVER['QUERY_STRING']);
-if ($row["status"] > 0 && time() - strtotime($row['time']) > 61) {// friendship broken
+	die();
+} if ($row["status"] > 0 && time() - strtotime($row['time']) > 61) {// friendship broken
   //echo $row['time'] . "<br />";
   //echo strtotime( $row['time']) . "<br />";
   //echo time() - strtotime($row['time']) . "<br />";
 	//echo "quit" . "<ˇbr />";
 	header("Location:index.php?". $_SERVER['QUERY_STRING']);
-
+	die();
 }
 
 $status = $row["status"];
@@ -49,7 +50,7 @@ if ($row["user_a"] == $pgid_a) {
 	if ($status % 2 == 0)
 		$status += 1;
 } else {
-	if ($status % 2 < 2)
+	if ($status < 2)
 		$status += 2;
 }
 
