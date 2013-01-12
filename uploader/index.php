@@ -77,7 +77,7 @@
 						$DB->query($query);
 						
 						// notify this user by email
-						email_person($pk, "Photoshop", array(
+						email_person($fk, "Photoshop", array(
 							"name" => $f,
 							"url" => $link
 						));
