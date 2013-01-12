@@ -10,6 +10,7 @@ visit the dashboard to:
     * View your status in the queue for Photoshop Booth and Pong
     * Play phone-based games like Mingle and Roulette
     * Keep tabs on your Bling - PIMP currency for games and end-of-the-night prizes
+    * ... and maybe more if we don't pass out on our keyboards
 
 If you've got an NFC-enabled phone, you can just tap your phone to your wristband
 to get quick access to your dashboard.

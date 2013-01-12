@@ -14,7 +14,11 @@ function fatalErrorContactMatt( $message, $sendSms = false ){
 }
 
 function getBling( $pk ){
-    return 1000;
+    $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
+    $account = intval( $pk );
+    $result = $DB->query( 'SELECT sum( points ) as sum FROM points WHERE accounts_fk = ' . $account );
+    $row = $result->fetch_assoc();
+    return $row['sum'];
 }
 
 /*
@@ -90,9 +94,16 @@ function email_person( $pk, $template, $variables ){
         'username' => 'AKIAJRLR2O6USXVH6KOQ',
         'password' => 'Av9VJWnHEmRmsguSuABCyIs6BzdOa+unctZfxxdPLBrA'));
 
-    if( $smtp != true ){
-       print_r( $smtp ); 
-    }
+    $headers = array ('From' => $from,
+      'To' => $to,
+      'Subject' => $subject);
+    $smtp = Mail::factory('smtp',
+      array ('host' => 'email-smtp.us-east-1.amazonaws.com',
+        'auth' => true,
+        'username' => 'AKIAJRLR2O6USXVH6KOQ',
+        'password' => 'Av9VJWnHEmRmsguSuABCyIs6BzdOa+unctZfxxdPLBrA'));
+
+    $mail = $smtp->send($to, $headers, $text);
 
     return true;
 }
