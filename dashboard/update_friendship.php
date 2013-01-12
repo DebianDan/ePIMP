@@ -29,8 +29,11 @@ $pgid_b = $_REQUEST["friendID"];
 $result = mysql_query( "SELECT * FROM mingle_status WHERE mingle_status_pk='" . $mingle_status_pk . "'");
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 
+//echo "status: " . $row["status"];
 $curtime = gettimeofday(true);
-if ($row["status"] > 0 && $curtime - $row["time"] >= 61) // friendship broken
+
+echo $curtime . '          hi' . strtotime('61', $row['time']);
+if ($row["status"] > 0 && $curtime > strtotime('61', $row["time"])) // friendship broken
 	die();
 
 $status = $row["status"];
