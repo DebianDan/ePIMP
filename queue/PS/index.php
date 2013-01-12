@@ -95,18 +95,18 @@
 		$query = 'SELECT a.first_name f, a.last_name l FROM photoshop ps JOIN accounts a ON ps.users_fk = a.accounts_pk WHERE ps.state=1 LIMIT 5';
 		$result = $DB->query($query) or die($DB->error.__LINE__);
 
-		$pos = 1;
+		//$pos = 1;
 
 		//array holds the a string of the top 5 users on in queue
 		$array = array();
 		while($row = $result->fetch_assoc()) {
 			$line = "";
-			$line = $pos.'  ';
+			//$line = $pos.'  ';
 			$line = $line . $row['f'].' ';
 			$line = $line . $row['l'];
 			$line = $line . "<BR>";
 			array_push($array, $line);
-			$pos = $pos + 1;
+			//$pos = $pos + 1;
 		}
 		include '../../components/queue.php';
 	}
