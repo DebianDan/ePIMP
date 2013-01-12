@@ -128,7 +128,10 @@ function getBeerpongPosition( $pgid, $token)
 				break;
 			}
 		}
-		return $pos;
+		if($pos == 1 && $pos == 2)
+				return 0;
+		return $pos - 2;
+			
 	}
 	else
 		return -1;
