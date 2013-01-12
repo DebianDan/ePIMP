@@ -11,9 +11,9 @@ $friend = get_user_info($friendID);
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
 	<title><?php $friend['first_name'] . ' ' . $friend['last_name']?></title>
-	<link rel="stylesheet"  href="/css/jquery.mobile.css" />
-	<script type="text/javascript" src="/js/jquery-latest.js"></script>
-	<script type="text/javascript" src="/js/jquery.mobile-1.2.0.min.js"></script>
+  <link rel="stylesheet" href="/css/jquery.mobile.min.css"/>
+  <script src="/js/jquery-latest.js"></script>
+  <script src="/js/jquery.mobile-1.2.0.min.js"></script>
 </head>
 <body>
 
