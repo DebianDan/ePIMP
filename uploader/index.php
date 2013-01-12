@@ -111,7 +111,7 @@
 							<input type="file" name="file" />
 							<input type="hidden" name="fk" value="'.$row['fk'].'" />
 							<input type="hidden" name="pk" value="'.$row['pk'].'" />
-							<input type="hidden" name="pk" value="'.$row['f'].'" />
+							<input type="hidden" name="f" value="'.$row['f'].'" />
 							<input type="submit" value="Upload" /></form>';
 				}
 				echo '</td></tr>';
