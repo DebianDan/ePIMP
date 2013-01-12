@@ -22,7 +22,7 @@ function text_person( $pk, $text, $phone_number = null ){
     /* Prepare an insert statement */
     $sid = "AC9f9728ff495a697fdcd98a09ea005220"; // Your Account SID from www.twilio.com/user/account
     $token = "42fbce0cb806c1f4d5e1a1388e9311bd"; // Your Auth Token from www.twilio.com/user/account
-    $if( $telephoneNumber == null ){
+    if( $telephoneNumber == null ){
         $client = new Services_Twilio($sid, $token);
         $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
         $safePK = $DB->real_escape_string( $pk );
