@@ -50,7 +50,45 @@
 
 		if (isset($_GET["alost"]) and isset($_GET["blost"])) {
 			//HANDLE THE LOST AND WIN POINTS CASES
+			$usera = $_GET["alost"];
+			$userb = $_GET["blost"]; 
+			$query = "select beer_pong_pk from beer_pong where user_a = ".$usera." and user_b = ".$userb." and (state = 1 or state = 2)";
+			$result = $DB->query($query);
+			$row = $result->fetch_assoc();
+			$bp_pk_losing = $row['beer_pong_pk'];
+			
+			$query = "select beer_pong_pk from beer_pong where state = 1 order by beer_pong_pk asc limit 1";
+			$result = $DB->query($query);
+			
+			$row = $result->fetch_assoc();
+			$top_open_team = $row['beer_pong_pk'];
+			
+			$games_won = $top_open_team - $bp_pk_losing;
+			//echo $games_won;
+			
+			$points = 0;
+			$points = $points + $games_won * BEER_PONG_WIN;
+			$points = $points + BEER_PONG_PLAY;
 
+			$query = "insert into points(accounts_fk, points, reason, created) values(".$usera.",".$points.", 'Beer Pong', NOW())";
+			$result = $DB->query($query);
+			//echo $query;
+			$query = "insert into points(accounts_fk, points, reason, created) values(".$userb.",".$points.", 'Beer Pong', NOW())";
+			$result = $DB->query($query);
+			
+			
+			// update the state
+			$query = "update beer_pong set state = 2 where beer_pong_pk = ". $top_open_team;
+			$DB->query($query);
+			//echo "<BR>";
+			//echo $query;
+			
+			
+			$query = "update beer_pong set state = 0 where beer_pong_pk = ". $bp_pk_losing;
+			$DB->query($query);
+			//echo "<BR>";
+			//echo $query;
+			
 		}
 
 		//show query list
