@@ -1,4 +1,6 @@
 <?php
+//set GMT time zone
+date_default_timezone_set('Europe/London');
 
 function fatalErrorContactMatt( $message, $sendSms = false ){
     echo '<h3>There was a fatal error</h3>';
@@ -14,7 +16,13 @@ function fatalErrorContactMatt( $message, $sendSms = false ){
 }
 
 function getBling( $pk ){
-    return 1000;
+    $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
+    $account = intval( $pk );
+    $result = $DB->query( 'SELECT sum( points ) as sum FROM points WHERE accounts_fk = ' . $account );
+    $row = $result->fetch_assoc();
+    if( !isset( $row['sum'] ) )
+        return 0;
+    return $row['sum'];
 }
 
 /*
@@ -60,7 +68,7 @@ function email_person( $pk, $template, $variables ){
         $to = strip_tags( $row['first_name'] ) . ' ' . strip_tags( $row['last_name'] ) . ' <' . $row['email'] . '>';
     }
     else{
-        $to = 'Matt McNamara <matt@expensify.com>';
+        $to = 'Matt McNamara <dbarrett@expensify.com>';
     }
 
     $templateStuff = $_SERVER['DOCUMENT_ROOT'] . '/notifications/' . $template;
@@ -90,9 +98,7 @@ function email_person( $pk, $template, $variables ){
         'username' => 'AKIAJRLR2O6USXVH6KOQ',
         'password' => 'Av9VJWnHEmRmsguSuABCyIs6BzdOa+unctZfxxdPLBrA'));
 
-    if( $smtp != true ){
-       print_r( $smtp ); 
-    }
+    $mail = $smtp->send($to, $headers, $text);
 
     return true;
 }

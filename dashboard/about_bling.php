@@ -4,29 +4,21 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
 	<title>About Bling</title>
-	<link rel="stylesheet"  href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.min.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
+	<link rel="stylesheet"  href="/css/jquery.mobile.css" />
 </head>
 <body>
 
 <div data-role="page" data-theme="e">
-
 	<div data-role="header" data-theme="e">
 		<h1>Bling</h1>
 	</div><!-- /header -->
-
 	<div data-role="content">
-    <p>That was an animated page transition effect that we added with a <code>data-transition</code> attribute on the link.</p>
-		<p>Since it uses CSS transforms, this should be hardware accelerated on many mobile devices.</p>
-		<p>What do you think?</p>
-		<a href="docs-transitions.html" data-role="button" data-theme="b" data-rel="back">I have met this person</a>
+    <p>Bling is the points that you earn while playing beer pong, visiting the photoshop booth, or meeting people through the Mingle game.</p>
+    <p>You can gamble with your Bling if you'd like. There will be prizes.</p>
+		<a href="docs-transitions.html" data-role="button" data-theme="b" data-rel="back">Okay!</a>
 	</div>
 </div>
-
-
 </body>
+<script type="text/javascript" src="/js/jquery-latest.js"></script>
+<script type="text/javascript" src="/js/jquery.mobile-1.2.0.min.js"></script>
 </html>
-
-
-$.post('/getProfile.php?param1=foo')

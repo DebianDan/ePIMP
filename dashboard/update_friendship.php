@@ -1,6 +1,8 @@
 <?php
 require_once("user_info.php");
 require_once("../config.php");
+
+
 $con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or
     die("Could not connect: " . mysql_error());
 mysql_select_db(DB_DATABASE, $con);
@@ -30,9 +32,13 @@ $pgid_b = $_REQUEST["friendID"];
 $result = mysql_query( "SELECT * FROM mingle_status WHERE mingle_status_pk='" . $mingle_status_pk . "'");
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 
-$curtime = gettimeofday(true);
-if ($row["status"] > 0 && $curtime - $row["time"] >= 61) // friendship broken
+//echo "status: " . $row["status"];
+if ($row["status"] > 0 && time() - strtotime($row['time']) > 61) {// friendship broken
+  echo $row['time'] . "<br />";
+  echo strtotime( $row['time']) . "<br />";
+  echo time() - strtotime($row['time']);
 	die();
+}
 
 $status = $row["status"];
 if ($row["user_a"] == $pgid_a) {
