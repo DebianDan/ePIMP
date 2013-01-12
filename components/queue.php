@@ -12,7 +12,7 @@ include 'queue.php';
 <div class="container-fluid queue">
 	<div class="row-fluid">
 		<div class="span6 guide">
-			<img src="../img/wrist_v.png" />
+			<img src="/img/wrist_v.png" />
 		</div>
 		<div class="span6">
 			<?php

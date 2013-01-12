@@ -22,13 +22,15 @@ $query = 'UPDATE accounts SET first_name = "'.$safe_first_name.'", last_name = "
 if ($result = $DB->query($query)) {
     $row_cnt = $result->num_rows;
 	/* close result set */
-	$result->close();
 	header("Location:/registration/index.html");
 	exit;
+	$result->close();
 } else {
 	header("Location:/registration/index.html");
 	exit;
 }
 $DB->close();
 
+header("Location:/registration/index.html");
+exit;
 ?>
