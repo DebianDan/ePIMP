@@ -60,7 +60,8 @@ if ($status == 3) {
 	$friend_count_a = 0;
 	$friend_count_b = 0;
 
-	$result = mysql_query( "SELECT * FROM mingle_status WHERE user_a = " . $pgid_a . "OR user_a = " . $pgid_b . "OR user_b = " . $pgid_a . "OR user_b = " . $pgid_b);
+	$query = "SELECT * FROM mingle_status WHERE user_a = '" . $pgid_a . "' OR user_a = '" . $pgid_b . "' OR user_b = '" . $pgid_a . "' OR user_b = '" . $pgid_b . "'";
+	$result = mysql_query($query);
 	if (is_array($result))
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		if ($row["status"] % 2 == 1) {
