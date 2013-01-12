@@ -1,7 +1,8 @@
 <?php
-$con = mysql_connect("localhost", "mysql_user", "mysql_password") or
+require_once("../config.php");
+$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or
     die("Could not connect: " . mysql_error());
-mysql_select_db("pimp", $con);
+mysql_select_db(DB_DATABASE, $con);
 
 /*
 Get the list of all users
