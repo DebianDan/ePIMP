@@ -43,7 +43,7 @@
 		//only delete after the longer timeout
 		if (!isset($_GET["longwait"])){
 			//delete user if page refreshes without a partner
-			$query = "DELETE FROM beer_pong WHERE user_b = 0";
+			$query = "DELETE FROM beer_pong WHERE user_b IS NULL";
 			$DB->query($query) or die($DB->error.__LINE__);
 		}
 
@@ -116,9 +116,7 @@
 			array_push($array,$team);
 			//$position = $position + 1;
 		}
-		for($i=0;$i<5;$i++){
-			//echo $array[$i] . "<BR>";
-		}
+	
 		$tournament = true;
 		include '../../components/queue.php';
 	}
@@ -226,7 +224,7 @@
 			}
 			else
 			{
-			$query = "SELECT * FROM beer_pong WHERE user_b = 0 AND state = 1";
+			$query = "SELECT * FROM beer_pong WHERE user_b IS NULL AND state = 1";
 			$result = $DB->query($query);
 			$row = $result->fetch_assoc();
 
@@ -275,9 +273,9 @@
 				$count = $row['c'];
 				
 				if($count == 0)
-					$query = "INSERT INTO beer_pong(user_a, user_b, state) VALUES (" . $accounts_pk . ",0, 2)";
+					$query = "INSERT INTO beer_pong(user_a, state) VALUES(" . $accounts_pk . ", 2)";
 				else
-					$query = "INSERT INTO beer_pong(user_a, user_b, state) VALUES (" . $accounts_pk . ",0, 1)";
+					$query = "INSERT INTO beer_pong(user_a, state) VALUES(" . $accounts_pk . ", 1)";
 				
 				echo $query;
 				echo " Added a new user";
