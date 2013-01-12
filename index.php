@@ -53,6 +53,9 @@ switch( $cookie ){
         $app = $cookie;
         break;
 
+    case 'boss':
+        grant_once( BOSS_GRANT, 'You met someone interesting!' );
+
     default:
         echo "Invalid dispatcher cookie";
         exit;

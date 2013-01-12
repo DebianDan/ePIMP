@@ -9,6 +9,29 @@ function pimplog( $msg, $fatal = false) {
     }
 }
 
+
+function grantOnce( $amount, $message ){
+    // Look up the user's PK
+    $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
+    $safe_token = $DB->real_escape_string( $_REQUEST["token"] );
+    $safe_pgid = $DB->real_escape_string( $_REQUEST["pgid"] );
+    $query = 'SELECT accounts_pk FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
+    $result = $DB->query( $query );
+    $row = $result->fetch_assoc();
+    $accountPK = $row['accounts_pk'];
+    $safe_message = $DB->real_escape_string( $message );
+    $safe_amount = $DB->real_escape_string( $amount );
+
+    // Make sure we haven't already assigned this
+    $query = "SELECT points_pk FROM points WHERE reason='$message' and accounts_fk = '$accountPK'";
+    $result = $DB->query( $query );
+    $row = $result->fetch_assoc();
+    if( !$row["points_pk"] ){
+        $DB->query( "INSERT INTO points (accounts_fk, points, reason, created) VALUES ( $accountPK , $amount, '$message', CURRENT_TIMESTAMP );" );
+        pimplog( 'One time grant to ' . $accountPK . '.  Reason: ' . $message );
+    }
+}
+
 function fatalErrorContactMatt( $message, $sendSms = false ){
     echo '<h3>There was a fatal error</h3>';
     echo '<p>This was embarassing for us unless you\'re being cheeky. Your best bet here is to find an Expensify employee and ask them for Matt.</p>';
