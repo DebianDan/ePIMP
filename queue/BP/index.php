@@ -139,6 +139,7 @@
 		echo $row['state'];
 		if ($row['state'] == 1 || $row['state'] == 2)
 		{
+			echo " state is 1 or 2";
 			$bp_pk = $row['beer_pong_pk'];
 			$query = "SELECT beer_pong_pk FROM beer_pong WHERE state = 2 OR state = 1 ORDER BY beer_pong_pk ASC";
 			$result = $DB->query($query);
@@ -257,7 +258,7 @@
 			{
 				echo $accounts_pk;
 				$query = "INSERT INTO beer_pong(user_a, user_b, state) VALUES (" . $accounts_pk . ",0, 1)";
-				//echo " Added a new user";
+				echo " Added a new user";
 				$DB->query($query);
 				//header("Location:./index.php?longwait=1");
 			}
