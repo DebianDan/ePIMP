@@ -10,7 +10,7 @@ require_once( 'config.php' );
 // Dispatch according to the cookie, if specified.  Every party tablet will have a cookie
 // indicating which function it is supposed to serve.  If there is no cookie, it means the
 // user has tapped on their personal device.
-$cookie = $_COOKIE['dispatcher'];
+$cookie = isset( $_COOKIE['dispatcher'] ) ? $_COOKIE['dispatcher'] : "";
 switch( $cookie ){
     case "":
     case "registration":
