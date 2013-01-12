@@ -13,7 +13,7 @@ function fatalErrorContactMatt( $message, $sendSms = false ){
     echo '<h3>There was a fatal error</h3>';
     echo '<p>This was embarassing for us unless you\'re being cheeky. Your best bet here is to find an Expensify employee and ask them for Matt.</p>';
     echo '<p>Helpful information: ' . $message . '</p>';
-    error_log( 'Fatal Error Contact Matt: ' . $message );
+    pimplog( 'Fatal Error Contact Matt: ' . $message );
 
     if( $sendSms ){
         //9372398549 is matt
@@ -54,6 +54,7 @@ function text_person( $pk, $text, $phone_number = null ){
         $phone_number = $row['phone_number'];
     }
 
+    pimplog( 'Sending sms to ' . $phone_number . '(' . $pk .'): ' . $text );
     $message = $client->account->sms_messages->create(
         '4159443971', // From a valid Twilio number
         $phone_number, // Text this number
