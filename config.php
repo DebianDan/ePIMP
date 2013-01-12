@@ -23,6 +23,6 @@ define( 'BEER_PONG_PLAY', '100' );
 define( 'BEER_PONG_WIN', '150' );
 define( 'PHOTOSHOP', '100' );
 define( 'MINGLE', '100' );
-define( 'JOBS', '200' );
+define( 'JOBS', '5000' );
 
 define( 'ROULETTE_INTERVAL', '2' ); // in terms of minutes
