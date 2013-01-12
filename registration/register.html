@@ -28,7 +28,7 @@
 							<div class="controls">
 								<div class="input-prepend">
 									<span class="add-on"><i class="icon-envelope"></i></span>
-									<input class="input-large" type="text" id="inputEmail" name="email" type="email" placeholder="Email" required>
+									<input class="input-large" type="text" id="inputEmail" data-placement="right" data-original-title="valid email address" name="email" type="email" placeholder="Email" required>
 								</div>
 							</div>
 						</div>
@@ -37,7 +37,7 @@
 							<div class="controls">
 								<div class="input-prepend">
 									<span class="add-on"><i class="icon-signal"></i></span>
-									<input class="input-large" type="text" id="inputPhone" name="phone" type="tel" placeholder="8881234567" required>
+									<input class="input-large" type="text" data-placement="right" data-original-title="10 digits" id="inputPhone" name="phone" type="tel" placeholder="8881234567" required>
 								</div>
 							</div>
 						</div>
@@ -52,6 +52,8 @@
 						</div>
 
 						<input class="input-large" id="pkID" type="hidden" name="pk_id">
+						<input class="input-large" id="pgID" type="hidden" name="pg_id">
+						<input class="input-large" id="token" type="hidden" name="token">
 						<div class="control-group">
 							<div class="controls">
 								<button type="submit" class="btn btn-primary">Submit</button>
@@ -63,6 +65,8 @@
 	</div>
 	<script src="/js/jquery-latest.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/bootstrap-tooltip.js"></script>
+	<script src="/js/jquery.form.js"></script>
 	<script src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js"></script>
 	<script src="/js/registration-index.js"></script>
 </body>

@@ -1,6 +1,8 @@
 <?php
 
 $pk_id = $_POST['pk_id'];
+$token = $_POST['token'];
+$pg_id = $_POST['pg_id'];
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
 $email = $_POST['email'];
@@ -16,16 +18,14 @@ $safe_email = $DB->real_escape_string($email);
 $safe_phone = $DB->real_escape_string($phone);
 $safe_twitter = $DB->real_escape_string($twitter);
 
-$query = 'UPDATE accounts SET first_name = "'.$safe_first_name.'", last_name = "'.$safe_last_name.'", email = "'.$safe_email.'", phone_number = "'.$safe_phone.'", twitter = "'.$safe_twitter.'" WHERE PK = '.$pk_id;
+$query = 'UPDATE accounts SET first_name = "'.$safe_first_name.'", last_name = "'.$safe_last_name.'", email = "'.$safe_email.'", phone_number = "'.$safe_phone.'", twitter = "'.$safe_twitter.'" WHERE accounts_pk = '.$pk_id.' AND token = "'.$token.'" AND pgid = "'.$pg_id.'"';
 if( $DB->query($query) )
 {
-		header("Location:/registration/confirmation.html");
-		exit();
+	echo "success";
 }
 else
 {
-		header("Location:/registration/failure.html");
-		exit();
+	echo "failure";
 }
 
 ?>

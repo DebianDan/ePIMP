@@ -38,14 +38,27 @@
 		}
 
 		//in queue
-
+		
 
 		//not in queue
+		
 	}
+	
 	//no params
 	else{
 		//show query list
+		$query = 'SELECT a.first_name, a.last_name, b.first_name, b.last_name FROM beer_pong bp JOIN accounts a ON bp.user_a = a.accounts_pk JOIN accounts b ON bp.user_b = b.accounts_pk WHERE bp.state = 1'
+		$result = $DB->query($query) or die($DB->error.__LINE__);
 
+		$position = 1;
+
+		if($row = $result->fetch_assoc()) {
+			echo $row['a.first_name'].' ';
+			echo $row['a.first_name'].'&';
+			echo $row['a.first_name'].' ';
+			echo $row['a.first_name'].' '.$position;
+			$position = $position + 1;
+		}	
 	}
 
 	/*
@@ -68,10 +81,7 @@
 	// CLOSE CONNECTION
 	mysqli_close($DB);
 
-
-
-
-	?>
+?>
 
 </body>
 </html>
