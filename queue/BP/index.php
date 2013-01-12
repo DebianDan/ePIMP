@@ -164,8 +164,8 @@
 					break;
 				}
 			}
-			//echo "Winning:" . $winning . "<BR>";
-			//echo "Opponent:" . $opponent . "<BR>";
+			echo "Winning:" . $winning . "<BR>";
+			echo "Opponent:" . $opponent . "<BR>";
 
 			// They are currently playing
 			if($bp_pk == $winning || $bp_pk == $opponent)
@@ -282,9 +282,6 @@
 				echo $query;
 				echo " Added a new user";
 				$DB->query($query);
-                if( $DB->error ){
-                    fatalErrorContactMatt( 'Bad Insert: ' . $DB->error );
-                }
 				//header("Location:./index.php?longwait=1");
 			}
 			}
