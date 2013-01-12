@@ -5,27 +5,44 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="/css/bootstrap-responsive.min.css"/>
+	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="/css/bootstrap-responsive.css" rel="stylesheet">
 </head>
 <body>
-	<form action="/roulette/place_bet.php" method="post">
-	<fieldset data-type="horizontal" data-role="controlgroup" class="ui-corner-all ui-controlgroup ui-controlgroup-horizontal">
-		<legend>Red pays 2:1 and Black pays 3:1</legend>
-		<label class='radio inline' for="black_choice">
-			<input type="radio" name="color-choice" id="black_choice" value="0" checked/>Black
-		</label>
 
-		<label class='radio inline' for="red_choice">
-			<input type="radio" name="color-choice" id="red_choice" value="1"/>Red
-		</label>
-		<br>
-		<input type="number" placeholder="amount" name="amount" required>
-		<input type="hidden" name="pkid" id="pkid"/>
-		<input type="hidden" name="pgid" id="pgid"/>
-		<input type="hidden" name="token" id="token"/>
-		<br>
-		<button type="submit" class="btn">Submit</button>
-	</fieldset>
-	</form>
+	<div class="container-fluid" >
+		<div class="row-fluid">
+			<div class="edit info">
+				<!--Body content-->
+   
+				<form action="/roulette/place_bet.php" method="post">
+				<fieldset data-type="horizontal" data-role="controlgroup" class="ui-corner-all ui-controlgroup ui-controlgroup-horizontal">
+					<h3> Black pays 2:1 and Red pays 3:1</h3>
+						<div colors="colors" >
+						
+								<label class='radio inline' for="black_choice" >
+									<input type="radio" name="color-choice" id="black_choice" value="0" checked/>Black
+								</label>
+						
+
+							<label class='radio inline' for="red_choice">
+								<input type="radio" name="color-choice" id="red_choice" value="1"/>Red
+							</label>
+						</div>
+						<br>
+						<input type="number" placeholder="amount" name="amount" required>
+						<input type="hidden" name="pkid" id="pkid"/>
+						<input type="hidden" name="pgid" id="pgid"/>
+						<input type="hidden" name="token" id="token"/>
+						<br>
+						<button type="submit" class="btn">Submit</button>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/bootstrap-tooltip.js"></script>
 	<script src="/js/jquery-latest.js"></script>
 	<script src="/js/common.js"></script>
 	<script src="/js/dashboard-roulette.js"></script>
