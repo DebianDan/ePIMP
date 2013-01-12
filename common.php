@@ -64,7 +64,7 @@ function email_person( $pk, $template, $variables ){
         $to = strip_tags( $row['first_name'] ) . ' ' . strip_tags( $row['last_name'] ) . ' <' . $row['email'] . '>';
     }
     else{
-        $to = 'Matt McNamara <matt@expensify.com>';
+        $to = 'Matt McNamara <dbarrett@expensify.com>';
     }
 
     $templateStuff = $_SERVER['DOCUMENT_ROOT'] . '/notifications/' . $template;
@@ -84,15 +84,6 @@ function email_person( $pk, $template, $variables ){
     $subject = str_replace( $keys, $values, $subject );
     $text    = str_replace( $keys, $values, $text );
     $from    = 'ExpensiParty <matt@expensify.com>';
-
-    $headers = array ('From' => $from,
-      'To' => $to,
-      'Subject' => $subject);
-    $smtp = Mail::factory('smtp',
-      array ('host' => 'email-smtp.us-east-1.amazonaws.com',
-        'auth' => true,
-        'username' => 'AKIAJRLR2O6USXVH6KOQ',
-        'password' => 'Av9VJWnHEmRmsguSuABCyIs6BzdOa+unctZfxxdPLBrA'));
 
     $headers = array ('From' => $from,
       'To' => $to,

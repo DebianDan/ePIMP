@@ -21,5 +21,10 @@ $safe_twitter = $DB->real_escape_string($twitter);
 $query = 'UPDATE accounts SET first_name = "'.$safe_first_name.'", last_name = "'.$safe_last_name.'", email = "'.$safe_email.'", phone_number = "'.$safe_phone.'", twitter = "'.$safe_twitter.'" WHERE accounts_pk = '.$pk_id.' AND token = "'.$token.'" AND pgid = "'.$pg_id.'"';
 $DB->query($query);
 
+// Send the welcome email
+email_person( $pk_id, "Welcome", array(
+    "url" => "http://expensiparty.com?pgid=$pg_id&token=$token"
+) );
+
 header("Location:/?pgid=$_REQUEST[pg_id]&token=$_REQUEST[token]");
 ?>
