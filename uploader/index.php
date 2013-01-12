@@ -62,7 +62,7 @@
 		<div class="row-fluid">
 			<div class="span4">
 				<!--Sidebar content-->
-				<form enctype="multipart/form-data" action="index2.php" method="post">
+				<form enctype="multipart/form-data" action="index.php" method="post">
 					<input type="file" name="file" />
 					<input type="submit" value="Upload" />
 				</form>
