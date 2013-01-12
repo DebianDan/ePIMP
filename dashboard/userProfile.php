@@ -38,8 +38,12 @@ $friend = get_user_info($friendID);
 <script>
 $('#addfriend').click(function(){
   $(this).remove();
+<<<<<<< HEAD
   $('#messages').text('Congratulations! Make sure your new friend clicks your name right away, or else you won\'t be awarded points.');
   console.log('sending data...');
+=======
+  $('#messages').text('Congratulations! Make sure they also click your name right away, or else you won\'t be awarded Bling.');
+>>>>>>> 0b8a64175525752367fbce9ec48a01910dfdcef9
   <?php
   //use php to render part of the script
     echo "var data = 'pgid=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "&mingle_status_pk=" . $_REQUEST['mingle_status_pk'] . "'";

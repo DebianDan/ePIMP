@@ -1,6 +1,6 @@
 Hey %name%,
 
-Welcome to what we hope will be the MOST EPIC PARTY EVER powered by PIMP.
+Welcome to what we hope will be the MOST EPIC PARTY EVER powered by ePIMP.
 
 Your private dashboard url:
         %url%
