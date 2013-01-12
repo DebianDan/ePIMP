@@ -22,13 +22,13 @@ if ($play_mingle == 0) {
 </head>
 <body>
 
-<div data-role="page">
+<div data-role="page" style="padding:20px">
 
   <div data-role="header">
     <h1><?php echo $first_name . " " . $last_name;?></h1>
   </div><!-- /header -->
 
-  <div data-role="content" style="margin-left:5px;margin-right:5px">
+  <div data-role="content">
       <table data-role="table" class="" id="points" data-mode="reflow">
         <thead>
           <tr>
