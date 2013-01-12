@@ -57,6 +57,9 @@ mysql_query($query);
 
 // update points
 if ($status == 3) {
+
+	echo $query;
+	
 	$friend_count_a = 0;
 	$friend_count_b = 0;
 
