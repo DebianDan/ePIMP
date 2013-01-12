@@ -2,10 +2,10 @@
 require_once("user_info.php");
 
 if ($play_mingle == 0) {
-
   header("Location:./getinfo.php?". $_SERVER['QUERY_STRING']);
   die();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +28,10 @@ if ($play_mingle == 0) {
   <div data-role="content">
     <div id="points">
       <h2>Total Points</h2>
-      <strong><?php echo $points;?></strong>
+      <?php
+        $points = get_total_points($pgid);
+        echo "<strong>" . $points . "</strong>";
+      ?>
     </div>
 
     <div id="queue_positions">
@@ -68,6 +71,7 @@ if ($play_mingle == 0) {
 		<?php
 		if ($play_mingle == 1) {
 			require_once("get_friendship.php");
+      global $friends;
 		?>
 
     <div id="mingle">
@@ -76,10 +80,13 @@ if ($play_mingle == 0) {
       <legend>Find and say hello to these people! They will be looking for you as well. Open their info box and click their check box when you meet them!</legend>
       <ul data-role="listview" data-inset="true">
         <?php
-          foreach($friends as $friend) {
-            echo "<li>";
-            echo "<a href='/dashboard/userProfile.php?userID=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "' data-transition='slide'>" . $friend['firstname'] . ' ' . $friend['lastname'] ."</a>";
-            echo "</li>";
+          if (is_array($friends))
+          {
+            foreach($friends as $friend) {
+              echo "<li>";
+              echo "<a href='/dashboard/userProfile.php?userID=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "' data-transition='slide'>" . $friend['firstname'] . ' ' . $friend['lastname'] ."</a>";
+              echo "</li>";
+            }
           }
         ?>
       </ul>

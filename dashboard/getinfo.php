@@ -19,12 +19,13 @@ require_once('user_info.php');
   </div><!-- /header -->
   <div data-role="content">
     <!--form to send data-->
-    <form action="/dashboard/saveIntroData.php" method="post">
-      <?php echo "<label for='textarea'>Tell us a little about yourself," . $first_name . ".We will use this for the Mingle game. </label>";?>
+    <form action="saveIntroData.php" method="get" data-ajax="false">
+      <?php echo "<label for='intro'>Tell us a little about yourself," . $first_name . ".We will use this for the Mingle game. </label>";?>
       <textarea name="intro" required="required" placeholder="Example: Once I ate so much mochi that it globbed up my intestines and I nearly died."></textarea>
-      <label><input id="optoutcheckbox" type="checkbox" name="optout" />I DO NOT want to play Mingle</label>
-      <?php echo "<input name='token' type='hidden' val=" . $token . ">";?>
-      <?php echo "<input name='pgid' type='hidden' val=" . $pgid . ">" ?>
+      <input type="checkbox" name="optout" id="optoutcheckbox" class="custom" value="false">
+      <label for="optoutcheckbox">I DO NOT want to play Mingle</label>
+      <?php echo "<input name='token' type='hidden' value=" . $token . ">";?>
+      <?php echo "<input name='pgid' type='hidden' value=" . $pgid . ">"; ?>
       <input type="submit" value="Save">
     </form>
   </div><!-- /content -->
