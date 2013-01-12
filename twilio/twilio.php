@@ -18,7 +18,7 @@ function text_person($pk,$text) {
 
 
 	/* Query their phone number */
-	$query = 'SELECT phone_number FROM accounts WHERE PK = '.$pk;
+	$query = 'SELECT phone_number FROM accounts WHERE accounts_pk = '.$pk;
 	$result = $DB->query($query);
 	$row = $result->fetch_assoc();
 	$phone_number = $row['phone_number'];
@@ -29,5 +29,6 @@ function text_person($pk,$text) {
 		$phone_number, // Text this number
 		$text
 	);
+	return $message;
 }
 ?>
