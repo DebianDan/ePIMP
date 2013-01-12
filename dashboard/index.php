@@ -16,12 +16,10 @@ if ($play_mingle == 0) {
   <style>
     td {
       font-size: 60px;
+      text-align: center;
     }
     th {
       font-size: 30px;
-    }
-    td {
-      marign-right: 30px;
     }
   </style>
 </head>
@@ -44,10 +42,11 @@ if ($play_mingle == 0) {
         <tbody>
           <tr>
             <?php
-              $points = get_total_points($pgid, $accounts_pk);
-              $ranking = 2;
-              echo "<td>".$points."</td>";
-              echo "<td>".$ranking."</td>";
+              //$points = get_total_points($pgid, $accounts_pk);
+              //11th row has own rankings
+              $ranks = get_ranks($pgid);
+              echo "<td>".$ranks[10]['points']."</td>";
+              echo "<td>".$ranks[10]['ranking']."</td>";
             ?>
           </tr>
           </tbody>
@@ -72,6 +71,7 @@ if ($play_mingle == 0) {
         <tbody>
           <tr>
             <?php
+              //get access to line queue
               $beerpong_pos = 100;
               $photoshop_pos = 4;
               echo "<td>".$beerpong_pos."</td>";
@@ -86,13 +86,14 @@ if ($play_mingle == 0) {
       <h2>Leaderboard</h2>
       <table>
         <?php
-          // foreach($highscores as $highscore) {
-          //   echo "<tr>";
-          //   echo  "<td>" . $highscore['rank'] . "</td>";
-          //   echo  "<td>" . $highscore['firstname'] . ' ' . $highscore['lastname'] . "</td>";
-          //   echo  "<td>" . $highscore['points'] . "</td>";
-          //   echo "</tr>";
-          // }
+          for ($i=0; $i<10; $i++)
+          {
+            echo "<tr>";
+            echo  "<td>" . $ranks[i]['rank'] . "</td>";
+            echo  "<td>" . $ranks[i]['first_name'] . ' ' . $ranks[i]['last_name'] . "</td>";
+            echo  "<td>" . $ranks[i]['points'] . "</td>";
+            echo "</tr>";
+          }
         ?>
       </table>
     </div>
@@ -107,7 +108,7 @@ if ($play_mingle == 0) {
     <div id="mingle">
       <h2>Play Mingle</h2>
       <fieldset data-role="controlgroup">
-      <legend>Find and say hello to these people! They will be looking for you as well. Open their info box and click the "I met them!" button after you meet them!</legend>
+      <legend>Find and say hello to these people! They will be looking for you as well. Open their info box and click the "I have met this person!" button after you meet them!</legend>
       <ul data-role="listview" data-inset="true">
         <?php
           if (is_array($friends))
@@ -126,6 +127,7 @@ if ($play_mingle == 0) {
       }//end bracket for the stuff up top
     ?>
     <div id="roulette">
+      <h2>Play Roulette</h2>
       <ul data-role="listview" data-inset="true">
         <li>
           <?php

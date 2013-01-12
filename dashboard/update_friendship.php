@@ -33,13 +33,10 @@ $result = mysql_query( "SELECT * FROM mingle_status WHERE mingle_status_pk='" . 
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 
 //echo "status: " . $row["status"];
-if ($row["status"] == 3)
-	die();
 if ($row["status"] > 0 && time() - strtotime($row['time']) > 61) {// friendship broken
-  //echo $row['time'] . "<br />";
-  //echo strtotime( $row['time']) . "<br />";
-  //echo time() - strtotime($row['time']) . "<br />";
-	//echo "quit" . "<br />";
+  echo $row['time'] . "<br />";
+  echo strtotime( $row['time']) . "<br />";
+  echo time() - strtotime($row['time']);
 	die();
 }
 
@@ -57,13 +54,10 @@ mysql_query($query);
 
 // update points
 if ($status == 3) {
-	
 	$friend_count_a = 0;
 	$friend_count_b = 0;
 
-	$query = "SELECT * FROM mingle_status WHERE user_a = '" . $pgid_a . "' OR user_a = '" . $pgid_b . "' OR user_b = '" . $pgid_a . "' OR user_b = '" . $pgid_b . "'";
-	$result = mysql_query($query);
-	
+	$result = mysql_query( "SELECT * FROM mingle_status WHERE user_a = " . $pgid_a . "OR user_a = " . $pgid_b . "OR user_b = " . $pgid_a . "OR user_b = " . $pgid_b);
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		if ($row["status"] % 2 == 1) {
 			if ($row["user_a"] == $pgid_a)
@@ -84,18 +78,11 @@ if ($status == 3) {
 	$score_a = get_points($friend_count_a);
 	$score_b = get_points($friend_count_b);
 	$curtime = gettimeofday(true);
-	
-	if ($score_a > 0) {
-		$query = "INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_a . "', '" . $score_a . "', 'Mingling with " . $pk_b . "', CURRENT_TIMESTAMP)";
-		mysql_query($query);
-	}
-	if ($score_b > 0) {
-		$query = "INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_b . "', '" . $score_b . "', 'Mingling with " . $pk_a . "', CURRENT_TIMESTAMP)";
-		mysql_query($query);
-	}
+	if ($score_a > 0)
+		mysql_query("INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_a . "', " . $score_a . ", 'Mingling with " . $pk_b . "', CURRENT_TIMESTAMP");
+	if ($score_b > 0)
+		mysql_query("INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_b . "', " . $score_b . ", 'Mingling with " . $pk_a . "', CURRENT_TIMESTAMP");
 }
 
 mysql_close($con);
-
-header("Location:index.php?". $_SERVER['QUERY_STRING']);
 ?>
