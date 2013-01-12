@@ -55,7 +55,8 @@
 					$pos = $pos + 1;
 				}
 			}
-			echo "You are Position ". $pos . "<br/>";
+			$message = "You are at position ". $pos;
+			include '../../components/message.php';
 		}
 		//not in queue
 		else{
@@ -78,7 +79,7 @@
 			}
 			if ($pos != null) {
 				$message = "You have been added to the queue.  You are Position ". $pos;
-
+				include '../../components/message.php';
 			}
 			else{
 				//if you aren't registered
