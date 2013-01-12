@@ -13,8 +13,10 @@
 		<h1>Bling</h1>
 	</div><!-- /header -->
 	<div data-role="content">
-    <p>Bling is the points that you earn while playing beer pong, visiting the photoshop booth, or meeting people through the Mingle game.</p>
-    <p>You can gamble with your Bling if you'd like. There will be prizes.</p>
+    <p>There will be prizes for people who accumulate a lot of Bling during the party.</p>
+    <p>You earn Bling while playing beer pong, visiting the photoshop booth, and meeting people through the Mingle game.</p>
+    <p>Also, we haven't told you all the places where you can find Bling points during the party.</p>
+    <p>You can gamble with your Bling if you'd like at the roulette game.</p>
 		<a href="docs-transitions.html" data-role="button" data-theme="b" data-rel="back">Okay!</a>
 	</div>
 </div>

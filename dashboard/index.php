@@ -18,9 +18,6 @@ if ($play_mingle == 0) {
     td {
       font-size: 60px;
     }
-    .mypoints {
-      font-size:100px;
-    }
   </style>
 </head>
 <body>
@@ -32,17 +29,30 @@ if ($play_mingle == 0) {
   </div><!-- /header -->
 
   <div data-role="content">
-    <div id="points">
-      <h2>Total Bling</h2>
-      <?php
-        $points = get_total_points($pgid, $accounts_pk);
-        echo "<div class='mypoints'><strong>" . $points . "</strong></div>";
-      ?>
+      <table data-role="table" id="points" data-mode="reflow">
+        <thead>
+          <tr>
+            <th>Total Points</th>
+            <th>Ranking</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <?php
+              $points = get_total_points($pgid, $accounts_pk);
+              $ranking = 2
+              echo "<td>".$points."</td>";
+              echo "<td>".$ranking."</td>";
+            ?>
+          </tr>
+          </tbody>
+      </table>
       <ul data-role="listview" data-inset="true">
         <li>
           <a href='/dashboard/about_bling.php' data-transition='slide' data-ajax='false'>What is Bling?</a>
         </li>
       </ul>
+
     </div>
 
     <div id="queue_positions">

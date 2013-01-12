@@ -79,9 +79,9 @@ if ($status == 3) {
 	$score_b = get_points($friend_count_b);
 	$curtime = gettimeofday(true);
 	if ($score_a > 0)
-		mysql_query("INSERT INTO points (accounts_pk, points, reason, created) VALUES ('" . $pk_a . "', '" . $score_a . "', 'Mingling with " . $pk_b . "', CURRENT_TIMESTAMP");
+		mysql_query("INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_a . "', " . $score_a . ", 'Mingling with " . $pk_b . "', CURRENT_TIMESTAMP");
 	if ($score_b > 0)
-		mysql_query("INSERT INTO points (accounts_pk, points, reason, created) VALUES ('" . $pk_b . "', '" . $score_b . "', 'Mingling with " . $pk_a . "', CURRENT_TIMESTAMP");
+		mysql_query("INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_b . "', " . $score_b . ", 'Mingling with " . $pk_a . "', CURRENT_TIMESTAMP");
 }
 
 mysql_close($con);
