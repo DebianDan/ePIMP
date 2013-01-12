@@ -57,7 +57,7 @@ function text_person( $pk, $text, $phone_number = null ){
 function email_person( $pk, $template, $variables ){
     require_once "Mail.php";
 
-    if( false ){
+    if( true ){
         $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
         $safePK = $DB->real_escape_string( $pk );
 
@@ -68,7 +68,7 @@ function email_person( $pk, $template, $variables ){
         $to = strip_tags( $row['first_name'] ) . ' ' . strip_tags( $row['last_name'] ) . ' <' . $row['email'] . '>';
     }
     else{
-        $to = 'Matt McNamara <dbarrett@expensify.com>';
+        $to = 'Matt McNamara <matt@expensify.com>';
     }
 
     $templateStuff = $_SERVER['DOCUMENT_ROOT'] . '/notifications/' . $template;
