@@ -20,7 +20,7 @@ require_once('user_info.php');
   <div data-role="content">
     <!--form to send data-->
     <form action="saveIntroData.php" method="get" data-ajax="false">
-      <?php echo "<label for='intro'>Tell us a little about yourself," . $first_name . ".We will use this for the Mingle game. </label>";?>
+      <?php echo "<label for='intro'>Tell us a little about yourself, " . $first_name . ". We will use this for the Mingle game. </label>";?>
       <textarea name="intro" required="required" placeholder="Example: Once I ate so much mochi that it globbed up my intestines and I nearly died."></textarea>
       <input type="checkbox" name="optout" id="optoutcheckbox" class="custom" value="false">
       <label for="optoutcheckbox">I DO NOT want to play Mingle</label>

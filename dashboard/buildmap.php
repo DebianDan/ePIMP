@@ -42,6 +42,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	}
 }
 
+
 /*
 Find new friends (to meet) for each user who has less than 5 friends.
 */
@@ -54,8 +55,14 @@ foreach ($users as $user_a)
 				$open_friend[$user_b]++;
 				// play with db
 				$curtime = gettimeofday(true);
-				mysql_query("INSERT INTO mingle_status (user_a, user_b, status, time) VALUES (" . $user_a . ", " . $user_b . ", 0, " . $curtime . ")");
+        $query = "INSERT INTO mingle_status (user_a, user_b, status, time) VALUES ('" . $user_a . "', '" . $user_b . "', '0', '" . $curtime . "')";
+        echo $query;
+				mysql_query($query);
+
+        echo 'Error: ' . mysql_error();
 			}
 
 mysql_close($con);
+
+echo "done!";
 ?>
