@@ -5,7 +5,9 @@ require_once("../config.php");
 /*
  * Send a text message to a person given their PK
  *
- * ex. text_person(7,"Hello World!");
+ * 
+ * ex. 	require_once('path/to/twilio.php');
+ *		text_person(7,"Hello World!");
  */
 function text_person($pk,$text) {
 	/* Prepare an insert statement */
