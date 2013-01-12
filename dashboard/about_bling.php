@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
 	<title>About Bling</title>
-	<link rel="stylesheet"  href="/css/jquery.mobile.css" />
+	<link rel="stylesheet"  href="/css/jquery.mobile.min.css" />
 </head>
 <body>
 

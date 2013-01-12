@@ -16,7 +16,10 @@ if ($play_mingle == 0) {
   <link rel="stylesheet" href="/css/jquery.mobile.min.css"/>
   <style>
     td {
-      font-size: 40px;
+      font-size: 60px;
+    }
+    .mypoints {
+      font-size:100px;
     }
   </style>
 </head>
@@ -33,7 +36,7 @@ if ($play_mingle == 0) {
       <h2>Total Bling</h2>
       <?php
         $points = get_total_points($pgid, $accounts_pk);
-        echo "<strong>" . $points . "</strong>";
+        echo "<div class='mypoints'><strong>" . $points . "</strong></div>";
       ?>
       <ul data-role="listview" data-inset="true">
         <li>
@@ -89,7 +92,7 @@ if ($play_mingle == 0) {
     <div id="mingle">
       <h2>Play Mingle</h2>
       <fieldset data-role="controlgroup">
-      <legend>Find and say hello to these people! They will be looking for you as well. Open their info box and click their check box when you meet them!</legend>
+      <legend>Find and say hello to these people! They will be looking for you as well. Open their info box and click the "I met them!" button after you meet them!</legend>
       <ul data-role="listview" data-inset="true">
         <?php
           if (is_array($friends))
