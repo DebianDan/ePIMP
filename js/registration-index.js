@@ -58,7 +58,7 @@ function showRequest(formData, jqForm, options) {
 
 // post-submit callback 
 function showResponse(responseText, statusText, xhr, $form)  { 
-	window.location = '/registration/';
+	window.location = '/registration/index.html';
 } 
 
 /*
