@@ -23,18 +23,20 @@ function get_ranks($pgid)
 		}
 		
 		foreach ($users as $user) {
-			rank[] = array("first_name" => user["first_name"],
+			ranks[] = array("first_name" => user["first_name"],
 				"last_name" => user["last_name"], "points" => user["points"],
 				"pgid" => user["pgid"]);
 		}
 		
-		for ($i = 0; $i < count($users); $i++)
-			for ($j = 0; $j + 1 < count($users); $j++)
-				if (rank[$j]['points'] < rank[$j + 1]['points']) {
-					$tmp = $rank[$j];
-					$rank[$j] = $rank[$j + 1];
-					$rank[$j + 1] = $tmp;
+		for ($i = 0; $i < count($ranks); $i++)
+			for ($j = 0; $j + 1 < count($ranks); $j++)
+				if (ranks[$j]['points'] < ranks[$j + 1]['points']) {
+					$tmp = $ranks[$j];
+					$ranks[$j] = $ranks[$j + 1];
+					$ranks[$j + 1] = $tmp;
 				}
+		for ($i = 0; $i < count($ranks); $i++)
+			$ranks[$i] = $i + 1;
 		
 		$n = count($users);
 		if ($n > 10)
