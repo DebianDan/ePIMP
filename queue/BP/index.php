@@ -130,7 +130,7 @@
 
 		//find in beer pong
 		$query = "select beer_pong.state, beer_pong.beer_pong_pk from beer_pong inner join accounts a on a.accounts_pk = user_a inner join accounts b on b.accounts_pk = user_b where ";
-		$query = $query."(state = 1 or state =2) and ( ( a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."' ) OR (b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."' ) )";
+		$query = $query."(state = 1 or state = 2) and ( ( a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."' ) OR (b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."' ) )";
 		$result =  $DB->query($query);
 		echo "Query:" . $query . "<BR>";
 		//in queue
@@ -255,11 +255,11 @@
 			}
 			else
 			{
-				//echo $accounts_pk;
+				echo $accounts_pk;
 				$query = "INSERT INTO beer_pong(user_a, user_b, state) VALUES (" . $accounts_pk . ",0, 1)";
 				//echo " Added a new user";
 				$DB->query($query);
-				header("Location:./index.php?longwait=1");
+				//header("Location:./index.php?longwait=1");
 			}
 			}
 		}
