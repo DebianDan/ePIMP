@@ -29,7 +29,9 @@ $(document).ready(function() {
 
 	$('#userRegistration').ajaxForm({ 
 		beforeSubmit:  showRequest,  // pre-submit callback 
-		success:  showResponse 
+		success:  function() {
+			location.href = '/registration/index.html';
+		} 
 	}); 
 });
 
