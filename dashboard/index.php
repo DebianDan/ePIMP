@@ -54,15 +54,15 @@ if ($play_mingle == 0) {
     <div id="leaderboard">
       <h2>Leaderboard</h2>
       <table>
-        <?php
-          foreach($highscores as $highscore) {
-            <tr>
-              <td>$highscore['rank']</td>
-              <td>$highscore['firstname'] . ' ' . $highscore['lastname']</td>
-              <td>$highscore['points']</td>
-            </tr>
-          }
-        ?>
+        <!-- <?php
+                  foreach($highscores as $highscore) {
+                    <tr>
+                      <td>$highscore['rank']</td>
+                      <td>$highscore['firstname'] . ' ' . $highscore['lastname']</td>
+                      <td>$highscore['points']</td>
+                    </tr>
+                  }
+                ?> -->
       </table>
     </div>
 

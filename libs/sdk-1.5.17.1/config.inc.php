@@ -1,5 +1,6 @@
 <?php if (!class_exists('CFRuntime')) die('No direct access allowed.');
-require_once( '../../config.php' );
+require_once(__DIR__.'/../../config.php');
+
 /**
  * Stores your AWS account information. Add your account information, and then rename this file
  * to 'config.inc.php'.
@@ -55,11 +56,11 @@ CFCredentials::set(array(
 
 		// Amazon Web Services Key. Found in the AWS Security Credentials. You can also pass
 		// this value as the first parameter to a service constructor.
-		'key' => 'AKIAJ4I5MTGDDJ5N2AVA',
+		'key' => S3_ACCESS_KEY_ID,
 
 		// Amazon Web Services Secret Key. Found in the AWS Security Credentials. You can also
 		// pass this value as the second parameter to a service constructor.
-		'secret' => 'Mn0PfzcxT2uxeK1rjOyibygrkVToQPgKwH3dqZfl',
+		'secret' => S3_SECRET_ACCESS_KEY,
 
 		// This option allows you to configure a preferred storage type to use for caching by
 		// default. This can be changed later using the set_cache_config() method.
