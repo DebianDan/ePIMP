@@ -22,7 +22,8 @@
 	<?php
 		// generic registration stuff here.
 
-	if( !file_exists( '../../config.php' ) ){
+	if( !file_exists( '../../config.php' ) )
+	{
 		die( 'Config file doesn\' exist.  Did you forget to copy config.php.default to config.php?');
 	}
 
@@ -47,14 +48,14 @@
 		$result = $DB->query($query) or die($DB->error.__LINE__);
 
 		$position = 1;
-
+		$team = "";
+		$array = array();
 		while($row = $result->fetch_assoc()) {
-			echo $position.'  ';
-			echo $row['af'].' ';
-			echo $row['al'].' & ';
-			echo $row['bf'].' ';
-			echo $row['bl'];
-			echo "<BR>";
+			$team = $team.$position;
+			$team = $team.'  '.$row['af'].' ';
+			$team = $team.$row['al'].' & ';
+			$team = $team.$row['bf'].' '.$row['bl'];
+			array_push($array,$team);
 			$position = $position + 1;
 		}
 	}
@@ -69,8 +70,10 @@
 		$query = "select beer_pong.state, beer_pong.beer_pong_pk from beer_pong inner join accounts a on a.accounts_pk = user_a inner join accounts b on b.accounts_pk = user_b where ";
 		$query = $query."state = 1 and ( ( a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."' ) OR (b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."' ) )";
 		$result =  $DB->query($query);
+		
 		//in queue
 		$row = $result->fetch_assoc();
+		
 		if ($row['state'] == 1) 
 		{
 			$bp_pk = $row['beer_pong_pk'];
@@ -78,7 +81,8 @@
 			$result = $DB->query($query);
 			$pos = 0;
 				
-			while($row = $result->fetch_assoc()){
+			while($row = $result->fetch_assoc())
+			{
 				$first = $row['beer_pong_pk'];
 				$pos = $pos + 1;
 				if($first == $bp_pk)
@@ -86,7 +90,15 @@
 					break;
 				}
 			}
-			echo "You are at position ". $pos . "<br/>";
+			// They are currently playing
+			if($pos == 1)
+			{
+				
+			}
+			else
+			{
+				echo "You are at position ". $pos . "<br/>";
+			}
 		}
 		// not in queue
 		// test data ASDFEW  12345
