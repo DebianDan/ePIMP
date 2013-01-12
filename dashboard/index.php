@@ -1,8 +1,12 @@
 <?php
+<<<<<<< HEAD
 require_once("../config.php");
 $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
 require_once('user_info.php');
 
+=======
+require_once("user_info.php");
+>>>>>>> 42cb039efe1a5d6c4c532436113cc563bc619094
 ?>
 
 <!DOCTYPE html>
@@ -65,6 +69,11 @@ require_once('user_info.php');
       </table>
     </div>
 
+
+		<?php
+		require_once("get_friendship.php");
+		?>
+		
     <div id="mingle">
       <h2>Play Mingle</h2>
       <fieldset data-role="controlgroup">

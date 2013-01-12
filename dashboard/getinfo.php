@@ -1,8 +1,6 @@
 <?php
 //get the user data
 require_once('user_info.php');
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,7 +26,6 @@ require_once('user_info.php');
       <input type="submit" value="Save">
     </form>
   </div><!-- /content -->
-
 </div><!-- /page -->
 
 </body>
