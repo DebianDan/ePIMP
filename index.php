@@ -37,8 +37,13 @@ switch( $cookie ){
         {
             // Account does exist -- go to the dashboad if it's a user's phone,
             // otherwise back to the "tap in" screen if the registration device.
-            if( $cookie=="registration" ) $app = "registration";
-            else                          $app = "dashboard";
+            if( $cookie=="registration" ){
+                header( 'location: /registration/thankyou.html' );
+                die();
+            }
+            else{
+                $app = "dashboard";
+            }
         }
         break;
 
