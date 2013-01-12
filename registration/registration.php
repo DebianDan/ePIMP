@@ -1,10 +1,14 @@
 <?php
 
+// Uncomment
 #$token_id = $_POST["token"];
 #$pgid = $_POST["pgid"];
+#$minor = $_POST["minor"];
 
+// Comment out
 $token_id = "g";
 $pgid = 1;
+$minor = 0;
 
 require_once("../config.php");
 
@@ -14,12 +18,12 @@ $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
 $safe_token = $DB->real_escape_string($token_id);
 $safe_pgid = $DB->real_escape_string($pgid);
 
-$query = 'SELECT PK FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
+$query = 'SELECT accounts_pk FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
 
 if ($result = $DB->query($query)) 
 {
 	$row = $result->fetch_assoc();
-	$pk_id = $row['PK'];
+	$pk_id = $row['accounts_pk'];
 	$result->free();
 }
 else
@@ -29,18 +33,18 @@ else
 
 if (trim($pk_id) === '')
 {
-	$query = 'INSERT INTO accounts(token,pgid) VALUES("'.$safe_token.'", "'. $safe_pgid . '")';
+	$query = 'INSERT INTO accounts(token,pgid,minor) VALUES("'.$safe_token.'", "'. $safe_pgid . '",'.$minor.')';
 	$DB->query($query);
 	
-	$query = 'SELECT PK FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
+	$query = 'SELECT accounts_pk FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
 	$result = $DB->query($query);	
 	$row = $result->fetch_assoc();
-	$pk_id = $row['PK'];
+	$pk_id = $row['accounts_pk'];
 	
 	/* free result set */
     	$result->free();
 
-	header("Location:/registration/index.html?pk_id=".$pk_id);
+	header("Location:/registration/register.html?pk_id=".$pk_id);
 	$DB->close();
 
 	exit;
