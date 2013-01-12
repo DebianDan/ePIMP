@@ -21,7 +21,7 @@ $safe_pg_id = $DB->real_escape_string($pg_id);
 
 // token is validated by _before.php.  it's clean.
 
-$query = 'INSERT accounts SET first_name = "'.$safe_first_name.'", last_name = "'.$safe_last_name.'", email = "'.$safe_email.'", phone_number = "'.$safe_phone.'", twitter = "'.$safe_twitter.'" WHERE token = "'.$token.'" AND pgid = "'.$safe_pg_id.'"';
+$query = 'INSERT INTO accounts SET first_name = "'.$safe_first_name.'", last_name = "'.$safe_last_name.'", email = "'.$safe_email.'", phone_number = "'.$safe_phone.'", twitter = "'.$safe_twitter.'", token = "'.$token.'", pgid = "'.$safe_pg_id.'"';
 
 $result = $DB->query($query);
 if( $DB->error ){
