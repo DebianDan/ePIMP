@@ -13,6 +13,12 @@ if ($play_mingle == 0) {
   <title>User Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/css/jquery.mobile.min.css"/>
+    <style>
+    table { width:95%; border-collapse:collapse; border: 1px solid white; }
+    table caption { text-align:left;  }
+    table thead th { text-align:left; border-bottom-width:1px; border-top-width:1px; font-weight: bold; color: #363636; }
+    table th, td { text-align:left; padding:6px; border: 1px solid white;} 
+    </style>
 </head>
 <body>
 
@@ -23,7 +29,7 @@ if ($play_mingle == 0) {
   </div><!-- /header -->
 
   <div data-role="content">
-      <table data-role="table" id="points" data-mode="reflow">
+      <table data-role="table" class="" id="points" data-mode="reflow">
         <thead>
           <tr>
             <th>Your Points</th>
@@ -86,11 +92,11 @@ if ($play_mingle == 0) {
       <h2>Leaderboard</h2>
       <table data-role="table" data-mode="reflow" class="movie-list table-stroke ui-table ui-table-reflow">
         <thead>
-          <thead>
-            <td class="title">Rank</td>
-            <td class="title">User</td>
-            <td class="title">Score</td>
-          </thead>
+            <tr>
+            <td class="ttle"><b>Rank</b></td>
+            <td class="ttle"><b>User</b></td>
+            <td class="ttle"><b>Score</b></td>
+            </tr>
         </thead>
         <tbody>
           <?php
@@ -149,7 +155,8 @@ if ($play_mingle == 0) {
 <br /><br />
       <div data-theme="a" data-role="footer" data-position="fixed">
         <h3>
-            Expensiparty v3.7.2 - <a target="_blank" href="http://blog.expensify.com">blog</a> | <a target="_blank" href="jobs.php?pgid=<?= $_REQUEST['pgid'] ?>&token=<?= $_REQUEST['token'] ?>">jobs</a>
+            ExpensiParty v3.7.2 <br />
+            <a target="_blank" href="http://blog.expensify.com">blog</a> | <a target="_blank" href="jobs.php?pgid=<?= $_REQUEST['pgid'] ?>&token=<?= $_REQUEST['token'] ?>">jobs</a>
         </h3>
       </div>
   </div><!-- /content -->
