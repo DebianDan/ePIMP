@@ -1,0 +1,22 @@
+Hey %name%,
+
+Welcome to what we hope will be the MOST EPIC PARTY EVER powered by PIMP.
+
+Your private dashboard url:
+        %url%
+
+Your PIMP dashboard is your custom hub to the Expensiparty.  Save this email and
+visit the dashboard to:
+    * View your status in the queue for Photoshop Booth and Pong
+    * Play phone-based games like Mingle and Roulette
+    * Keep tabs on your Bling - PIMP currency for games and end-of-the-night prizes
+
+If you've got an NFC-enabled phone, you can just tap your phone to your wristband
+to get quick access to your dashboard.
+
+Got questions?  Find an Expensify Employee (wearing the slate Expensify shirts) and
+we'll get you set.  Find the right Expensify employee and you might even get free
+Bling.
+
+Stay cool,
+The Expensify Party Information Management Platform
