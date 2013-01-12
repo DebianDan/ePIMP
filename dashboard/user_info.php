@@ -18,15 +18,12 @@ $num_results = mysql_num_rows($result);
 /*
 If $num_result=0, the token is incorrect.
 */
-if ($num_results == 0) {
-  echo "<html><h1>Hello, something went wrong with your request!</h1></html>";
-  die;
-}
 
 $row = $result->fetch_assoc();
 $accounts_pk = $row['accounts_pk'];
 $first_name = $row['first_name'];
 $last_name = $row['last_name'];
+$play_mingle = $row['play_mingle'];
 
 mysql_close($con);
 

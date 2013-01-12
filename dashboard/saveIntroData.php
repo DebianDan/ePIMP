@@ -10,5 +10,5 @@ $safe_pgid = mysql_real_escape_string($pgid);
 $query = 'UPDATE accounts SET intro="' . $intro . '" WHERE $pgid = $safe_pgid';
 mysql_query($query);
 
-http_redirect(".", array("pgid" => $pgid, "token" => $token),
+http_redirect(".", array("pgid" => $pgid, "token" => $token));
 ?>
