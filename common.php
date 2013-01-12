@@ -2,7 +2,7 @@
 //set GMT time zone
 date_default_timezone_set('Europe/London');
 
-function log( $msg, $fatal = false) {
+function pimplog( $msg, $fatal = false) {
     error_log( $msg );
     if( $fatal ){
         die();
