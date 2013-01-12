@@ -280,6 +280,9 @@
 				echo $query;
 				echo " Added a new user";
 				$DB->query($query);
+                if( $DB->error ){
+                    fatalErrorContactMatt( 'Bad Insert: ' . $DB->error );
+                }
 				//header("Location:./index.php?longwait=1");
 			}
 			}
