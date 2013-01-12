@@ -13,18 +13,29 @@ require_once( 'config.php' );
 $cookie = $_COOKIE['dispatcher'];
 switch( $cookie ){
     case "":
-        // This browser has no cookie.  If the account already exists, go to the dashboard.
-        // otherwise, go to registration.
+    case "registration":
+        // This browser has no cookie (eg, is a user's phone) or is the registration tablet.  If no
+        // account, create one.  If there is an account, if we're the registration device, go back
+        // to the registration screen -- otherwise to the dashboard.
         $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
         $safe_token = $DB->real_escape_string( $_REQUEST["token"] );
         $safe_pgid = $DB->real_escape_string( $_REQUEST["pgid"] );
         $query = 'SELECT accounts_pk FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
         $account = $DB->query("SELECT * FROM accounts WHERE pgid='$safe_pgid';" );
-        if( $account->num_rows ) $app = "dashboard";
-        else                     $app = "registration/registration.php";
+        if( !$account->num_rows ) 
+        {
+            // Account doesn't exist yet -- begin registering it.
+            $app = "registration/registration.php";
+        }
+        else
+        {
+            // Account does exist -- go to the dashboad if it's a user's phone,
+            // otherwise back to the "tap in" screen if the registration device.
+            if( $cookie=="registration" ) $app = "registration";
+            else                          $app = "dashboard";
+        }
         break;
 
-    case 'registration':
     case 'queue/BP':
     case 'queue/PS':
         //  Just redirect to the specific sub-app
