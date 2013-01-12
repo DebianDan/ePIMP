@@ -32,7 +32,7 @@ $result = mysql_query($query);
 // $friends is what you want
 while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	// eliminate non-open friendship
-	if (is_open($pgid, $row) == 0)
+	if (is_open($pgid, $row) == false)
 		continue;
 
 	if ($row["user_a"] == $pgid)
