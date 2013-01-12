@@ -57,6 +57,7 @@
 					//echo "Type: " . $_FILES["file"]["type"] . "<br>";
 					//echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br>";
 
+					/*
 					$s3 = new AmazonS3();
 					$response = $s3->create_object(
 						$bucket,
@@ -69,8 +70,9 @@
 								'Content-Disposition' => 'inline;filename='.$name,
 							)
 						));
+					*/
 						
-					if ($response->isOK()) {
+					//if ($response->isOK()) {
 						$link = "http://".$bucket.".s3.amazonaws.com/".$name;
 						//echo "<img src=\"".$link."\" alt=\"Image here...\" /><br/>";
 						$fk = $_POST["fk"];
@@ -83,13 +85,15 @@
 						$DB->query($query);
 						
 						// notify this user by email
-						email_person($fk, "Photoshop", array(
-							"name" => $f,
-							"url" => $link
-						));
+						//email_person($fk, "Photoshop", array("name" => $f, "url" => $link));
+						
+						// add points for this user
+						$message = 'Vanity is the best sin.';
+						$query = 'INSERT INTO points (accounts_fk, points, reason, created) VALUES ('.$fk.', '.PHOTOSHOP.', \''.$message.'\', CURRENT_TIMESTAMP)';
+						$DB->query($query);
 						
 						printQueue($DB);
-					}
+					//}
 
 				}
 			} else {
