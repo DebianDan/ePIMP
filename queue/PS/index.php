@@ -93,11 +93,13 @@
 
 		$pos = 1;
 
+		$array = array();
 		while($row = $result->fetch_assoc()) {
-			echo $pos.'  ';
-			echo $row['f'].' ';
-			echo $row['l'];
-			echo "<BR>";
+			$line = $pos.'  ';
+			$line = $row['f'].' ';
+			$line = $row['l'];
+			$line = "<BR>";
+			echo $line;
 			$pos = $pos + 1;
 		}
 	}
