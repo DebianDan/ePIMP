@@ -58,7 +58,9 @@ function showRequest(formData, jqForm, options) {
 
 // post-submit callback 
 function showResponse(responseText, statusText, xhr, $form)  { 
-	window.location = '/registration/index.html';
+	// window.location = '/registration/index.html';
+	$('<form id="dummyForm" method="GET" action="/registration/index.html"> <input type="hidden" name="application" value="success" /></form>').appendTo('body'); 
+	document.getElementById('dummyForm').submit();
 } 
 
 /*
