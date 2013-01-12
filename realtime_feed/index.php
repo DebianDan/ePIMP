@@ -12,14 +12,19 @@
     <script src="/js/jquery-latest.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <div class="row-fluid">
-      <div class="span8 offset2">
-        <table id="feed" class="table .table-striped .table-condensed">
-          <tr>
-            <th>Time</th>
-            <th>Name</th>
-            <th>Bling Transaction</th>
-            <th>Reason</th>
-          </tr>
+      <div class="span10 offset1">
+        <table id="feed" class="table .table-striped">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Name</th>
+              <th>Direction</th>
+              <th>Bling Transaction</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
         </table>
       </div>
       </div>
@@ -34,11 +39,12 @@
       if (window.last !== data.time) {
         if (data.points > 50) {
           var img = "/img/up_green_arrow.png";
+          data.points = "+ " + data.points
         } else {
           var img = "/img/down_red_arrow.png";
         }
-        var formatted_time = data.time
-        $('#feed').append('<tr><td>' + formatted_time + '</td><td>' + data.first_name + ' ' + data.last_name + '</td><td><img src="'+ img + '"</td><td>' + data.points + '</td><td>' + data.reason +'</td></tr>');
+        var formatted_time = (new Date(data.time + ' UTC')).toTimeString()
+        $('#feed tbody').prepend('<tr><td>' + formatted_time + '</td><td>' + data.first_name + ' ' + data.last_name + '</td><td><img src="'+ img + '"></td><td>' +  data.points + '</td><td>' + data.reason +'</td></tr>');
         window.last = data.time;
       }
     })
