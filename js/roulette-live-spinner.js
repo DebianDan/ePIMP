@@ -31,21 +31,33 @@ function update_time() {
 }
 
 function spin (results_block) {
-	// alert(results_block);
-	// alert("Spin");
-	// location.reload();
+	var bettinglist = $('<ul/>',{
+		class:"winner-list"
+	});
+	$.each(results_block,function() {
+		
+	});
 }
 
 function update_active_betters(active_betters) {
+	console.log(active_betters);
 	// $('#active-bets').empty();
-	var bettinglist = $('<ul/>',{
-		class:"betting-list"
-	});
+	// var bettinglist = $('<tbody/>',{
+	// 	class:"betting-list"
+	// });
+	var bettinglist= $("#bet-list-container");
+	bettinglist.empty();
 	$.each(active_betters,function() {
-		bettinglist.append($('<li/>').text(this.first_name+' '+this.last_name));
+		var row = $('<tr/>');
+		row.append($('<td/>').text(this.first_name));
+		row.append($('<td/>').text(this.last_name));
+		row.append($('<td/>').text(-1 * parseInt(this.award)));
+		var color = (this.color == "0") ? "Black" : "Red";
+		row.append($('<td/>').text(color));
+		bettinglist.append(row);
 	});
-	$("#bet-list-container").empty();
-	$("#bet-list-container").append(bettinglist);
+	// $("#bet-list-container").empty();
+	// $("#bet-list-container").append(bettinglist);
 }
 
 function update_clock(remaining) {
