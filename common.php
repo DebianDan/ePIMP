@@ -1,4 +1,6 @@
 <?php
+//set GMT time zone
+date_default_timezone_set('Europe/London');
 
 function fatalErrorContactMatt( $message, $sendSms = false ){
     echo '<h3>There was a fatal error</h3>';
@@ -18,6 +20,8 @@ function getBling( $pk ){
     $account = intval( $pk );
     $result = $DB->query( 'SELECT sum( points ) as sum FROM points WHERE accounts_fk = ' . $account );
     $row = $result->fetch_assoc();
+    if( !isset( $row['sum'] ) )
+        return 0;
     return $row['sum'];
 }
 
@@ -53,7 +57,7 @@ function text_person( $pk, $text, $phone_number = null ){
 function email_person( $pk, $template, $variables ){
     require_once "Mail.php";
 
-    if( false ){
+    if( true ){
         $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
         $safePK = $DB->real_escape_string( $pk );
 
@@ -84,15 +88,6 @@ function email_person( $pk, $template, $variables ){
     $subject = str_replace( $keys, $values, $subject );
     $text    = str_replace( $keys, $values, $text );
     $from    = 'ExpensiParty <matt@expensify.com>';
-
-    $headers = array ('From' => $from,
-      'To' => $to,
-      'Subject' => $subject);
-    $smtp = Mail::factory('smtp',
-      array ('host' => 'email-smtp.us-east-1.amazonaws.com',
-        'auth' => true,
-        'username' => 'AKIAJRLR2O6USXVH6KOQ',
-        'password' => 'Av9VJWnHEmRmsguSuABCyIs6BzdOa+unctZfxxdPLBrA'));
 
     $headers = array ('From' => $from,
       'To' => $to,

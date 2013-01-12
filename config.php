@@ -18,3 +18,9 @@ define( 'S3_ACCESS_KEY_ID', 'AKIAJAKXITATYBV3T4IA' );
 define( 'S3_SECRET_ACCESS_KEY', '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' );
 define( 'S3_BUCKET', 'expensiparty2k13' );
 
+define( 'STARTING', '1000' );
+define( 'BEER_PONG_PLAY', '100' );
+define( 'BEER_PONG_WIN', '150' );
+define( 'PHOTOSHOP', '100' );
+define( 'MINGLE', '100' );
+define( 'JOBS', '200' );
