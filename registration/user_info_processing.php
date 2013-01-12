@@ -16,7 +16,7 @@ $safe_email = $DB->real_escape_string($email);
 $safe_phone = $DB->real_escape_string($phone);
 $safe_twitter = $DB->real_escape_string($twitter);
 
-$query = 'UPDATE accounts SET first_name = "'.$safe_first_name.'", last_name = "'.$safe_last_name.'", email = "'.$safe_email.'", phone_number = "'.$safe_phone.'", twitter = "'.$safe_twitter.'" WHERE PK = '.$pk_id;
+$query = 'UPDATE accounts SET first_name = "'.$safe_first_name.'", last_name = "'.$safe_last_name.'", email = "'.$safe_email.'", phone_number = "'.$safe_phone.'", twitter = "'.$safe_twitter.'" WHERE accounts_pk = '.$pk_id;
 if( $DB->query($query) )
 {
 		header("Location:/registration/confirmation.html");
