@@ -51,6 +51,7 @@
 		$team = "";
 		$array = array();
 		while($row = $result->fetch_assoc()) {
+			$team = "";
 			$team = $team.$position;
 			$team = $team.'  '.$row['af'].' ';
 			$team = $team.$row['al'].' & ';
