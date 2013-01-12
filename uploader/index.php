@@ -69,11 +69,18 @@
 						//echo "<img src=\"".$link."\" alt=\"Image here...\" /><br/>";
 						$fk = $_POST["fk"];
 						$pk = $_POST["pk"];
+						$f = $_POST["f"];
 						//echo $link."<br>";
 						
 						// close this user on queue, update picture
 						$query = "UPDATE photoshop SET state = 0, image_url='".$link."' WHERE users_fk = ".$fk." AND photoshop_pk = ".$pk;
 						$DB->query($query);
+						
+						// notify this user by email
+						email_person($pk, "Photoshop", array(
+							"name" => $f,
+							"url" => $link
+						));
 						
 						printQueue($DB);
 					}
@@ -104,6 +111,7 @@
 							<input type="file" name="file" />
 							<input type="hidden" name="fk" value="'.$row['fk'].'" />
 							<input type="hidden" name="pk" value="'.$row['pk'].'" />
+							<input type="hidden" name="pk" value="'.$row['f'].'" />
 							<input type="submit" value="Upload" /></form>';
 				}
 				echo '</td></tr>';
