@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nexus registration tab</title>
+
+</head>
+
+<body>
+<p>
+set a cookie
+</p>
+
+<?php
+$expire=time()+60*60*24*30;
+setcookie('registration','1o2412o4p14194', $expire);
+
+echo $_COOKIE['registration'];
+
+
+?>
+
+
+
+</body>
+
+</html>
