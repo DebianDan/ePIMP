@@ -1,14 +1,14 @@
 <?php
 
 // Uncomment
-#$token_id = $_POST["token"];
-#$pgid = $_POST["pgid"];
-#$minor = $_POST["minor"];
+$token_id = $_GET["token"];
+$pgid = $_GET["pgid"];
+$minor = $_GET["minor"];
 
 // Comment out
-$token_id = "g";
-$pgid = 1;
-$minor = 0;
+#$token_id = "h";
+#$pgid = 1;
+#$minor = 0;
 
 require_once("../config.php");
 
