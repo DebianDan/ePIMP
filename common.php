@@ -53,5 +53,4 @@ function email_person( $pk, $template, $variables ){
     $text    = str_replace( $keys, $values, $text );
     $html    = str_replace( $keys, $values, $html );
 
-    
 }

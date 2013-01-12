@@ -1,5 +1,5 @@
 <?php if (!class_exists('CFRuntime')) die('No direct access allowed.');
-require_once(__DIR__.'/../../config.php');
+require_once( $_SERVER['DOCUMENT_ROOT'] . '/config.php');
 
 /**
  * Stores your AWS account information. Add your account information, and then rename this file
