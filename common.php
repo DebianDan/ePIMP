@@ -18,9 +18,10 @@ function text_person($pk,$text) {
     $token = "42fbce0cb806c1f4d5e1a1388e9311bd"; // Your Auth Token from www.twilio.com/user/account
     $client = new Services_Twilio($sid, $token);
     $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
+    $safePK = $DB->real_escape_string( $pk );
 
     /* Query their phone number */
-    $query = 'SELECT phone_number FROM accounts WHERE accounts_pk = '.$pk;
+    $query = 'SELECT phone_number FROM accounts WHERE accounts_pk = "'.$safePK. '"';
     $result = $DB->query($query);
     $row = $result->fetch_assoc();
     $phone_number = $row['phone_number'];
@@ -32,4 +33,25 @@ function text_person($pk,$text) {
         $text
     );
     return $message;
+}
+
+function email_person( $pk, $template, $variables ){
+    $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
+    $safePK = $DB->real_escape_string( $pk );
+
+    $query = 'SELECT email FROM accounts WHERE accounts_pk = "' . $safePK . '"';
+    $result = $DB->query( $query );
+    $row = $result->fetch_assoc();
+    $emailTo = $row['email'];
+
+    $keys   = array_keys( $variables );
+    $values = array_values( $variables );
+    for( $c=0; $c<count($keys); ++$c ){
+        $keys[$c] = "%$keys[$c]%";
+    }
+    $subject = str_replace( $keys, $values, $subject );
+    $text    = str_replace( $keys, $values, $text );
+    $html    = str_replace( $keys, $values, $html );
+
+    
 }

@@ -29,22 +29,63 @@
 
 	//params
 	if ($_GET["pgid"] and $_GET["token"]) {
-
-		$query = "SELECT accounts_pk FROM accounts WHERE pgid='". $_GET["pgid"] . "' AND token='" .$_GET["token"]. "';";
-		//echo $query . "<br/>";
-		$result =  $DB->query($query) or die($DB->error.__LINE__);
-		if ($row = $result->fetch_assoc()) {
-			echo $row['accounts_pk'] . "<br/>";
-		}
-
+		//find in photo
+		$query = "SELECT * FROM photoshop ps JOIN accounts a ON ps.users_fk = a.accounts_pk WHERE pgid='". $DB->real_escape_string($_GET["pgid"]) . "' AND token='" .$DB->real_escape_string($_GET["token"]). "' ORDER BY photoshop_pk DESC LIMIT 1";
+		$result =  $DB->query($query);
 		//in queue
-
-
+		$row = $result->fetch_assoc();
+		if ($row['state'] == 1) {
+			$accounts_pk = $row['accounts_pk'];
+			$query = "SELECT photoshop_pk, users_fk FROM photoshop WHERE state=1 ORDER BY photoshop_pk ASC";
+			$result = $DB->query($query);
+			$row = $result->fetch_assoc();
+			$first = $row['photoshop_pk'];
+			if ($accounts_pk == $row['users_fk']) {
+				$pos = 1;
+			}
+			else{
+				while($row = $result->fetch_assoc()){
+					if($row['users_fk'] == $accounts_pk){
+						$pos = $row['photoshop_pk'] - $first + 1;
+						break;
+					}
+				}
+			}
+			echo "You are Position ". $pos . "<br/>";
+		}
 		//not in queue
+		else{
+			$query = "SELECT accounts_pk FROM accounts WHERE pgid='". $DB->real_escape_string($_GET["pgid"]) . "' AND token='" .$DB->real_escape_string($_GET["token"]). "'";
+			$result = $DB->query($query);
+			$row = $result->fetch_assoc();
+			$accounts_pk = $row['accounts_pk'];
+			$query = "INSERT INTO photoshop (users_fk, state) VALUES (" . $accounts_pk . ", 1)";
+			$DB->query($query);
+
+			$query = "SELECT photoshop_pk, users_fk FROM photoshop WHERE state=1 ORDER BY photoshop_pk ASC";
+			$result = $DB->query($query);
+			$row = $result->fetch_assoc();
+			$first = $row['photoshop_pk'];
+			while($row = $result->fetch_assoc()){
+				if($row['users_fk'] == $accounts_pk){
+					$pos = $row['photoshop_pk'] - $first + 1;
+					break;
+				}
+			}
+			if ($pos != null) {
+				echo "You have been added to the queue.  You are Position ". $pos;
+			}
+			else{
+				//shouldn't get here unless tampering with pgid and token
+				echo "You have entered an invalid pgid or token!";
+			}
+
+		}
 	}
 	//no params
 	else{
 		//show query list
+		echo "HERE!";
 
 	}
 
