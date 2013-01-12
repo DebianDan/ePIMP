@@ -49,7 +49,6 @@ if (trim($pk_id) === '')
 }
 else
 {
-//	header("Location:/registration/pre_existing_user.html");
 	$DB->close();
 	exit;
 }
