@@ -9,7 +9,7 @@
 	}
 	else
 	{
-		//echo "<meta http-equiv='refresh' content='5;url=./index.php'>";
+		echo "<meta http-equiv='refresh' content='5;url=./index.php'>";
 	}
 	?>
 	<!-- Bootstrap -->
