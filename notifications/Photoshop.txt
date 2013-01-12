@@ -1,0 +1,9 @@
+Hey %name%,
+
+The PIMP Photoshop Booth has finished an image of your magnificent visage.
+
+Check it out here:
+        %url%
+
+Keep swimming,
+The Expensify Party Information Management Platform
