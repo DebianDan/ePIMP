@@ -27,9 +27,12 @@ $friend = get_user_info($friendID);
 	<div data-role="content">
     <?php
       echo "<p>" . $friend['intro'] . "</p>";
+      echo "<a href='update_friendship.php?pgid=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "&mingle_status_pk=" . $_REQUEST['mingle_status_pk'] . "' datal-rel='back' data-role='button' data-ajax='false'>" . "I have met this person!" ."</a>";
     ?>
-		<a href="docs-transitions.html" data-role="button" data-theme="b" data-rel="back">I have met this person!</a>
-    <a href="docs-transitions.html" data-role="button" data-theme="c" data-rel="back">Go Back</a>
+
+
+
+    <a href="index.php" data-role="button" data-theme="c" data-rel="back">Go Back</a>
 	</div>
 </div>
 

@@ -87,7 +87,7 @@ if ($play_mingle == 0) {
           {
             foreach($friends as $friend) {
               echo "<li>";
-              echo "<a href='/dashboard/userProfile.php?userID=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "' data-transition='slide'>" . $friend['firstname'] . ' ' . $friend['lastname'] ."</a>";
+              echo "<a href='/dashboard/userProfile.php?pgid=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "&mingle_status_pk=" . $friend['mingle_status_pk'] . "' data-transition='slide' data-ajax='false'>" . $friend['first_name'] . ' ' . $friend['last_name'] ."</a>";
               echo "</li>";
             }
           }

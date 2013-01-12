@@ -53,9 +53,11 @@ function get_total_points($pgid, $accounts_pk)
 		$query = 'SELECT points FROM points WHERE accounts_fk=' . $accounts_pk;
 		$result = mysql_query($query);
 		$row = mysql_fetch_array($result, MYSQL_ASSOC);
-		$sum = 0;
-		foreach($row as $pt)
-			$sum += $pt;
+    $sum = 0;
+		if (is_array($row))
+      foreach($row as $pt) {
+  		  $sum += $pt;
+  		}
 		return $sum;
 
 		mysql_close($con);
