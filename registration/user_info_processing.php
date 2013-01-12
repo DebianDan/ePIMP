@@ -41,5 +41,5 @@ email_person( $pk_id, "Welcome", array(
     "url" => "http://expensiparty.com?pgid=$pg_id&token=$token"
 ) );
 
-header("Location:/?pgid=$_REQUEST[pg_id]&token=$_REQUEST[token]");
+header("Location:/?pgid=$_REQUEST[pg_id]&token=$_REQUEST[token]&registrationSuccess=true");
 ?>
