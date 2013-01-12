@@ -43,7 +43,7 @@
 		//only delete after the longer timeout
 		if (!isset($_GET["longwait"])){
 			//delete user if page refreshes without a partner
-			$query = "DELETE FROM beer_pong WHERE user_b = 0";
+			$query = "DELETE FROM beer_pong WHERE user_b IS NULL";
 			$DB->query($query) or die($DB->error.__LINE__);
 		}
 
@@ -116,9 +116,7 @@
 			array_push($array,$team);
 			//$position = $position + 1;
 		}
-		for($i=0;$i<5;$i++){
-			//echo $array[$i] . "<BR>";
-		}
+	
 		$tournament = true;
 		include '../../components/queue.php';
 	}
@@ -226,7 +224,7 @@
 			}
 			else
 			{
-			$query = "SELECT * FROM beer_pong WHERE user_b = 0 AND state = 1";
+			$query = "SELECT * FROM beer_pong WHERE user_b IS NULL AND state = 1";
 			$result = $DB->query($query);
 			$row = $result->fetch_assoc();
 
@@ -237,13 +235,13 @@
 				$DB->query($query);
 
 				//find in beer pong
-		$query = "(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts a on a.accounts_pk = user_a where (state=1 or state = 2)";
-		$query = $query."and a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."')";
-		$query = $query." union ";
-		$query = $query."(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts b on b.accounts_pk = user_b where (state=1 or state = 2)";
-		$query = $query." and b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."')";
+				$query = "(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts a on a.accounts_pk = user_a where (state=1 or state = 2)";
+				$query = $query."and a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."')";
+				$query = $query." union ";
+				$query = $query."(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts b on b.accounts_pk = user_b where (state=1 or state = 2)";
+				$query = $query." and b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."')";
 	
-		$result =  $DB->query($query);
+				$result =  $DB->query($query);
 				//in queue
 				$row = $result->fetch_assoc();
 				if ($row['state'] == 1)
@@ -268,10 +266,24 @@
 			else
 			{
 				//echo $accounts_pk;
-				$query = "INSERT INTO beer_pong(user_a, user_b, state) VALUES (" . $accounts_pk . ",0, 1)";
-				//echo " Added a new user";
+				echo "<BR>";
+				$query = "SELECT COUNT(*) c FROM beer_pong WHERE state = 1 OR state = 2";
+				$result = $DB->query($query);
+				$row = $result->fetch_assoc();
+				$count = $row['c'];
+				
+				if($count == 0)
+					$query = "INSERT INTO beer_pong(user_a, state) VALUES(" . $accounts_pk . ", 2)";
+				else
+					$query = "INSERT INTO beer_pong(user_a, state) VALUES(" . $accounts_pk . ", 1)";
+				
+				echo $query;
+				echo " Added a new user";
 				$DB->query($query);
-				header("Location:./index.php?longwait=1");
+                if( $DB->error ){
+                    fatalErrorContactMatt( 'Bad Insert: ' . $DB->error );
+                }
+				//header("Location:./index.php?longwait=1");
 			}
 			}
 		}

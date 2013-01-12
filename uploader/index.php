@@ -8,6 +8,9 @@
 			line-height: normal !important;
 			height: auto !important;
 		}
+		tr:nth-child(odd) {
+			background-color: #EEE;
+		}
 		form { margin: 0; }
 		table {
 			width: 100%;
@@ -107,7 +110,7 @@
 			echo '<table>';
 			while($row = $result->fetch_assoc()) {
 				$disp_name = $row['f'].' '.$row['l'];
-				echo '<tr><td><img src="'.$row['img'].'" width="50" height="50" /></td>';
+				echo '<tr><td><div style="height:50px;"><img src="'.$row['img'].'" width="50" height="50" /></div></td>';
 				echo '<td>'.$disp_name.'</td><td>';
 				if ($row['state'] == 1) {
 					echo '<form enctype="multipart/form-data" action="index.php" method="post">

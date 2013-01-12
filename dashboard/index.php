@@ -17,7 +17,7 @@ if ($play_mingle == 0) {
     table { width:95%; border-collapse:collapse; border: 1px solid white; }
     table caption { text-align:left;  }
     table thead th { text-align:left; border-bottom-width:1px; border-top-width:1px; font-weight: bold; color: #363636; }
-    table th, td { text-align:left; padding:6px; border: 1px solid white;} 
+    table th, td { text-align:left; padding:6px; border: 1px solid white;}
     </style>
 </head>
 <body>
@@ -28,7 +28,7 @@ if ($play_mingle == 0) {
     <h1><?php echo $first_name . " " . $last_name;?></h1>
   </div><!-- /header -->
 
-  <div data-role="content">
+  <div data-role="content" style="margin-left:5px;margin-right:5px">
       <table data-role="table" class="" id="points" data-mode="reflow">
         <thead>
           <tr>
@@ -151,7 +151,7 @@ if ($play_mingle == 0) {
           ?>
         </li>
       </ul>
-    </div> 
+    </div>
 <br /><br />
       <div data-theme="a" data-role="footer" data-position="fixed">
         <h3>
