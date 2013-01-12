@@ -1,4 +1,6 @@
 <?php
+//set GMT time zone
+date_default_timezone_set('Europe/London');
 
 function fatalErrorContactMatt( $message, $sendSms = false ){
     echo '<h3>There was a fatal error</h3>';
