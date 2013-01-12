@@ -62,18 +62,18 @@ if ($play_mingle == 0) {
           if ($bppos == 2) $bbpos = "2nd";
           if ($bppos == 3) $bbpos = "3rd";
           if ($bppos > 3) $bppos = strval($bppos) . "th";
-          echo "<p>You are " . $bppos . " in line for Beer Pong.</p>";
+          echo "<p>You are " . $bppos . " in line for Beer Pong; warm up!</p>";
         } else if ($bppos == 0) {
-          echo "<p>You are currently playing beer pong</p>";
+          echo "<p>You are currently playing Beer Pong, good luck!</p>";
         }
         if ($pspos > 0) {
           if ($pspos == 1) $pspos  = "1st";
           if ($pspos == 2) $pspos  = "2nd";
           if ($pspos == 3) $pspos  = "3rd";
           if ($pspos > 3)  $pspos  = strval($pspos) . "th";
-          echo "<p>You are " . $pspos . " in line for Photoshop.</p>";
+          echo "<p>You are " . $pspos . " in line for Shawn's terrifying PhotoShop booth: brace yourself.</p>";
         } else if ($pspos == 0 ) {
-          echo "<p>You are currently playing photoshop</p>";
+          echo "<p>You're up!  Report to Shawn's office to get PhotoShopped</p>";
         }
         if ($pspos == -1 && $bppos == -1) {
           echo "<p>You are not playing any game! Go sign up with an NFC-enabled device!</p>";
