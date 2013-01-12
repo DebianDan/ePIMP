@@ -7,7 +7,6 @@ if ($play_mingle == 0) {
 }
 
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,7 +138,7 @@ if ($play_mingle == 0) {
   </div>
 </div><!-- /page -->
 
-</body>
 <script src="/js/jquery-latest.js"></script>
 <script src="/js/jquery.mobile-1.2.0.min.js"></script>
+</body>
 </html>
