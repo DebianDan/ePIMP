@@ -21,7 +21,8 @@ function update_time() {
 			    	url:'/roulette/wheel_results.json',
 				    type:'POST',
 			    }).done(function(results){	
-					if (results.timestamp - Math.round($.now()/1000)) {
+					if (results.timestamp != timestamp) {
+						timestamp = results.timestamp;
 						spin (results);
 					}else {
 						update_time();
