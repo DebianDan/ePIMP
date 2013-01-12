@@ -21,9 +21,10 @@ require_once('../common.php');
     <form action="saveIntroData.php" method="get" data-ajax="false">
       <?php echo "<label for='intro'>Welcome to the party!  Give a hint for how others can find you, and Mingle will give you hints on how to find them.  If you both Mingle each other within the same minute, you'll each earn Bling toward fame, glory, and a free Galaxy Nexus 7!</label>";?>
       <textarea name="intro" required="required" placeholder="Example: I am wearing a blue shirt and look like a supermodel"></textarea>
-
-      <input type="checkbox" name="optout" id="optoutcheckbox" class="custom" value="false">
-      <label for="optoutcheckbox">Opt out of playing Mingle</label>
+       <fieldset data-role="controlgroup">
+    		<input type="checkbox" name="optout" id="optoutcheckbox" class="custom" value="false"/>
+    		<label for="optoutcheckbox">Opt out of playing Mingle</label>
+        </fieldset>
       <?php echo "<input name='token' type='hidden' value=" . $token . ">";?>
       <?php echo "<input name='pgid' type='hidden' value=" . $pgid . ">"; ?>
       <input type="submit" value="Save">
