@@ -4,7 +4,7 @@ function is_open($pgid, $mingle)
 		// open friendship
 		if ($mingle["status"] == 0)
 			return true;
-		
+
 		// friendship waiting for confirmation
 		$curtime = gettimeofday(true);
 		if ($mingle["status"] < 3 && $curtime - $mingle["time"] <= 61) {
@@ -13,11 +13,11 @@ function is_open($pgid, $mingle)
 			if ($pgid == $mingle["user_b"] && $mingle["status"] == 1)
 				return true;
 		}
-		
+
 		// non-open
 		return false;
 	}
-	
+
 require_once("../config.php");
 $con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or
     die("Could not connect: " . mysql_error());
