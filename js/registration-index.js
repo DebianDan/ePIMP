@@ -4,7 +4,7 @@ function isInt(n) {
 
 var get = retrieve_get();
 
-if(!('pk_id' in get) || !('pg_id' in get) || !('token' in get)) {
+if( !('pg_id' in get) || !('token' in get)) {
 	$('input').attr("disabled", "disabled");
 	$('button').attr("disabled", "disabled");
 }
