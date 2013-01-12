@@ -1,5 +1,5 @@
 <?php
-require_once("../config.php");
+require_once("/var/www/config.php");
 $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
 $query = 'SELECT b.bets_pk, b.user_fk, b.color, b.award, p.first_name, p.last_name FROM bets b, accounts p WHERE b.state = 1 AND p.accounts_pk=b.user_fk';
 if ($result = $DB->query($query)) 
