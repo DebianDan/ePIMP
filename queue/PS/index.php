@@ -44,11 +44,14 @@
 				$pos = 1;
 			}
 			else{
+				$pos = 1;
 				while($row = $result->fetch_assoc()){
 					if($row['users_fk'] == $accounts_pk){
-						$pos = $row['photoshop_pk'] - $first + 1;
+						//$pos = $row['photoshop_pk'] - $first + 1;
+						$pos = $pos + 1;
 						break;
 					}
+					$pos = $pos + 1;
 				}
 			}
 			echo "You are Position ". $pos . "<br/>";
@@ -68,7 +71,7 @@
 			$first = $row['photoshop_pk'];
 			while($row = $result->fetch_assoc()){
 				if($row['users_fk'] == $accounts_pk){
-					$pos = $row['photoshop_pk'] - $first + 1;
+					$pos = $row['photoshop_pk'] - $first;
 					break;
 				}
 			}
