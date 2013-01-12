@@ -24,13 +24,13 @@ $safe_pg_id = $DB->real_escape_string($pg_id);
 $query = 'INSERT accounts SET first_name = "'.$safe_first_name.'", last_name = "'.$safe_last_name.'", email = "'.$safe_email.'", phone_number = "'.$safe_phone.'", twitter = "'.$safe_twitter.'" WHERE token = "'.$token.'" AND pgid = "'.$safe_pg_id.'"';
 
 $result = $DB->query($query);
-if( $DB->error() ){
+if( $DB->error ){
     fatalErrorContactMatt( 'Insert acc:' . $DB->error() );
 }
 
 $query = 'INSERT INTO points(accounts_fk, points, reason, created) VALUES (LAST_INSERT_ID(), ' . STARTING . ', "starting points", CURRENT_TIMESTAMP())';
 $result = $DB->query( $query );
-if( $DB->error() ){
+if( $DB->error ){
     fatalErrorContactMatt( 'Insert init pt:' . $DB->error() );
 }
 
