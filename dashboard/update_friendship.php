@@ -90,4 +90,6 @@ if ($status == 3) {
 }
 
 mysql_close($con);
+header("Location:index.php?". $_SERVER['QUERY_STRING']);
+
 ?>
