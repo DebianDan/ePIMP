@@ -21,13 +21,11 @@ require_once('../common.php');
     <form action="saveIntroData.php" method="get" data-ajax="false">
       <?php echo "<label for='intro'>Welcome to the party!  Give a hint for how others can find you, and Mingle will give you hints on how to find them.  If you both Mingle each other within the same minute, you'll each earn Bling toward fame, glory, and a free Galaxy Nexus 7!</label>";?>
       <textarea name="intro" required="required" placeholder="Example: I am wearing a blue shirt and look like a supermodel"></textarea>
-       <fieldset data-role="controlgroup">
-    		<input type="checkbox" name="optout" id="optoutcheckbox" class="custom" value="false"/>
-    		<label for="optoutcheckbox">Opt out of playing Mingle</label>
-        </fieldset>
       <?php echo "<input name='token' type='hidden' value=" . $token . ">";?>
       <?php echo "<input name='pgid' type='hidden' value=" . $pgid . ">"; ?>
-      <input type="submit" value="Save">
+      <input type="submit" name="optout" value="Play Mingle (more points)">
+      <div style="margin-top:40px"></div>
+      <input type="submit" name="optout" value="Opt out of playing Mingle (less points)">
     </form>
   </div><!-- /content -->
 </div><!-- /page -->
@@ -35,20 +33,5 @@ require_once('../common.php');
 </body>
 <script src="/js/jquery-latest.js"></script>
 <script src="/js/jquery.mobile-1.2.0.min.js"></script>
-<script>
-$(document).ready(function() {
-  $('#optoutcheckbox').change(function(){
-    var introbox = $('textarea')
-    if($(this).is(':checked')){
-        introbox.attr('disabled','disabled')
-        introbox.removeAttr("required")
-      } else {
-        introbox.attr('required','required')
-        introbox.removeAttr("disabled")
-      }
-  })
-});
-
-</script>
 
 </html>
