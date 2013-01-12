@@ -49,8 +49,8 @@
 				if ($_FILES["file"]["error"] > 0) {
 					echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
 				} else {
-					echo "Upload: " . $_FILES["file"]["name"] . "<br>";
-					echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
+					//echo "Upload: " . $_FILES["file"]["name"] . "<br>";
+					//echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
 					//echo "Type: " . $_FILES["file"]["type"] . "<br>";
 					//echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br>";
 
@@ -66,14 +66,21 @@
 						
 					if ($response->isOK()) {
 						$link = "http://".$bucket.".s3.amazonaws.com/".$name;
-						echo "<img src=\"".$link."\" alt=\"Image here...\" /><br/>";
+						//echo "<img src=\"".$link."\" alt=\"Image here...\" /><br/>";
 						$fk = $_POST["fk"];
 						$pk = $_POST["pk"];
+						$f = $_POST["f"];
 						//echo $link."<br>";
 						
 						// close this user on queue, update picture
 						$query = "UPDATE photoshop SET state = 0, image_url='".$link."' WHERE users_fk = ".$fk." AND photoshop_pk = ".$pk;
 						$DB->query($query);
+						
+						// notify this user by email
+						email_person($pk, "Photoshop", array(
+							"name" => $f,
+							"url" => $link
+						));
 						
 						printQueue($DB);
 					}
@@ -90,7 +97,7 @@
 		
 		function printQueue($DB){
 			// load queue
-			$query = 'SELECT a.first_name f, a.last_name l, ps.users_fk fk, ps.photoshop_pk pk, ps.image_url img, ps.state state FROM photoshop ps JOIN accounts a ON ps.users_fk = a.accounts_pk LIMIT 5';
+			$query = 'SELECT a.first_name f, a.last_name l, ps.users_fk fk, ps.photoshop_pk pk, ps.image_url img, ps.state state FROM photoshop ps JOIN accounts a ON ps.users_fk = a.accounts_pk';
 			$result = $DB->query($query) or die($DB->error.__LINE__);
 			
 			// print queue
@@ -104,6 +111,7 @@
 							<input type="file" name="file" />
 							<input type="hidden" name="fk" value="'.$row['fk'].'" />
 							<input type="hidden" name="pk" value="'.$row['pk'].'" />
+							<input type="hidden" name="f" value="'.$row['f'].'" />
 							<input type="submit" value="Upload" /></form>';
 				}
 				echo '</td></tr>';
