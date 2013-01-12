@@ -14,24 +14,41 @@
                 <h2>Active Bets</h2>
             </div>
             <div class="span4">
-                <h2>Previous Round</h2>
+                <h2 id="clock"></h2>
             </div>
             <div class="span4">
-                <h2 id="clock"></h2>
+                <h2>Previous Round</h2>
             </div>
         </div>
         <div class="row">
-            <div class="span4" id="bet-list-container"></div>
-            <div class="span4" id="winner-list-container"></div>
-            <div class="span4">
+            <div class="span8">
+                <table class="table">
+                    <caption></caption>
+                    <thead>
+                        <tr>
+                            <th>First</th>
+                            <th>Last</th>
+                            <th>$</th>
+                            <th>Color</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody id="bet-list-container">
+                        <!-- <tr>
+                            <td></td>
+                            <td></td>
+                        </tr> -->
+                    </tbody>
+                </table></div>
+                <div class="span4" id="winner-list-container"></div>
+                </div>
             </div>
         </div>
-    </div>
-    <script src="/js/jquery-latest.js"></script>
-    <script src="/js/jquery.plugin.min.js"></script>
-    <script src="/js/jquery.timer.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/jquery.countdown.min.js"></script>
-    <script src="/js/roulette-live-spinner.js"></script>
+        <script src="/js/jquery-latest.js"></script>
+        <script src="/js/jquery.plugin.min.js"></script>
+        <script src="/js/jquery.timer.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/jquery.countdown.min.js"></script>
+        <script src="/js/roulette-live-spinner.js"></script>
     </body>
     </html>

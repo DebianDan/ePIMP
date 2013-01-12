@@ -117,6 +117,7 @@
 		for($i=0;$i<5;$i++){
 			//echo $array[$i] . "<BR>";
 		}
+		$tournament = true;
 		include '../../components/queue.php';
 	}
 	// params

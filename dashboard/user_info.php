@@ -17,7 +17,6 @@ function get_user_info($pgid)
 		*/
 
 		$row = mysql_fetch_array($result, MYSQL_ASSOC);
-		mysql_close($con);
 
 		return $row;
 	}
@@ -56,6 +55,5 @@ function get_total_points($pgid, $accounts_pk)
   		}
 		return $sum;
 
-		mysql_close($con);
 	}
 ?>
