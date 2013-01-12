@@ -7,7 +7,7 @@ mysql_select_db(DB_DATABASE, $con);
 /*
 Get the list of all users
 */
-$result = mysql_query("SELECT pgid FROM accounts");
+$result = mysql_query("SELECT pgid FROM accounts WHERE play_mingle = '1'");
 while ($row = mysql_fetch_array($result, MYSQL_NUM)) {
 	$users[] = $row[0];
 	$open_friend[$row[0]] = 0;
