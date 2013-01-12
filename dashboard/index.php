@@ -74,7 +74,7 @@ require_once("user_info.php");
       <ul data-role="listview" data-inset="true">
         <?php
           foreach($friends as $friend) {
-            echo "<li><a href=\'/dashboard/userProfile.php?userID=".$pgid."&token=".$token_id."&friendID=".$friend['pgid'] "' data-transition='slide'>". $friend['firstname'] . ' ' . $friend['lastname'] ."</a></li>"
+            echo "<li><a href=\'/dashboard/userProfile.php?userID=".$pgid."&token=".$token."&friendID=".$friend['pgid'] "' data-transition='slide'>". $friend['firstname'] . ' ' . $friend['lastname'] ."</a></li>"
           }
         ?>
       </ul>
