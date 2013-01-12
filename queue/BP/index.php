@@ -237,13 +237,13 @@
 				$DB->query($query);
 
 				//find in beer pong
-		$query = "(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts a on a.accounts_pk = user_a where (state=1 or state = 2)";
-		$query = $query."and a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."')";
-		$query = $query." union ";
-		$query = $query."(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts b on b.accounts_pk = user_b where (state=1 or state = 2)";
-		$query = $query." and b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."')";
+				$query = "(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts a on a.accounts_pk = user_a where (state=1 or state = 2)";
+				$query = $query."and a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."')";
+				$query = $query." union ";
+				$query = $query."(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts b on b.accounts_pk = user_b where (state=1 or state = 2)";
+				$query = $query." and b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."')";
 	
-		$result =  $DB->query($query);
+				$result =  $DB->query($query);
 				//in queue
 				$row = $result->fetch_assoc();
 				if ($row['state'] == 1)
@@ -268,7 +268,18 @@
 			else
 			{
 				//echo $accounts_pk;
-				$query = "INSERT INTO beer_pong(user_a, user_b, state) VALUES (" . $accounts_pk . ",0, 1)";
+				echo "<BR>";
+				$query = "SELECT COUNT(*) c FROM beer_pong WHERE state = 1 OR state = 2";
+				$result = $DB->query($query);
+				$row = $result->fetch_assoc();
+				$count = $row['c'];
+				
+				if($count == 0)
+					$query = "INSERT INTO beer_pong(user_a, user_b, state) VALUES (" . $accounts_pk . ",0, 2)";
+				else
+					$query = "INSERT INTO beer_pong(user_a, user_b, state) VALUES (" . $accounts_pk . ",0, 1)";
+				
+				echo $query;
 				//echo " Added a new user";
 				$DB->query($query);
 				header("Location:./index.php?longwait=1");

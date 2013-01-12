@@ -37,14 +37,16 @@ $friend = get_user_info($friendID);
 $(function() {
   $('#addfriend').click(function(){
     $('#addfriend').parent().remove();
-    $('#messages').text('Congratulations! Make sure your new friend clicks your name right away, or else you won\'t be awarded Bling.');
+
     console.log('sending data...');
     <?php
     //use php to render part of the script
       echo "var data = 'pgid=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "&mingle_status_pk=" . $_REQUEST['mingle_status_pk'] . "'";
       echo "\n";
     ?>
-    $.get('update_friendship.php?'+data, function(res) {});
+    $.get('update_friendship.php?'+data, function(res) {
+      $('#messages').text(res);
+    });
   })
 });
 </script>

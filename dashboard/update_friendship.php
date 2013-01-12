@@ -63,13 +63,13 @@ mysql_query($query);
 // if( mysql_error() ){
   // echo "MYSQL ERROR:  ZOMG: " .mysql_error();
 
-}
+  //}
 
 
 // update points
 if ($status == 3) {
 	echo "Congratulations! Enjoy the party!";
-	
+
 	$friend_count_a = 0;
 	$friend_count_b = 0;
 
