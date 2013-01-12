@@ -1,3 +1,9 @@
+<?php
+//get the user data
+require_once('user_info.php');
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,22 +16,17 @@
 <body>
 
 <div data-role="page">
-
   <div data-role="header">
-    <h1>John Smith</h1>
+    <h1><?php echo $first_name . $last_name;?></h1>
   </div><!-- /header -->
-
   <div data-role="content">
-
-    <!-- Simple form which will send a POST request -->
+    <!--form to send data-->
     <form action="/dashboard/saveIntroData.php" method="post">
-      <label for="textarea">Tell us a little about yourself. We will use this for the Mingle game. </label>
-      <textarea name="intro" placeholder="Example: I once ate so much mochi that it globbed up my intestines and I nearly died."></textarea>
+      <?php echo "<label for="textarea">Tell us a little about yourself," . $first_name . ".We will use this for the Mingle game. </label>";?>
+      <textarea name="intro" placeholder="Example: Once I ate so much mochi that it globbed up my intestines and I nearly died."></textarea>
+      <?php echo "<input type='text' val=" . $token . " hidden>";?>
       <input type="submit" value="Save">
     </form>
-
-
-
   </div><!-- /content -->
 
 </div><!-- /page -->

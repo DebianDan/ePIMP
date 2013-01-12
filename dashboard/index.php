@@ -1,69 +1,9 @@
 <?php
 require_once("../config.php");
 $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
+require_once('user_info.php');
 
-//get params
-$token_id = $_GET["token"];
-$pgid = $_GET["pgid"];
-
-$query = 'SELECT first_name, last_name FROM accounts WHERE pgid = ' . $pgid;
-$result = $DB->query($query);
-$row = $result->fetch_assoc();
-$phone_number = $row['phone_number'];
-
-
-$safe_token = $DB->real_escape_string($token_id);
-$safe_pgid = $DB->real_escape_string($pgid);
-
-$query = 'SELECT accounts_pk FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
-
-function is_open($pgid, $mingle)
-	{
-		// open friendship
-		if ($mingle["status"] == 0)
-			return true;
-
-		// friendship waiting for confirmation
-		$curtime = gettimeofday(true);
-		if ($mingle["status"] < 3 && $curtime - $mingle["time"] <= 61) {
-			if ($pgid == $mingle["user_a"] && $mingle["status"] == 2)
-				return true;
-			if ($pgid == $mingle["user_b"] && $mingle["status"] == 1)
-				return true;
-		}
-
-		// non-open
-		return false;
-	}
-
-require_once("../config.php");
-$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or
-    die("Could not connect: " . mysql_error());
-mysql_select_db(DB_DATABASE, $con);
-
-
-// Get all of the mingles involve current user.
-$pgid = $_REQUEST["pgid"];
-$result = mysql_query( "SELECT * FROM mingle_status WHERE user_a=" . $pgid . " OR user_b=" . $pgid);
-// $friends is what you want
-while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-	// eliminate non-open friendship
-	if (is_open($pgid, $row))
-		continue;
-
-	if ($row["user_a"] == $pgid)
-		$friend_id = $row["user_b"];
-	else
-		$friend_id = $row["user_a"];
-
-	$frind_result = mysql_query("SELECT first_name, last_name, intro FROM accounts WHERE pgid=" . $friend_id);
-	$friend_info = mysql_fetch_array($frind_result, MYSQL_ASSOC);
-	$friends[] = array("pk" => $row["mingle_status_pk"], "pgid" => $friend_id, "first_name" => $friend_info["first_name"], "last_name" => $friend_info["last_name"], "info" => $friend_info["intro"]);
-}
-
-mysql_close($con);
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -74,17 +14,24 @@ mysql_close($con);
   <script src="//code.jquery.com/jquery-1.8.2.min.js"></script>
   <script src="//code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
   <script src="/dashboard/mingle.js"></script>
+  <style>
 
+  </style>
 </head>
 <body>
 
 <div data-role="page">
 
   <div data-role="header">
-    <h1><?php echo $token_id;?></h1>
+    <h1><?php echo $first_name . $last_name;?></h1>
   </div><!-- /header -->
 
   <div data-role="content">
+    <div id="points">
+      <h2>Total Points</h2>
+      <strong><?php echo $points?></strong>
+    </div>
+
     <div id="queue_positions">
       <h2>Line Position</h2>
       <table data-role="table" id="queue_positions" data-mode="reflow">
@@ -126,7 +73,7 @@ mysql_close($con);
         <?php
           foreach($friends as $friend) {
             <li>
-              <a href="/dashboard/userProfile.php?userID="+$currentUser['pgid']+"&token="+$token+"&friendID="+$friend['pgid'] data-transition="slide">$friend['firstname'] . $friend['lastname']</a>
+              <a href="/dashboard/userProfile.php?userID="+$pgid+"&token="+$token_id+"&friendID="+$friend['pgid'] data-transition="slide">$friend['firstname'] . $friend['lastname']</a>
             </li>
           }
         ?>
