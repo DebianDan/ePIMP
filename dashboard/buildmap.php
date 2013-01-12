@@ -20,7 +20,7 @@ foreach ($users as $user_a)
 	foreach ($users as $user_b)
 		$map[$user_a][$user_b] = 0;
 foreach ($users as $user)
-	$map[$user] = 1;
+	$map[$user][$user] = 1;
 
 /*
 Get how many open friendship each specific user holding by
@@ -66,6 +66,7 @@ foreach ($users as $user_a)
 				$open_friend[$user_b]++;
 				$map[$user_a][$user_b] = 1;
 				$map[$user_b][$user_a] = 1;
+				print_r($map);
 				// play with db
 				$curtime = gettimeofday(true);
         $query = "INSERT INTO mingle_status (user_a, user_b, status, time) VALUES ('" . $user_a . "', '" . $user_b . "', '0', '" . $curtime . "')";
