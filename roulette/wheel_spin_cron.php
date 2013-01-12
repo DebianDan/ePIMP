@@ -1,7 +1,7 @@
 <?php
 require_once("../config.php");
 $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
-$query = 'SELECT * FROM bets WHERE state = 1';
+$query = 'SELECT b.user_fk, b.color, b.award, p.first_name, p.last_name FROM bets b, accounts p WHERE b.state = 1 AND b.bets_pk = p.accounts_pk';
 if ($result = $DB->query($query)) 
 {
 	# get the bet personal keys
@@ -25,19 +25,22 @@ if ($result = $DB->query($query))
 	$winners = array();
 	foreach ($bets as $key => $bet) {
 		$query = 'UPDATE bets SET state = 0 WHERE bets_pk = '.$bet['bets_pk'];
-		// $DB->query($query);
+		// $DB->query($query); // TODO uncomment this line
 
 		if($color == $bet['color']){
-			$award = -1 * $bet['award'];
-			$query = "INSERT INTO bets (user_fk, color, award, state) VALUES (".$bet['user_fk'].", ".$bet['color'].", $award, 0)";
-			// $DB->query($query);	
-			print_r($query);
-			print "<db>";
+			$bet['award'] = -1 * $bet['award'];
+			$query = "INSERT INTO bets (user_fk, color, award, state) VALUES (".$bet['user_fk'].", ".$bet['color'].", ".$bet['award'].", 0)";
+			$DB->query($query);
+			array_push($winners, $bet);
 		}
 	}
 
-	print_r($color);
-	write_to_json($bets);
+
+	$storage = array();
+	$storage['timestamp'] = time();
+	$storage['color'] = $color;
+	$storage['winners'] = $winners;
+	write_to_json($storage);
 }
 $DB->close();
 function write_to_json($php_object) {
