@@ -28,7 +28,7 @@ $friend = get_user_info($friendID);
       echo "<p>" . $friend['intro'] . "</p>";
       echo "<a href='#' id='addfriend' data-role='button' data-icon='check'>I have met this person!</a>"
     ?>
-    <a href="index.php" data-role="button" data-theme="c" data-rel="back">Go Back</a>
+    <a href="index.php" data-role="button" data-theme="c">Go Back</a>
 	  <p id="messages">
     </p>
   </div>
@@ -36,14 +36,13 @@ $friend = get_user_info($friendID);
 <script>
 $('#addfriend').click(function(){
   $(this).remove();
+  $('#messages').text('Congratulations! Make sure your new friend clicks your name right away, or else you won\'t be awarded points.');
   <?php
   //use php to render part of the script
     echo "var data = 'pgid=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "&mingle_status_pk=" . $_REQUEST['mingle_status_pk'] . "'";
     echo "\n"
   ?>
-  $.post('update_friendship.php?'+data, function(res) {
-    $('#messages').text('Congratulations! Make sure your new friend clicks your name right away, or else you won\'t be awarded points.');
-  });
+  $.post('update_friendship.php?'+data, function(res) {});
 })
 </script>
 
