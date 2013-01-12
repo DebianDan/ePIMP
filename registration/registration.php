@@ -3,7 +3,7 @@
 #$token_id = $_POST["token"];
 #$pgid = $_POST["pgid"];
 
-$token_id = "e";
+$token_id = "g";
 $pgid = 1;
 
 require_once("../config.php");
@@ -49,7 +49,6 @@ else
 {
 	header("Location:/registration/pre_existing_user.html");
 	$DB->close();
-
 	exit;
 }
 
