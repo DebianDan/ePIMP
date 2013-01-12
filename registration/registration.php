@@ -20,10 +20,8 @@ $safe_pgid = $DB->real_escape_string($pgid);
 
 $query = 'SELECT accounts_pk FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
 
-if ($result = $DB->query($query)) 
-{
-	$row = $result->fetch_assoc();
-	$pk_id = $row['accounts_pk'];
+$result = $DB->query($query);
+if( $result->num_rows > 0 ){ 
     header('location:/registration/pre_existing_user.html');
     exit;
 }
