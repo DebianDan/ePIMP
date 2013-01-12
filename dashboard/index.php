@@ -1,25 +1,5 @@
 <?php
-require_once("../config.php");
-$DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
-
-//get params
-$token_id = $_GET["token"];
-$pgid = $_GET["pgid"];
-
-$safe_token = $DB->real_escape_string($token_id);
-$safe_pgid = $DB->real_escape_string($pgid);
-
-$query = 'SELECT accounts_pk FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
-
-$result = $DB->query($query);
-$num_results = mysql_num_rows($result); 
-if ($num_results == 0) {
-	echo "You cheater!";
-	die();
-}
-$row = $result->fetch_assoc();
-$first_name = $row['first_name'];
-$last_name = $row['last_name'];
+require_once("user_info.php");
 ?>
 
 
@@ -83,6 +63,11 @@ $last_name = $row['last_name'];
       </table>
     </div>
 
+
+		<?php
+		require_once("get_friendship.php");
+		?>
+		
     <div id="mingle">
       <h2>Play Mingle</h2>
       <fieldset data-role="controlgroup">
