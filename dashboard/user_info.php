@@ -19,7 +19,7 @@ $num_results = mysql_num_rows($result);
 If $num_result=0, the token is incorrect.
 */
 
-$row = $result->fetch_assoc();
+$row = mysql_fetch_array($result, MYSQL_ASSOC);
 $accounts_pk = $row['accounts_pk'];
 $first_name = $row['first_name'];
 $last_name = $row['last_name'];
@@ -32,16 +32,16 @@ function get_total_points($pgid)
 		$con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or
 		    die("Could not connect: " . mysql_error());
 		mysql_select_db(DB_DATABASE, $con);
-		
+
 		$safe_pgid = mysql_real_escape_string($pgid);
 		$query = 'SELECT points FROM points WHERE accounts_fk=' . $accounts_pk;
 		$result = mysql_query($query);
-		$row = $result->fetch_assoc();
+		$row = mysql_fetch_array($result, MYSQL_ASSOC);
 		$sum = 0;
 		foreach($row as $pt)
 			$sum += $pt;
 		return $sum;
-		
+
 		mysql_close($con);
 	}
 ?>

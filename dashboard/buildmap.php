@@ -7,11 +7,20 @@ mysql_select_db(DB_DATABASE, $con);
 /*
 Get the list of all users
 */
-$result = mysql_query("SELECT pgid FROM accounts");
+$result = mysql_query("SELECT pgid FROM accounts WHERE play_mingle = '1'");
 while ($row = mysql_fetch_array($result, MYSQL_NUM)) {
 	$users[] = $row[0];
 	$open_friend[$row[0]] = 0;
 }
+
+/*
+Build adjacent map between users.
+*/
+foreach ($users as $user_a)
+	foreach ($users as $user_b)
+		$map[$user_a][$user_b] = 0;
+foreach ($users as $user)
+	$map[$user] = 1;
 
 /*
 Get how many open friendship each specific user holding by
@@ -20,6 +29,8 @@ OPEN => friendship is not broken and the user haven't confirmed yet
 */
 $result = mysql_query("SELECT * FROM mingle_status");
 while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+	$map[$row["user_a"]][$row["user_b"]] = 1;
+	$map[$row["user_b"]][$row["user_a"]] = 1;
 	$curtime = gettimeofday(true);
 	$status = $row["status"];
 	switch ($status) {
@@ -42,20 +53,27 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	}
 }
 
+
 /*
 Find new friends (to meet) for each user who has less than 5 friends.
 */
 foreach ($users as $user_a)
 	if ($open_friend[$user_a] < 5)
 		foreach ($users as $user_b)
-			if ($open_friend[$user_b] < 5 && $user_b != $user_a) {
+			if ($open_friend[$user_b] < 5 && $map[$user_a][$user_b] == 0) {
 				// build new friendship
 				$open_friend[$user_a]++;
 				$open_friend[$user_b]++;
+				$map[$user_a][$user_b] = 1;
+				$map[$user_b][$user_a] = 1;
 				// play with db
 				$curtime = gettimeofday(true);
-				mysql_query("INSERT INTO mingle_status (user_a, user_b, status, time) VALUES (" . $user_a . ", " . $user_b . ", 0, " . $curtime . ")");
+        $query = "INSERT INTO mingle_status (user_a, user_b, status, time) VALUES ('" . $user_a . "', '" . $user_b . "', '0', '" . $curtime . "')";
+        echo $query;
+				mysql_query($query);
 			}
 
 mysql_close($con);
+
+echo "done!";
 ?>
