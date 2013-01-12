@@ -7,9 +7,7 @@ require_once('user_info.php');
 <head>
   <title>User Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="//code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css">
-  <script src="//code.jquery.com/jquery-1.8.2.min.js"></script>
-  <script src="//code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+  <link rel="stylesheet" href="/css/jquery.mobile.min.css">
 </head>
 <body>
 
@@ -23,7 +21,7 @@ require_once('user_info.php');
       <?php echo "<label for='intro'>Tell us a little about yourself, " . $first_name . ". We will use this for the Mingle game. </label>";?>
       <textarea name="intro" required="required" placeholder="Example: Once I ate so much mochi that it globbed up my intestines and I nearly died."></textarea>
       <input type="checkbox" name="optout" id="optoutcheckbox" class="custom" value="false">
-      <label for="optoutcheckbox">I DO NOT want to play Mingle</label>
+      <label for="optoutcheckbox">Opt out of playing Mingle</label>
       <?php echo "<input name='token' type='hidden' value=" . $token . ">";?>
       <?php echo "<input name='pgid' type='hidden' value=" . $pgid . ">"; ?>
       <input type="submit" value="Save">
@@ -32,6 +30,8 @@ require_once('user_info.php');
 </div><!-- /page -->
 
 </body>
+<script src="/js/jquery-latest.js"></script>
+<script src="/js/jquery.mobile-1.2.0.min.js"></script>
 <script>
 $(document).ready(function() {
   $('#optoutcheckbox').change(function(){

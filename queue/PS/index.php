@@ -77,9 +77,9 @@
 			}
 			else{
 				//shouldn't get here unless tampering with pgid and token
-				echo '<h3>There was a fatal error</h3>';
-				echo '<p>This was embarassing for us unless you\'re being cheeky. Your best bet here is to find an Expensify employee and ask them for Matt.</p>';
-				echo '<p>Helpful information: Invalid Token</p>';
+				echo '<h3>There was an error</h3>';
+				echo '<p>You need to register your braclet before using the Photoshop!</p>';
+				echo '<p>Helpful information: Not Currently Registered</p>';
 				die();
 			}
 
@@ -105,22 +105,6 @@
 			$pos = $pos + 1;
 		}
 	}
-
-	/*
-	$query = "SELECT * FROM photoshop WHERE 1=1";
-	$result =  $DB->query($query) or die($DB->error.__LINE__);
-
-	echo $result->num_rows . "<br/>";
-
-	if($result->num_rows > 0) {
-		while($row = $result->fetch_assoc()) {
-			echo $row['email'] . "<br/>";
-		}
-	}
-	else {
-		echo 'NO RESULTS';
-	}
-	*/
 
 
 	// CLOSE CONNECTION

@@ -7,15 +7,44 @@ if( !file_exists( 'config.php' ) ){
 
 require_once( 'config.php' );
 
-//$DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
-
-$cookie = $_REQUEST['dispatcher'];
-$app = 'dashboard';
-
+// Dispatch according to the cookie, if specified.  Every party tablet will have a cookie
+// indicating which function it is supposed to serve.  If there is no cookie, it means the
+// user has tapped on their personal device.
+$cookie = $_COOKIE['dispatcher'];
 switch( $cookie ){
-    case 'registration':
+    case "":
+    case "registration":
+        // This browser has no cookie (eg, is a user's phone) or is the registration tablet.  If no
+        // account, create one.  If there is an account, if we're the registration device, go back
+        // to the registration screen -- otherwise to the dashboard.
+        $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
+        $safe_token = $DB->real_escape_string( $_REQUEST["token"] );
+        $safe_pgid = $DB->real_escape_string( $_REQUEST["pgid"] );
+        $account = $DB->query("SELECT * FROM accounts WHERE pgid='$safe_pgid';" );
+        if( !$account->num_rows ) 
+        {
+            // Account doesn't exist yet -- begin registering it.
+            $app = "registration/registration.php";
+        }
+        else
+        {
+            // Account does exist -- go to the dashboad if it's a user's phone,
+            // otherwise back to the "tap in" screen if the registration device.
+            if( $cookie=="registration" ) $app = "registration";
+            else                          $app = "dashboard";
+        }
+        break;
+
+    case 'queue/BP':
+    case 'queue/PS':
+        //  Just redirect to the specific sub-app
         $app = $cookie;
         break;
+
+    default:
+        echo "Invalid dispatcher cookie";
+        exit;
 }
 
-header( 'location: /' . $app . '/?pgid=' . $_REQUEST['pgid'] . '&token=' . $_REQUEST['token'] );
+// Dispatch to the correct subsystem
+header( 'location: /' . $app . '?pgid=' . $_REQUEST['pgid'] . '&token=' . $_REQUEST['token'] );

@@ -30,6 +30,12 @@ if ($result = $DB->query($query)) {
 	header("Location:/registration/index.html");
 	exit;
 }
-$DB->close();
 
+// Send the welcome email
+email_person( $pk_id, "Welcome", array(
+    "name" => $first_name,
+    "url" => "http://expensiparty.com?pgid=$pg_id&token=$token"
+) );
+
+header("Location:/?pgid=$_REQUEST[pg_id]&token=$_REQUEST[token]");
 ?>

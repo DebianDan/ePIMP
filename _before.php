@@ -1,4 +1,6 @@
 <?php
+error_log( "Loading page: $_SERVER[PHP_SELF]" );
+
 
 // Some basic validation
 if( isset( $_REQUEST['pgid'] ) && preg_match( '/^[0-9]+$/', $_REQUEST['pgid'] ) != 1 ){

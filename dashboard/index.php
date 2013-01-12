@@ -13,9 +13,12 @@ if ($play_mingle == 0) {
 <head>
   <title>User Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="//code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css"/>
-  <script src="//code.jquery.com/jquery-1.8.2.min.js"></script>
-  <script src="//code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+  <link rel="stylesheet" href="/css/jquery.mobile.min.css"/>
+  <style>
+    td {
+      font-size: 60px;
+    }
+  </style>
 </head>
 <body>
 
@@ -26,12 +29,30 @@ if ($play_mingle == 0) {
   </div><!-- /header -->
 
   <div data-role="content">
-    <div id="points">
-      <h2>Total Points</h2>
-      <?php
-        $points = get_total_points($pgid);
-        echo "<strong>" . $points . "</strong>";
-      ?>
+      <table data-role="table" id="points" data-mode="reflow">
+        <thead>
+          <tr>
+            <th>Total Points</th>
+            <th>Ranking</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <?php
+              $points = get_total_points($pgid, $accounts_pk);
+              $ranking = 2;
+              echo "<td>".$points."</td>";
+              echo "<td>".$ranking."</td>";
+            ?>
+          </tr>
+          </tbody>
+      </table>
+      <ul data-role="listview" data-inset="true">
+        <li>
+          <a href='/dashboard/about_bling.php' data-transition='slide' data-ajax='false'>What is Bling?</a>
+        </li>
+      </ul>
+
     </div>
 
     <div id="queue_positions">
@@ -45,8 +66,12 @@ if ($play_mingle == 0) {
         </thead>
         <tbody>
           <tr>
-            <?php //echo "<td>".$beerpong_pos."</td>";?>
-            <?php //echo "<td>".$photoshop_pos."</td>";?>
+            <?php
+              $beerpong_pos = 100;
+              $photoshop_pos = 4;
+              echo "<td>".$beerpong_pos."</td>";
+              echo "<td>".$photoshop_pos."</td>";
+            ?>
           </tr>
           </tbody>
       </table>
@@ -68,23 +93,23 @@ if ($play_mingle == 0) {
     </div>
 
 
-		<?php
-		if ($play_mingle == 1) {
-			require_once("get_friendship.php");
+    <?php
+    if ($play_mingle == 1) {
+      require_once("get_friendship.php");
       global $friends;
-		?>
+    ?>
 
     <div id="mingle">
       <h2>Play Mingle</h2>
       <fieldset data-role="controlgroup">
-      <legend>Find and say hello to these people! They will be looking for you as well. Open their info box and click their check box when you meet them!</legend>
+      <legend>Find and say hello to these people! They will be looking for you as well. Open their info box and click the "I met them!" button after you meet them!</legend>
       <ul data-role="listview" data-inset="true">
         <?php
           if (is_array($friends))
           {
             foreach($friends as $friend) {
               echo "<li>";
-              echo "<a href='/dashboard/userProfile.php?userID=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "' data-transition='slide'>" . $friend['firstname'] . ' ' . $friend['lastname'] ."</a>";
+              echo "<a href='/dashboard/userProfile.php?pgid=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "&mingle_status_pk=" . $friend['mingle_status_pk'] . "' data-transition='slide' data-ajax='false'>" . $friend['first_name'] . ' ' . $friend['last_name'] ."</a>";
               echo "</li>";
             }
           }
@@ -92,19 +117,29 @@ if ($play_mingle == 0) {
       </ul>
     </div>
 
-		<?php
-		}
-		?>
+    <?php
+      }//end bracket for the stuff up top
+    ?>
+    <div id="roulette">
+      <ul data-role="listview" data-inset="true">
+        <li>
+          <?php
+            $account = get_user_info($pgid);
+            echo "<a href='/dashboard/roulette.html?pgid=" . $pgid . "&token=" . $token . "&pkid=".$account['accounts_pk']."' data-transition='slide' data-ajax='false'>Play Roulette</a>";
+          ?>
+        </li>
+      </ul>
+    </div>
 
   </div><!-- /content -->
   <div data-theme="a" data-role="footer" data-position="fixed">
     <h3>
-        Footer - Expensify stuff can go here
+        Expensiparty v3.7.2 - <a target="_blank" href="http://blog.expensify.com">blog</a> | <a target="_blank" href="jobs.php?pgid=<?= $_REQUEST['pgid'] ?>&token=<?= $_REQUEST['token'] ?>">jobs</a>
     </h3>
   </div>
-
-
 </div><!-- /page -->
 
 </body>
+<script src="/js/jquery-latest.js"></script>
+<script src="/js/jquery.mobile-1.2.0.min.js"></script>
 </html>
