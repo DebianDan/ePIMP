@@ -19,9 +19,9 @@ if(!('pk_id' in get)) {
 }
 $('#pkID').val(get['pk_id']);
 
-$(document).ready(function() { 
-	// bind 'myForm' and provide a simple callback function 
-	$('#userRegistration').ajaxForm(function() { 
-		alert("Thank you for your comment!"); 
-	}); 
-});
+// $(document).ready(function() { 
+// 	// bind 'myForm' and provide a simple callback function 
+// 	$('#userRegistration').ajaxForm(function() { 
+// 		alert("Thank you for your comment!"); 
+// 	}); 
+// });
