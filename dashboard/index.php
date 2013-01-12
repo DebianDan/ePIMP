@@ -14,6 +14,11 @@ if ($play_mingle == 0) {
   <title>User Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/css/jquery.mobile.min.css"/>
+  <style>
+    td {
+      font-size: 40px;
+    }
+  </style>
 </head>
 <body>
 
@@ -48,8 +53,12 @@ if ($play_mingle == 0) {
         </thead>
         <tbody>
           <tr>
-            <?php //echo "<td>".$beerpong_pos."</td>";?>
-            <?php //echo "<td>".$photoshop_pos."</td>";?>
+            <?php
+              $beerpong_pos = 100;
+              $photoshop_pos = 4;
+              echo "<td>".$beerpong_pos."</td>";
+              echo "<td>".$photoshop_pos."</td>";
+            ?>
           </tr>
           </tbody>
       </table>
