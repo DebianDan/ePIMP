@@ -57,6 +57,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 /*
 Find new friends (to meet) for each user who has less than 5 friends.
 */
+
 foreach ($users as $user_a) {
 	$got = true;
 	while ($open_friend[$user_a] < 5 && $got) {

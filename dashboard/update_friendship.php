@@ -34,13 +34,14 @@ $row = mysql_fetch_array($result, MYSQL_ASSOC);
 
 //echo "status: " . $row["status"];
 if ($row["status"] == 3)
-	die();
+	header("Location:index.php?". $_SERVER['QUERY_STRING']);
 if ($row["status"] > 0 && time() - strtotime($row['time']) > 61) {// friendship broken
   //echo $row['time'] . "<br />";
   //echo strtotime( $row['time']) . "<br />";
   //echo time() - strtotime($row['time']) . "<br />";
-	//echo "quit" . "<br />";
-	die();
+	//echo "quit" . "<ˇbr />";
+	header("Location:index.php?". $_SERVER['QUERY_STRING']);
+	
 }
 
 $status = $row["status"];
