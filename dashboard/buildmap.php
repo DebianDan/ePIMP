@@ -21,7 +21,7 @@ OPEN => friendship is not broken and the user haven't confirmed yet
 $result = mysql_query("SELECT * FROM mingle_status");
 while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$curtime = gettimeofday(true);
-	$status = $row["mingle_status"];
+	$status = $row["status"];
 	switch ($status) {
 		case 1: // A confirms
 		case 2: // B confirms
