@@ -11,7 +11,7 @@ require_once( '../config.php' );
 
     // Make sure we haven't already assigned this
     $message = "Made the right choice";
-    $query = "SELECT points_pk FROM points WHERE reason='$message'";
+    $query = "SELECT points_pk FROM points WHERE reason='$message' and accounts_fk = '$accountPK'";
     $result = $DB->query( $query );
     $row = $result->fetch_assoc();
     if( !$row["points_pk"] )
