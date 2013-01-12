@@ -105,7 +105,7 @@ if ($play_mingle == 0) {
         <li>
           <?php
             $account = get_user_info($pgid);
-            echo "<a href='/dashboard/roulette.php?pgid=" . $pgid . "&token=" . $token . "&pkid=".$account['accounts_pk']."' data-transition='slide' data-ajax='false'>Play Roulette</a>";
+            echo "<a href='/dashboard/roulette.html?pgid=" . $pgid . "&token=" . $token . "&pkid=".$account['accounts_pk']."' data-transition='slide' data-ajax='false'>Play Roulette</a>";
           ?>
         </li>
       </ul>
