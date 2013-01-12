@@ -49,7 +49,6 @@ if ($play_mingle == 0) {
           <a href='/dashboard/about_bling.php' data-transition='slide' data-ajax='false'>What is Bling?</a>
         </li>
       </ul>
-
     </div>
 
     <div id="queue_positions">
@@ -58,26 +57,34 @@ if ($play_mingle == 0) {
         //get access to line queue
         $bppos = getBeerpongPosition($pgid, $token);
         $pspos = getPhotoshopPosition( $pgid, $token);
-        if ($bppos != -1) {
+        if ($bppos > 0) {
           if ($bppos == 1) $bbpos = "1st";
           if ($bppos == 2) $bbpos = "2nd";
           if ($bppos == 3) $bbpos = "3rd";
           if ($bppos > 3) $bppos = strval($bppos) . "th";
-          echo "You are " . $bppos . " in line for Beer Pong.";
+          echo "<p>You are " . $bppos . " in line for Beer Pong.</p>";
+        } else if ($bppos == 0) {
+          echo "<p>You are currently playing beer pong</p>";
         }
-        if ($pspos != -1) {
+        if ($pspos > 0) {
           if ($pspos == 1) $pspos  = "1st";
           if ($pspos == 2) $pspos  = "2nd";
           if ($pspos == 3) $pspos  = "3rd";
           if ($pspos > 3)  $pspos  = strval($pspos) . "th";
-          echo "You are " . $pspos . " in line for Photoshop.";
+          echo "<p>You are " . $pspos . " in line for Photoshop.</p>";
+        } else if ($pspos == 0 ) {
+          echo "<p>You are currently playing photoshop</p>";
         }
+        if ($pspos == -1 && $bppos == -1) {
+          echo "<p>You are not playing any game! Go sign up with an NFC-enabled device!</p>";
+        }
+
       ?>
     </div>
 
     <div id="leaderboard">
       <h2>Leaderboard</h2>
-      <table data-role="table" id="movie-table-custom" data-mode="reflow" class="movie-list table-stroke ui-table ui-table-reflow">
+      <table data-role="table" data-mode="reflow" class="movie-list table-stroke ui-table ui-table-reflow">
         <thead>
           <thead>
             <td class="title">Rank</td>

@@ -116,7 +116,7 @@ function getBeerpongPosition( $pgid, $token)
 	$query = "select beer_pong.state, beer_pong.beer_pong_pk from beer_pong inner join accounts a on a.accounts_pk = user_a inner join accounts b on b.accounts_pk = user_b where ";
 	$query = $query."(state = 1 or state =2) and ( ( a.pgid = '".$pgid."' and a.token = '".$token."' ) OR (b.pgid = '".$pgid."' and b.token = '".$token."' ) )";
   $result =  $DB->query($query);
-	echo "Query:" . $query . "<BR>";
+	//echo "Query:" . $query . "<BR>";
 	//in queue
 	$row = $result->fetch_assoc();
 
@@ -137,7 +137,7 @@ function getBeerpongPosition( $pgid, $token)
 		if($pos == 1 && $pos == 2)
 				return 0;
 		return $pos - 2;
-			
+
 	}
 	else
 		return -1;
