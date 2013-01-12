@@ -1,7 +1,5 @@
-
 <?php
-
-
+require_once("user_info.php");
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +7,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
-	<title><?php $firstname . $lastname?></title>
+	<title><?php $firstname . ' ' . $lastname?></title>
 	<link rel="stylesheet"  href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
 	<link rel="stylesheet" href="../_assets/css/jqm-docs.css"/>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.min.js"></script>

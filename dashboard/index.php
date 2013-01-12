@@ -1,5 +1,9 @@
 <?php
 require_once("user_info.php");
+
+if ($play_mingle == 0) {
+	http_redirect("./getinfo.php", array("pgid" => $pgid, "token" => $token));
+}
 ?>
 
 <!DOCTYPE html>
@@ -50,21 +54,22 @@ require_once("user_info.php");
     <div id="leaderboard">
       <h2>Leaderboard</h2>
       <table>
-        <?php
-          foreach($highscores as $highscore) {
-            <tr>
-              <td>$highscore['rank']</td>
-              <td>$highscore['firstname'] . ' ' . $highscore['lastname']</td>
-              <td>$highscore['points']</td>
-            </tr>
-          }
-        ?>
+        <!-- <?php
+                  foreach($highscores as $highscore) {
+                    <tr>
+                      <td>$highscore['rank']</td>
+                      <td>$highscore['firstname'] . ' ' . $highscore['lastname']</td>
+                      <td>$highscore['points']</td>
+                    </tr>
+                  }
+                ?> -->
       </table>
     </div>
 
 
 		<?php
-		require_once("get_friendship.php");
+		if ($play_mingle == 1) {
+			require_once("get_friendship.php");
 		?>
 
     <div id="mingle">
@@ -80,6 +85,10 @@ require_once("user_info.php");
       </ul>
     </div>
 
+		<?php
+		}
+		?>
+		
   </div><!-- /content -->
   <div data-theme="a" data-role="footer" data-position="fixed">
     <h3>
