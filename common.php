@@ -43,24 +43,48 @@ function text_person( $pk, $text, $phone_number = null ){
 }
 
 function email_person( $pk, $template, $variables ){
-    $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
-    $safePK = $DB->real_escape_string( $pk );
+    require_once "Mail.php";
 
-    $query = 'SELECT email FROM accounts WHERE accounts_pk = "' . $safePK . '"';
-    $result = $DB->query( $query );
-    $row = $result->fetch_assoc();
-    $emailTo = $row['email'];
+    if( false ){
+        $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
+        $safePK = $DB->real_escape_string( $pk );
 
-    if( !file_exists( $_SERVER['DOCUMENT_ROOT'] . '/notifications/' . $template ) ){
+        $query = 'SELECT first_name, last_name, email FROM accounts WHERE accounts_pk = "' . $safePK . '"';
+        $result = $DB->query( $query );
+        $row = $result->fetch_assoc();
+
+        $to = strip_tags( $row['first_name'] ) . ' ' . strip_tags( $row['last_name'] ) . ' <' . $row['email'] . '>';
+    }
+    else{
+        $to = 'Matt McNamara <matt@expensify.com>';
+    }
+
+    $templateStuff = $_SERVER['DOCUMENT_ROOT'] . '/notifications/' . $template;
+    if( !file_exists( $templateStuff . '.txt' ) || !file_exists( $templateStuff . '.subject' ) ){
         fatalErrorContactMatt( 'Unable to find notification by that name.', true );
     }
+
+    $subject = file_get_contents( $templateStuff . '.subject' );
+    $text    = file_get_contents( $templateStuff . '.txt' );
 
     $keys   = array_keys( $variables );
     $values = array_values( $variables );
     for( $c=0; $c<count($keys); ++$c ){
         $keys[$c] = "%$keys[$c]%";
     }
+
     $subject = str_replace( $keys, $values, $subject );
     $text    = str_replace( $keys, $values, $text );
-    $html    = str_replace( $keys, $values, $html );
+    $from    = 'ExpensiParty <matt@expensify.com>';
+
+    $headers = array ('From' => $from,
+      'To' => $to,
+      'Subject' => $subject);
+    $smtp = Mail::factory('smtp',
+      array ('host' => 'email-smtp.us-east-1.amazonaws.com',
+        'auth' => true,
+        'username' => 'AKIAJRLR2O6USXVH6KOQ',
+        'password' => 'Av9VJWnHEmRmsguSuABCyIs6BzdOa+unctZfxxdPLBrA'));
+
+    return true;
 }
