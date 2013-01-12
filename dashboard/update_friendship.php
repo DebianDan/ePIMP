@@ -20,7 +20,7 @@ function get_accounts_pk($pgid)
 	{
 		// global $con;
 		// todo
-		$result = mysql_query("SELECT accounts_pk FROM accounts WHERE pgid=" . $pgid);
+		$result = mysql_query("SELECT accounts_pk FROM accounts WHERE pgid='" . $pgid . "'");
 		$row = mysql_fetch_array($result, MYSQL_NUM);
 		return $row[0];
 	}
@@ -54,7 +54,7 @@ if ($row["user_a"] == $pgid_a) {
 		$status += 2;
 }
 
-$query = "UPDATE mingle_status SET status = " . $status . ", time = CURRENT_TIMESTAMP WHERE mingle_status_pk = '" . $mingle_status_pk . "'";
+$query = "UPDATE mingle_status SET status = '" . $status . "', time = CURRENT_TIMESTAMP WHERE mingle_status_pk = '" . $mingle_status_pk . "'";
 mysql_query($query);
 
 // update points
@@ -62,7 +62,7 @@ if ($status == 3) {
 	$friend_count_a = 0;
 	$friend_count_b = 0;
 
-	$result = mysql_query( "SELECT * FROM mingle_status WHERE user_a = " . $pgid_a . "OR user_a = " . $pgid_b . "OR user_b = " . $pgid_a . "OR user_b = " . $pgid_b);
+	$result = mysql_query( "SELECT * FROM mingle_status WHERE user_a = '" . $pgid_a . "' OR user_a = '" . $pgid_b . "' OR user_b = '" . $pgid_a . "' OR user_b = '" . $pgid_b . "'");
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		if ($row["status"] % 2 == 1) {
 			if ($row["user_a"] == $pgid_a)

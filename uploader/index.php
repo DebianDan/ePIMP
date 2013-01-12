@@ -60,9 +60,12 @@
 						$name,
 						array(
 							'fileUpload' => $_FILES['file']['tmp_name'],
-							'acl' => AmazonS3::ACL_PUBLIC
+							'acl' => AmazonS3::ACL_PUBLIC,
+							'contentType' => $_FILES["file"]["type"],
+							'headers' => array(
+								'Content-Disposition' => 'inline;filename='.$name,
 							)
-						);
+						));
 						
 					if ($response->isOK()) {
 						$link = "http://".$bucket.".s3.amazonaws.com/".$name;
