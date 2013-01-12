@@ -18,7 +18,3 @@ if(!('pk_id' in get)) {
 	$('button').attr("disabled", "disabled");
 }
 $('#pkID').val(get['pk_id']);
-
-$(document).ready(function(){
-	$("#commentForm").validate();
-});
