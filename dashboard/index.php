@@ -56,8 +56,22 @@ if ($play_mingle == 0) {
       <h2>Queue Area</h2>
       <?php
         //get access to line queue
-        echo "<p>you are 2nd in line for beer pong</p>";
-        echo "<p>you are 3rd in line for photoshop</p>";
+        $bppos = getBeerpongPosition($pgid, $token);
+        $pspos = getPhotoshopPosition( $pgid, $token);
+        if ($bppos != -1) {
+          if ($bppos == 1) $bbpos = "1st";
+          if ($bppos == 2) $bbpos = "2nd";
+          if ($bppos == 3) $bbpos = "3rd";
+          if ($bppos > 3) $bppos = strval($bppos) . "th";
+          echo "You are " . $bppos . " in line for Beer Pong.";
+        }
+        if ($pspos != -1) {
+          if ($pspos == 1) $pspos  = "1st";
+          if ($pspos == 2) $pspos  = "2nd";
+          if ($pspos == 3) $pspos  = "3rd";
+          if ($pspos > 3)  $pspos  = strval($pspos) . "th";
+          echo "You are " . $pspos . " in line for Photoshop.";
+        }
       ?>
     </div>
 
