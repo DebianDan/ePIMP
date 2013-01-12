@@ -86,6 +86,8 @@
 			printQueue($DB);
 		}
 		
+		mysqli_close($DB);
+		
 		function printQueue($DB){
 			// load queue
 			$query = 'SELECT a.first_name f, a.last_name l, ps.users_fk fk, ps.photoshop_pk pk, ps.image_url img, ps.state state FROM photoshop ps JOIN accounts a ON ps.users_fk = a.accounts_pk LIMIT 5';
