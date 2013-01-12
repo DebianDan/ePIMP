@@ -6,8 +6,7 @@ function is_open($pgid, $mingle)
 			return true;
 
 		// friendship waiting for confirmation
-		$curtime = gettimeofday(true);
-		if ($mingle["status"] < 3 && $curtime - $mingle["time"] <= 61) {
+		if ($mingle["status"] < 3 && time() - strtotime($mingle['time']) <= 61) {
 			if ($pgid == $mingle["user_a"] && $mingle["status"] == 2)
 				return true;
 			if ($pgid == $mingle["user_b"] && $mingle["status"] == 1)
@@ -32,8 +31,9 @@ $result = mysql_query($query);
 // $friends is what you want
 while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	// eliminate non-open friendship
-	if (is_open($pgid, $row) == 0)
+	if (is_open($pgid, $row) == false) {
 		continue;
+	}
 
 	if ($row["user_a"] == $pgid)
 		$friend_id = $row["user_b"];
