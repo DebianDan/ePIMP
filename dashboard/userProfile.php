@@ -43,7 +43,7 @@ $('#addfriend').click(function(){
     echo "var data = 'pgid=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "&mingle_status_pk=" . $_REQUEST['mingle_status_pk'] . "'";
     echo "\n";
   ?>
-  $.post('update_friendship.php?'+data, function(res) {});
+  $.get('update_friendship.php?'+data, function(res) {});
 })
 </script>
 
