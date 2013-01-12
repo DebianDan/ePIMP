@@ -145,14 +145,14 @@ if ($play_mingle == 0) {
           ?>
         </li>
       </ul>
-    </div>
-
+    </div> 
+<br /><br />
+      <div data-theme="a" data-role="footer" data-position="fixed">
+        <h3>
+            Expensiparty v3.7.2 - <a target="_blank" href="http://blog.expensify.com">blog</a> | <a target="_blank" href="jobs.php?pgid=<?= $_REQUEST['pgid'] ?>&token=<?= $_REQUEST['token'] ?>">jobs</a>
+        </h3>
+      </div>
   </div><!-- /content -->
-  <div data-theme="a" data-role="footer" data-position="fixed">
-    <h3>
-        Expensiparty v3.7.2 - <a target="_blank" href="http://blog.expensify.com">blog</a> | <a target="_blank" href="jobs.php?pgid=<?= $_REQUEST['pgid'] ?>&token=<?= $_REQUEST['token'] ?>">jobs</a>
-    </h3>
-  </div>
 </div><!-- /page -->
 
 <script src="/js/jquery-latest.js"></script>
