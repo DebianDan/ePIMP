@@ -1,7 +1,7 @@
 <?php
 require_once("../config.php");
 $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
-$query = 'SELECT b.user_fk, b.color, b.award, p.first_name, p.last_name FROM bets b, accounts p WHERE b.state = 1 AND b.bets_pk = p.accounts_pk';
+$query = 'SELECT b.bets_pk, b.user_fk, b.color, b.award, p.first_name, p.last_name FROM bets b, accounts p WHERE b.state = 1 AND p.accounts_pk=b.user_fk';
 if ($result = $DB->query($query)) 
 {
 	# get the bet personal keys
@@ -25,7 +25,7 @@ if ($result = $DB->query($query))
 	$winners = array();
 	foreach ($bets as $key => $bet) {
 		$query = 'UPDATE bets SET state = 0 WHERE bets_pk = '.$bet['bets_pk'];
-		// $DB->query($query); // TODO uncomment this line
+		$DB->query($query); 
 
 		if($color == $bet['color']){
 			$bet['award'] = -1 * $bet['award'];
