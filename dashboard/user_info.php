@@ -26,13 +26,9 @@ function get_user_info($pgid)
 //get params
 $token = $_REQUEST["token"];
 $pgid = $_REQUEST["pgid"];
-
-$safe_token = mysql_real_escape_string($token);
-$safe_pgid = mysql_real_escape_string($pgid);
-
 $info = get_user_info($pgid);
 
-if ($safe_token != $info['token']) {
+if ($token != $info['token']) {
 	echo "<p>You are not supposed to be here!</p>";
 	die();
 }
