@@ -16,12 +16,18 @@
 
 
 <html>
+<style>
+a{
+    font-size: 31px;
+}
+</style>
 You are currently: "<?= $_COOKIE["dispatcher"] ?>"
 <ul>
 <li><a href="?newdispatcher=none">Reset</a></li>
 <li><a href="?newdispatcher=registration">Registration</a></li>
 <li><a href="?newdispatcher=queue/PS">Photoshop Booth</a></li>
 <li><a href="?newdispatcher=queue/BP">Beer Pong</a></li>
+<li><a href="?newdispatcher=boss">Boss</a></li>
 </ul>
 </html>
 
