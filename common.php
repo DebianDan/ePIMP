@@ -151,7 +151,7 @@ function getBeerpongPosition( $pgid, $token)
 	}
 	else
 		return -1;
-  mysql_close($DB);
+  //mysql_close($DB);
 }
 
 function getPhotoshopPosition( $pgid, $token)

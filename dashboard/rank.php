@@ -43,7 +43,7 @@ function get_ranks($pgid)
 				$ranks[$n] = $rank;
 				break;
 			}
-		mysql_close($con);
+		//mysql_close($con);
 
 		return array_slice($ranks, 0, $n + 1);
 	}

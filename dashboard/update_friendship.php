@@ -58,7 +58,13 @@ if ($row["user_a"] == $pgid_a) {
 }
 
 $query = "UPDATE mingle_status SET status = '" . $status . "', time = CURRENT_TIMESTAMP WHERE mingle_status_pk = '" . $mingle_status_pk . "'";
+echo $query;
 mysql_query($query);
+if( mysql_error() ){
+  echo "MYSQL ERROR:  ZOMG: " .mysql_error();
+
+}
+
 
 // update points
 if ($status == 3) {
@@ -92,7 +98,6 @@ if ($status == 3) {
 		mysql_query("INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_b . "', '" . $score_b . "', 'Mingling with " . $name_a . "', CURRENT_TIMESTAMP)");
 }
 
-mysql_close($con);
 header("Location:index.php?". $_SERVER['QUERY_STRING']);
 
 ?>

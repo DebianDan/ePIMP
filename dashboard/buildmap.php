@@ -64,7 +64,7 @@ foreach ($users as $user_a) {
 	$got = true;
 	while ($open_friend[$user_a] < 5 && $got) {
 		$got = false;
-		foreach ($users as $user_b)	
+		foreach ($users as $user_b)
 			if ($open_friend[$user_b] < 5 && $map[$user_a][$user_b] == 0) {
 				// build new friendship
 				$open_friend[$user_a]++;
@@ -82,6 +82,6 @@ foreach ($users as $user_a) {
 	}
 }
 
-mysql_close($con);
+//mysql_close($con);
 pimplog( 'Finished running buildmap.php');
 ?>
