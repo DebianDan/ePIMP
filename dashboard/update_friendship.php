@@ -26,11 +26,11 @@ $mingle_status_pk = $_REQUEST["mingle_status_pk"];
 $pgid_a = $_REQUEST["pgid"]; // $pgid_a is current user
 $pgid_b = $_REQUEST["friendID"];
 
-$result = mysql_query( "SELECT * FROM mingle_status WHERE mingle_status_pk=" . $mingle_status_pk);
+$result = mysql_query( "SELECT * FROM mingle_status WHERE mingle_status_pk='" . $mingle_status_pk . "'");
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 
 $curtime = gettimeofday(true);
-if ($row["time"] > 0 && $curtime - $row["time"] >= 61) // friendship broken
+if ($row["status"] > 0 && $curtime - $row["time"] >= 61) // friendship broken
 	die();
 
 $status = $row["status"];
@@ -42,14 +42,15 @@ if ($row["user_a"] == $pgid_a) {
 		$status += 2;
 }
 
-mysql_query("UPDATE mingle_status SET status = " . $status . ", time = " . $curtime .
-"WHERE FirstName = 'Peter' AND LastName = 'Griffin'");
+
+$query = "UPDATE mingle_status SET status = " . $status . ", time = CURRENT_TIMESTAMP WHERE mingle_status_pk = '" . $mingle_status_pk . "'";
+mysql_query($query);
 
 // update points
 if ($status == 3) {
 	$friend_count_a = 0;
 	$friend_count_b = 0;
-	
+
 	$result = mysql_query( "SELECT * FROM mingle_status WHERE user_a = " . $pgid_a . "OR user_a = " . $pgid_b . "OR user_b = " . $pgid_a . "OR user_b = " . $pgid_b);
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		if ($row["status"] % 2 == 1) {
@@ -65,7 +66,7 @@ if ($status == 3) {
 				$friend_count_b++;
 		}
 	}
-	
+
 	$pk_a = get_accounts_pk($pgid_a);
 	$pk_b = get_accounts_pk($pgid_b);
 	$score_a = get_points($friend_count_a);

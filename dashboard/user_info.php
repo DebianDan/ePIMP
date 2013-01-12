@@ -26,13 +26,9 @@ function get_user_info($pgid)
 //get params
 $token = $_REQUEST["token"];
 $pgid = $_REQUEST["pgid"];
-
-$safe_token = mysql_real_escape_string($token);
-$safe_pgid = mysql_real_escape_string($pgid);
-
 $info = get_user_info($pgid);
 
-if ($safe_token != $info['token']) {
+if ($token != $info['token']) {
 	echo "<p>You are not supposed to be here!</p>";
 	die();
 }
@@ -53,9 +49,11 @@ function get_total_points($pgid, $accounts_pk)
 		$query = 'SELECT points FROM points WHERE accounts_fk=' . $accounts_pk;
 		$result = mysql_query($query);
 		$row = mysql_fetch_array($result, MYSQL_ASSOC);
-		$sum = 0;
-		foreach($row as $pt)
-			$sum += $pt;
+    $sum = 0;
+		if (is_array($row))
+      foreach($row as $pt) {
+  		  $sum += $pt;
+  		}
 		return $sum;
 
 		mysql_close($con);

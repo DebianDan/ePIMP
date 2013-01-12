@@ -13,9 +13,9 @@ if ($play_mingle == 0) {
 <head>
   <title>User Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="//code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css"/>
-  <script src="//code.jquery.com/jquery-1.8.2.min.js"></script>
-  <script src="//code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+  <link rel="stylesheet" href="/css/jquery.mobile.min.css"/>
+  <script src="/js/jquery-latest.js"></script>
+  <script src="/js/jquery.mobile-1.2.0.min.js"></script>
 </head>
 <body>
 
@@ -32,9 +32,11 @@ if ($play_mingle == 0) {
         $points = get_total_points($pgid, $accounts_pk);
         echo "<strong>" . $points . "</strong>";
       ?>
-      <li>
-        <a href='/dashboard/about_bling.php' data-transition='slide'>What is Bling?</a>
-      </li>
+      <ul data-role="listview" data-inset="true">
+        <li>
+          <a href='/dashboard/about_bling.php' data-transition='slide' data-ajax='false'>What is Bling?</a>
+        </li>
+      </ul>
     </div>
 
     <div id="queue_positions">
@@ -71,11 +73,11 @@ if ($play_mingle == 0) {
     </div>
 
 
-		<?php
-		if ($play_mingle == 1) {
-			require_once("get_friendship.php");
+    <?php
+    if ($play_mingle == 1) {
+      require_once("get_friendship.php");
       global $friends;
-		?>
+    ?>
 
     <div id="mingle">
       <h2>Play Mingle</h2>
@@ -87,7 +89,7 @@ if ($play_mingle == 0) {
           {
             foreach($friends as $friend) {
               echo "<li>";
-              echo "<a href='/dashboard/userProfile.php?userID=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "' data-transition='slide'>" . $friend['firstname'] . ' ' . $friend['lastname'] ."</a>";
+              echo "<a href='/dashboard/userProfile.php?pgid=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "&mingle_status_pk=" . $friend['mingle_status_pk'] . "' data-transition='slide' data-ajax='false'>" . $friend['first_name'] . ' ' . $friend['last_name'] ."</a>";
               echo "</li>";
             }
           }
@@ -95,9 +97,18 @@ if ($play_mingle == 0) {
       </ul>
     </div>
 
-		<?php
-		}
-		?>
+    <?php
+      }//end bracket for the stuff up top
+    ?>
+    <div id="roulette">
+      <ul data-role="listview" data-inset="true">
+        <li>
+          <?php
+            echo "<a href='/dashboard/roulette.php?pgid=" . $pgid . "&token=" . $token . "' data-transition='slide' data-ajax='false'>Play Roulette</a>";
+          ?>
+        </li>
+      </ul>
+    </div>
 
   </div><!-- /content -->
   <div data-theme="a" data-role="footer" data-position="fixed">

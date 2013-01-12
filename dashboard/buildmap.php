@@ -68,8 +68,7 @@ foreach ($users as $user_a)
 				$map[$user_b][$user_a] = 1;
 				print_r($map);
 				// play with db
-				$curtime = gettimeofday(true);
-        $query = "INSERT INTO mingle_status (user_a, user_b, status, time) VALUES ('" . $user_a . "', '" . $user_b . "', '0', '" . $curtime . "')";
+        $query = "INSERT INTO mingle_status (user_a, user_b, status, time) VALUES ('" . $user_a . "', '" . $user_b . "', '0', CURRENT_TIMESTAMP)";
         echo $query;
 				mysql_query($query);
 			}
