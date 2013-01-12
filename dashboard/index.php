@@ -1,12 +1,5 @@
 <?php
-<<<<<<< HEAD
-require_once("../config.php");
-$DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
-require_once('user_info.php');
-
-=======
 require_once("user_info.php");
->>>>>>> 42cb039efe1a5d6c4c532436113cc563bc619094
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +20,7 @@ require_once("user_info.php");
 <div data-role="page">
 
   <div data-role="header">
-    <h1><?php echo $first_name . $last_name;?></h1>
+    <h1><?php echo $first_name . " " . $last_name;?></h1>
   </div><!-- /header -->
 
   <div data-role="content">
@@ -61,7 +54,7 @@ require_once("user_info.php");
           foreach($highscores as $highscore) {
             <tr>
               <td>$highscore['rank']</td>
-              <td>$highscore['firstname'] . $highscore['lastname']</td>
+              <td>$highscore['firstname'] . ' ' . $highscore['lastname']</td>
               <td>$highscore['points']</td>
             </tr>
           }
@@ -79,10 +72,9 @@ require_once("user_info.php");
       <fieldset data-role="controlgroup">
       <legend>Find and say hello to these people! They will be looking for you as well. Open their info box and click their check box when you meet them!</legend>
       <ul data-role="listview" data-inset="true">
-        <?php
           foreach($friends as $friend) {
             <li>
-              <a href="/dashboard/userProfile.php?userID="+$pgid+"&token="+$token_id+"&friendID="+$friend['pgid'] data-transition="slide">$friend['firstname'] . $friend['lastname']</a>
+              <a href="/dashboard/userProfile.php?userID="+$pgid+"&token="+$token_id+"&friendID="+$friend['pgid'] data-transition="slide">$friend['firstname'] . ' ' . $friend['lastname']</a>
             </li>
           }
         ?>
