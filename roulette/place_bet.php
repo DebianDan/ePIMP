@@ -13,18 +13,13 @@ if(isset($_REQUEST['pkid'])) {
 	$safe_bet = -1 * abs($safe_bet);
 	$safe_color = $DB->real_escape_string($_REQUEST['color-choice']);
 
-
-	$money = 0;
 	$total_bling = getBling($safe_pkid);
-	if($total_bling != null) {
-		$money = $total_bling;
-	}
-
 	if($total_bling + $safe_bet >= 0) {
-		$query = "INSERT INTO bets (user_fk, color, award, state) VALUES ($safe_pkid, $safe_color, $safe_bet, 1)";
-		$DB->query($query);	
-		$query = 'INSERT INTO points(accounts_fk, points, reason) values ($safe_pkid, $safe_bet, "gambling loss to house")';
-		$DB->query($query);
+        
+		$query = "INSERT INTO bets (user_fk, color, award, state) VALUES ($safe_pkid, '$safe_color', $safe_bet, 1)";
+        $DB->query($query);	
+		$query = "INSERT INTO points(accounts_fk, points, reason) values ($safe_pkid, $safe_bet, 'Put " . abs($safe_bet) . " Bling on $safe_color...')";
+        $DB->query($query);	
 	}
 }
 
