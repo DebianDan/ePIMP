@@ -31,23 +31,38 @@ function update_time() {
 }
 
 function spin (results_block) {
-	// alert(results_block);
-	// alert("Spin");
-	// location.reload();
+	var winnerlist = $("#winner-list");
+	$.each(results_block.winners,function() {
+		var row = make_row(this);
+		winnerlist.append(row);
+	});
 }
 
 function update_active_betters(active_betters) {
-	// $('#active-bets').empty();
-	var bettinglist = $('<ul/>',{
-		class:"betting-list"
-	});
+	var bettinglist= $("#bet-list-container");
+	bettinglist.empty();
 	$.each(active_betters,function() {
-		bettinglist.append($('<li/>').text(this.first_name+' '+this.last_name));
+		var row = make_row(this);
+		bettinglist.append(row);
 	});
-	$("#bet-list-container").empty();
-	$("#bet-list-container").append(bettinglist);
 }
 
 function update_clock(remaining) {
 	$('#clock').text(Math.max(remaining,0));
+}
+
+function make_row(row_object){
+	var row = $('<tr/>');
+	row.append($('<td/>').text(row_object.first_name));
+	row.append($('<td/>').text(row_object.last_name));
+	row.append($('<td/>').text(-1 * parseInt(row_object.award)));
+	var color = "";
+	if(row_object.color == "0") {
+		color = "Black";	
+	} else {
+		color = "Red";
+		row.addClass("error");	
+	} 
+	row.append($('<td/>').text(color));
+	return row;
 }
