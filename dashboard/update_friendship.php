@@ -29,6 +29,9 @@ $mingle_status_pk = $_REQUEST["mingle_status_pk"];
 $pgid_a = $_REQUEST["pgid"]; // $pgid_a is current user
 $pgid_b = $_REQUEST["friendID"];
 
+$name_a = get_user_info($pgid_a)['first_name'];
+$name_b = get_user_info($pgid_b)['first_name'];
+
 $result = mysql_query( "SELECT * FROM mingle_status WHERE mingle_status_pk='" . $mingle_status_pk . "'");
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 
@@ -84,9 +87,9 @@ if ($status == 3) {
 	$score_b = get_points($friend_count_b);
 	$curtime = gettimeofday(true);
 	if ($score_a > 0)
-		mysql_query("INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_a . "', '" . $score_a . "', 'Mingling with " . $pk_b . "', CURRENT_TIMESTAMP)");
+		mysql_query("INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_a . "', '" . $score_a . "', 'Mingling with " . $name_b . "', CURRENT_TIMESTAMP)");
 	if ($score_b > 0)
-		mysql_query("INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_b . "', '" . $score_b . "', 'Mingling with " . $pk_a . "', CURRENT_TIMESTAMP)");
+		mysql_query("INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_b . "', '" . $score_b . "', 'Mingling with " . $name_a . "', CURRENT_TIMESTAMP)");
 }
 
 mysql_close($con);
