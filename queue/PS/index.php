@@ -77,7 +77,10 @@
 			}
 			else{
 				//shouldn't get here unless tampering with pgid and token
-				echo "You have entered an invalid pgid or token!";
+				echo '<h3>There was a fatal error</h3>';
+				echo '<p>This was embarassing for us unless you\'re being cheeky. Your best bet here is to find an Expensify employee and ask them for Matt.</p>';
+				echo '<p>Helpful information: Invalid Token</p>';
+				die();
 			}
 
 		}
@@ -85,8 +88,18 @@
 	//no params
 	else{
 		//show query list
-		echo "HERE!";
+		$query = 'SELECT a.first_name af, a.last_name al, FROM photoshop ps JOIN accounts a ON ps.user_fk = a.accounts_pk WHERE ps.state = 1';
+		$result = $DB->query($query) or die($DB->error.__LINE__);
 
+		$pos = 1;
+
+		while($row = $result->fetch_assoc()) {
+			echo $position.'  ';
+			echo $row['af'].' ';
+			echo $row['al'];
+			echo "<BR>";
+			$pos = $pos + 1;
+		}
 	}
 
 	/*
