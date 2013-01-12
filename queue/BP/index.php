@@ -280,7 +280,7 @@
 				echo $query;
 				echo " Added a new user";
 				$DB->query($query);
-				header("Location:./index.php?longwait=1");
+				//header("Location:./index.php?longwait=1");
 			}
 			}
 		}
