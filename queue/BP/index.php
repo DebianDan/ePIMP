@@ -255,11 +255,11 @@
 			}
 			else
 			{
-				//echo $accounts_pk;
+				echo $accounts_pk;
 				$query = "INSERT INTO beer_pong(user_a, user_b, state) VALUES (" . $accounts_pk . ",0, 1)";
 				//echo " Added a new user";
 				$DB->query($query);
-				header("Location:./index.php?longwait=1");
+				//header("Location:./index.php?longwait=1");
 			}
 			}
 		}
