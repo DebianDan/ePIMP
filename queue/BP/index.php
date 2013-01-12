@@ -75,26 +75,57 @@
 		//in queue
 		$row = $result->fetch_assoc();
 		
-		if ($row['state'] == 1) 
+		if ($row['state'] == 1 || $row['state'] == 2) 
 		{
 			$bp_pk = $row['beer_pong_pk'];
-			$query = "SELECT beer_pong_pk FROM beer_pong WHERE state=1 ORDER BY beer_pong_pk ASC";
+			$query = "SELECT beer_pong_pk FROM beer_pong WHERE state = 2 OR state = 1 ORDER BY beer_pong_pk ASC";
 			$result = $DB->query($query);
 			$pos = 0;
 				
 			while($row = $result->fetch_assoc())
 			{
-				$first = $row['beer_pong_pk'];
+				$winning = $row['beer_pong_pk'];
 				$pos = $pos + 1;
-				if($first == $bp_pk)
+				if($winning == $bp_pk)
 				{
 					break;
 				}
 			}
-			// They are currently playing
-			if($pos == 1)
+			
+			if($row = $result->fetch_assoc())
 			{
+				$opponent = $row['beer_pong_pk'];
+			}
+			
+			// They are currently playing
+			if($pos == 1  || $row['state'] == 2)
+			{
+				// Redirect to a different html page
+				// get the pk_ids from the database.
+				// get the 2nd team from list - losing team
+				$query = "select a.accounts_pk apk, a.first_name af, a.last_name al, b.accounts_pk bpk, b.first_name bf,b.last_name bl from beer_pong bp inner join accounts a on a.accounts_pk = bp.user_a inner join accounts b on b.accounts_pk = bp.user_b where ";
+				$query = $query."beer_pong_pk = ".$winning;
+				$result = $DB->query($query);
+				$row = $result->fetch_assoc();
+				$winner_a = $row['af'].' '.$row['al'];
+				$winner_b = $row['bf'].' '.$row['bl'];
+				$w_a = $row['apk'];
+				$w_b = $row['bpk'];
 				
+				$query = "select a.accounts_pk apk, a.first_name af, a.last_name al, b.accounts_pk bpk, b.first_name bf,b.last_name bl from beer_pong bp inner join accounts a on a.accounts_pk = bp.user_a inner join accounts b on b.accounts_pk = bp.user_b where ";
+				$query = $query."beer_pong_pk = ".$opponent;
+				$result = $DB->query($query);
+				$row = $result->fetch_assoc();
+				$opponent_a = $row['af'].' '.$row['al'];
+				$opponent_b = $row['bf'].' '.$row['bl'];
+				$o_a = $row['apk'];
+				$o_b = $row['bpk'];
+				
+				// print page with buttons
+				echo '<form name="input" action="html_form_action.asp" method="get">';
+				echo '<button type="button" onClick="location.href="index.html?alost='.$o_a.'&blost='.$o_b.'>'.$winner_a . '& ' .$winner_b.'</button>';
+				echo '<button type="button" onClick="location.href="index.html?alost='.$w_a.'&blost='.$w_b.'>'.$opponent_a . '& ' .$opponent_b.'</button>';
+				echo '</form>';
 			}
 			else
 			{
