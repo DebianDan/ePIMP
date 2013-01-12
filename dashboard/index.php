@@ -1,24 +1,13 @@
 <?php
-// require_once("../config.php");
-// $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
-//
-// //get params
-// $token_id = $_GET["token"];
-// $pgid = $_GET["pgid"];
-//
-// $query = 'SELECT first_name, last_name FROM accounts WHERE pgid = ' . $pgid;
-// $result = $DB->query($query);
-// $row = $result->fetch_assoc();
-// $phone_number = $row['phone_number'];
-//
-//
-// $safe_token = $DB->real_escape_string($token_id);
-// $safe_pgid = $DB->real_escape_string($pgid);
-//
-// $query = 'SELECT accounts_pk FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
+<<<<<<< HEAD
+require_once("../config.php");
+$DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
+require_once('user_info.php');
 
+=======
+require_once("user_info.php");
+>>>>>>> 42cb039efe1a5d6c4c532436113cc563bc619094
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -29,17 +18,24 @@
   <script src="//code.jquery.com/jquery-1.8.2.min.js"></script>
   <script src="//code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
   <script src="/dashboard/mingle.js"></script>
+  <style>
 
+  </style>
 </head>
 <body>
 
 <div data-role="page">
 
   <div data-role="header">
-    <h1><?php echo $token_id;?></h1>
+    <h1><?php echo $first_name . $last_name;?></h1>
   </div><!-- /header -->
 
   <div data-role="content">
+    <div id="points">
+      <h2>Total Points</h2>
+      <strong><?php echo $points?></strong>
+    </div>
+
     <div id="queue_positions">
       <h2>Line Position</h2>
       <table data-role="table" id="queue_positions" data-mode="reflow">
@@ -61,38 +57,36 @@
     <div id="leaderboard">
       <h2>Leaderboard</h2>
       <table>
-        <!--some php required-->
-          <!-- <tr>
-                        <td>1st</td>
-                        <td>Jerry</td>
-                        <td>100</td>
-                    </tr>
-                    <tr>
-                        <td>2nd</td>
-                        <td>Molly</td>
-                        <td>40</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Chuck</td>
-                        <td>10</td>
-                    </tr> -->
+        <?php
+          foreach($highscores as $highscore) {
+            <tr>
+              <td>$highscore['rank']</td>
+              <td>$highscore['firstname'] . $highscore['lastname']</td>
+              <td>$highscore['points']</td>
+            </tr>
+          }
+        ?>
       </table>
     </div>
 
+
+		<?php
+		require_once("get_friendship.php");
+		?>
+		
     <div id="mingle">
       <h2>Play Mingle</h2>
       <fieldset data-role="controlgroup">
       <legend>Find and say hello to these people! They will be looking for you as well. Open their info box and click their check box when you meet them!</legend>
-
       <ul data-role="listview" data-inset="true">
-        <li><a class="minglename" href="/dashboard/userProfile.php?userID=1" data-transition="slide">Acura</a></li>
-        <li><a class="minglename" href="/dashboard/userProfile.php?userID=1" data-transition="slide">Audi</a></li>
-        <li><a class="minglename" href="/dashboard/userProfile.php?userID=1" data-transition="slide">BMW</a></li>
-        <li><a class="minglename" href="/dashboard/userProfile.php?userID=1" data-transition="slide">Cadillac</a></li>
-        <li><a class="minglename" href="/dashboard/userProfile.php?userID=1" data-transition="slide">Ferrari</a></li>
+        <?php
+          foreach($friends as $friend) {
+            <li>
+              <a href="/dashboard/userProfile.php?userID="+$pgid+"&token="+$token_id+"&friendID="+$friend['pgid'] data-transition="slide">$friend['firstname'] . $friend['lastname']</a>
+            </li>
+          }
+        ?>
       </ul>
-
     </div>
 
   </div><!-- /content -->

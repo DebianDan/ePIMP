@@ -1,14 +1,14 @@
 <?php
 
 // Uncomment
-#$token_id = $_POST["token"];
-#$pgid = $_POST["pgid"];
-#$minor = $_POST["minor"];
+$token_id = $_GET["token"];
+$pgid = $_GET["pgid"];
+$minor = $_GET["minor"];
 
-// Comment out
-$token_id = "g";
-$pgid = 1;
-$minor = 0;
+if($minor === 'true')
+	$minor = 1;
+else
+	$minor = 0;
 
 require_once("../config.php");
 
@@ -28,14 +28,13 @@ if ($result = $DB->query($query))
 }
 else
 {
-	$pk_id = 0;
+	$pk_id = '';
 }
 
 if (trim($pk_id) === '')
 {
 	$query = 'INSERT INTO accounts(token,pgid,minor) VALUES("'.$safe_token.'", "'. $safe_pgid . '",'.$minor.')';
 	$DB->query($query);
-	
 	$query = 'SELECT accounts_pk FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
 	$result = $DB->query($query);	
 	$row = $result->fetch_assoc();
@@ -44,15 +43,14 @@ if (trim($pk_id) === '')
 	/* free result set */
     	$result->free();
 
-	header("Location:/registration/register.html?pk_id=".$pk_id);
 	$DB->close();
-
+	header("Location:/registration/register.html?pk_id=".$pk_id."&token=".$safe_token."&pg_id=".$safe_pgid);
 	exit;
 }
 else
 {
-	header("Location:/registration/pre_existing_user.html");
 	$DB->close();
+	header("Location:/registration/pre_existing_user.html");
 	exit;
 }
 
