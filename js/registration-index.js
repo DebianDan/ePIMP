@@ -27,36 +27,21 @@ $(document).ready(function() {
 		$('#inputPhone').val(stripAlphaChars(phone_number));
 	});
 
-	$('#userRegistration').ajaxForm({ 
-		beforeSubmit:  showRequest,  // pre-submit callback 
-		success:  function() {
-			location.href = '/registration/index.html';
-		} 
-	}); 
+	$('#userRegistration').click(function() {
+		$('#userRegistration').submit(function() {
+			if($('#inputPhone').val().match(/^\d{10}$/) == null) {
+				$('#inputPhone').tooltip('show');
+				return false;
+			}
+			if(!(isEmail($('#inputEmail').val()))) {
+				$('#inputEmail').tooltip('show');
+				return false;
+			}
+			return true;
+		}); 
+	});
 });
 
-// pre-submit callback 
-function showRequest(formData, jqForm, options) { 
-    // formData is an array; here we use $.param to convert it to a string to display it 
-    // but the form plugin does this for you automatically when it submits the data 
-    var queryString = $.param(formData); 
-    var success = true;
- 	
- 	$(formData).each(function(key,value) {
- 		if(value.name == 'phone') {
- 			if(value.value.match(/^\d{10}$/) == null) {
- 				$('#inputPhone').tooltip('show');
- 				success = false;
- 			}
- 		} else if (value.name == 'email') {
- 			if(!(isEmail(value.value))) {
- 				$('#inputEmail').tooltip('show');
- 				success = false;
- 			}
- 		}
- 	});
- 	return success;
-}
 
 // post-submit callback 
 function showResponse(responseText, statusText, xhr, $form)  { 
