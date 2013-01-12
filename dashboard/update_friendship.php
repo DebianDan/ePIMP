@@ -1,4 +1,5 @@
 <?php
+require_once("user_info.php");
 require_once("../config.php");
 
 
@@ -48,7 +49,6 @@ if ($row["user_a"] == $pgid_a) {
 		$status += 2;
 }
 
-
 $query = "UPDATE mingle_status SET status = " . $status . ", time = CURRENT_TIMESTAMP WHERE mingle_status_pk = '" . $mingle_status_pk . "'";
 mysql_query($query);
 
@@ -79,9 +79,9 @@ if ($status == 3) {
 	$score_b = get_points($friend_count_b);
 	$curtime = gettimeofday(true);
 	if ($score_a > 0)
-		mysql_query("INSERT INTO points (accounts_pk, points, reason, created) VALUES (" . $pk_a . ", " . $score_a . ", 'Mingling with " . $pk_b . "', " . curtime);
+		mysql_query("INSERT INTO points (accounts_pk, points, reason, created) VALUES ('" . $pk_a . "', '" . $score_a . "', 'Mingling with " . $pk_b . "', CURRENT_TIMESTAMP");
 	if ($score_b > 0)
-		mysql_query("INSERT INTO points (accounts_pk, points, reason, created) VALUES (" . $pk_b . ", " . $score_b . ", 'Mingling with " . $pk_a . "', " . curtime);
+		mysql_query("INSERT INTO points (accounts_pk, points, reason, created) VALUES ('" . $pk_b . "', '" . $score_b . "', 'Mingling with " . $pk_a . "', CURRENT_TIMESTAMP");
 }
 
 mysql_close($con);
