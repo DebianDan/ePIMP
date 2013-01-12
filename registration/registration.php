@@ -3,8 +3,8 @@
 #$token_id = $_POST["token"];
 #$pgid = $_POST["pgid"];
 
-$token_id = "abcd";
-$pgid = 1234;
+$token_id = "g";
+$pgid = 1;
 
 require_once("../config.php");
 
@@ -16,35 +16,40 @@ $safe_pgid = $DB->real_escape_string($pgid);
 
 $query = 'SELECT PK FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
 
-//echo "here<BR>";
-//echo $query;
-
 if ($result = $DB->query($query)) 
 {
 	$row = $result->fetch_assoc();
-	$pk_id = $result['PK'];
-
-	/* free result set */
-    	$result->free();
+	$pk_id = $row['PK'];
+	$result->free();
 }
 else
 {
 	$pk_id = 0;
 }
 
-$DB->close();
-
-if ($pk_id != 0)
+if (trim($pk_id) === '')
 {
-	//echo "inside not found";
-	header("Location:/registration/index.html?pkid=".$pk_id);
+	$query = 'INSERT INTO accounts(token,pgid) VALUES("'.$safe_token.'", "'. $safe_pgid . '")';
+	$DB->query($query);
+	
+	$query = 'SELECT PK FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
+	$result = $DB->query($query);	
+	$row = $result->fetch_assoc();
+	$pk_id = $row['PK'];
+	
+	/* free result set */
+    	$result->free();
+
+	header("Location:/registration/index.html?pk_id=".$pk_id);
+	$DB->close();
+
 	exit;
 }
 else
 {
 	header("Location:/registration/pre_existing_user.html");
+	$DB->close();
 	exit;
-	//echo "PK is 0<BR>";
 }
 
 ?>
