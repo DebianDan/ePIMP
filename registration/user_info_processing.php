@@ -19,18 +19,7 @@ $safe_phone = $DB->real_escape_string($phone);
 $safe_twitter = $DB->real_escape_string($twitter);
 
 $query = 'UPDATE accounts SET first_name = "'.$safe_first_name.'", last_name = "'.$safe_last_name.'", email = "'.$safe_email.'", phone_number = "'.$safe_phone.'", twitter = "'.$safe_twitter.'" WHERE accounts_pk = '.$pk_id.' AND token = "'.$token.'" AND pgid = "'.$pg_id.'"';
-if ($result = $DB->query($query)) {
-    $row_cnt = $result->num_rows;
-	/* close result set */
-	header("Location:/registration/index.html");
-	exit;
-	$result->close();
-} else {
-	header("Location:/registration/index.html");
-	exit;
-}
-$DB->close();
+$DB->query($query);
 
-header("Location:/registration/index.html");
-exit;
+header("Location:/?pgid=$_REQUEST[pg_id]&token=$_REQUEST[token]");
 ?>
