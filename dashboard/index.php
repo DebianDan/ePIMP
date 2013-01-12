@@ -66,16 +66,15 @@ require_once("user_info.php");
 		<?php
 		require_once("get_friendship.php");
 		?>
-		
+
     <div id="mingle">
       <h2>Play Mingle</h2>
       <fieldset data-role="controlgroup">
       <legend>Find and say hello to these people! They will be looking for you as well. Open their info box and click their check box when you meet them!</legend>
       <ul data-role="listview" data-inset="true">
+        <?php
           foreach($friends as $friend) {
-            <li>
-              <a href="/dashboard/userProfile.php?userID="+$pgid+"&token="+$token_id+"&friendID="+$friend['pgid'] data-transition="slide">$friend['firstname'] . ' ' . $friend['lastname']</a>
-            </li>
+            echo "<li><a href=\'/dashboard/userProfile.php?userID=".$pgid."&token=".$token_id."&friendID=".$friend['pgid'] "' data-transition='slide'>". $friend['firstname'] . ' ' . $friend['lastname'] ."</a></li>"
           }
         ?>
       </ul>
