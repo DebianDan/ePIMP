@@ -18,6 +18,12 @@ if ($play_mingle == 0) {
     td {
       font-size: 60px;
     }
+    th {
+      font-size: 30px;
+    }
+    td {
+      marign-right: 30px;
+    }
   </style>
 </head>
 <body>
@@ -40,7 +46,7 @@ if ($play_mingle == 0) {
           <tr>
             <?php
               $points = get_total_points($pgid, $accounts_pk);
-              $ranking = 2
+              $ranking = 2;
               echo "<td>".$points."</td>";
               echo "<td>".$ranking."</td>";
             ?>
