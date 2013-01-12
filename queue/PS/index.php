@@ -55,7 +55,8 @@
 					$pos = $pos + 1;
 				}
 			}
-			echo "You are Position ". $pos . "<br/>";
+			$message = "You are at position ". $pos;
+			include '../../components/message.php';
 		}
 		//not in queue
 		else{
@@ -77,14 +78,13 @@
 				}
 			}
 			if ($pos != null) {
-				echo "You have been added to the queue.  You are Position ". $pos;
+				$message = "You have been added to the queue.  You are Position ". $pos;
+				include '../../components/message.php';
 			}
 			else{
-				//shouldn't get here unless tampering with pgid and token
-				echo '<h3>There was an error</h3>';
-				echo '<p>You need to register your braclet before using the Photoshop!</p>';
-				echo '<p>Helpful information: Not Currently Registered</p>';
-				die();
+				//if you aren't registered
+				$message = "You need to register your braclet before using the Photoshop!";
+				include '../../components/message.php';
 			}
 
 		}

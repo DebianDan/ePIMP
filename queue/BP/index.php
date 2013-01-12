@@ -9,13 +9,13 @@
 	}
 	else
 	{
-		//echo "<meta http-equiv='refresh' content='5;url=./index.php'>";
+		echo "<meta http-equiv='refresh' content='5;url=./index.php'>";
 	}
 	?>
 	<!-- Bootstrap -->
 	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<link href="/css/queue.css" rel="stylesheet" media="screen">
-	
+
 </head>
 <body>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -51,21 +51,21 @@
 		if (isset($_GET["alost"]) and isset($_GET["blost"])) {
 			//HANDLE THE LOST AND WIN POINTS CASES
 			$usera = $_GET["alost"];
-			$userb = $_GET["blost"]; 
+			$userb = $_GET["blost"];
 			$query = "select beer_pong_pk from beer_pong where user_a = ".$usera." and user_b = ".$userb." and (state = 1 or state = 2)";
 			$result = $DB->query($query);
 			$row = $result->fetch_assoc();
 			$bp_pk_losing = $row['beer_pong_pk'];
-			
+
 			$query = "select beer_pong_pk from beer_pong where state = 1 order by beer_pong_pk asc limit 1";
 			$result = $DB->query($query);
-			
+
 			$row = $result->fetch_assoc();
 			$top_open_team = $row['beer_pong_pk'];
-			
+
 			$games_won = $top_open_team - $bp_pk_losing;
 			//echo $games_won;
-			
+
 			$points = 0;
 			$points = $points + $games_won * BEER_PONG_WIN;
 			$points = $points + BEER_PONG_PLAY;
@@ -75,20 +75,20 @@
 			//echo $query;
 			$query = "insert into points(accounts_fk, points, reason, created) values(".$userb.",".$points.", 'Beer Pong', NOW())";
 			$result = $DB->query($query);
-			
-			
+
+
 			// update the state
 			$query = "update beer_pong set state = 2 where beer_pong_pk = ". $top_open_team;
 			$DB->query($query);
 			//echo "<BR>";
 			//echo $query;
-			
-			
+
+
 			$query = "update beer_pong set state = 0 where beer_pong_pk = ". $bp_pk_losing;
 			$DB->query($query);
 			//echo "<BR>";
 			//echo $query;
-			
+
 		}
 
 		//show query list
@@ -124,18 +124,19 @@
 	{
 		$safe_pgid = $DB->real_escape_string($_GET["pgid"]);
 		$safe_token = $DB->real_escape_string($_GET["token"]);
-		
-		echo $safe_pgid;
-		echo $safe_token;
-		
-	//find in beer pong
+
+		//echo $safe_pgid;
+		//echo $safe_token;
+
+		//find in beer pong
 		$query = "select beer_pong.state, beer_pong.beer_pong_pk from beer_pong inner join accounts a on a.accounts_pk = user_a inner join accounts b on b.accounts_pk = user_b where ";
 		$query = $query."(state = 1 or state =2) and ( ( a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."' ) OR (b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."' ) )";
 		$result =  $DB->query($query);
 		echo "Query:" . $query . "<BR>";
-	//in queue
+		//in queue
 		$row = $result->fetch_assoc();
 
+		echo $row['state'];
 		if ($row['state'] == 1 || $row['state'] == 2)
 		{
 			$bp_pk = $row['beer_pong_pk'];
@@ -157,8 +158,8 @@
 					break;
 				}
 			}
-echo "Winning:" . $winning . "<BR>";
-echo "Opponent:" . $opponent . "<BR>";
+			//echo "Winning:" . $winning . "<BR>";
+			//echo "Opponent:" . $opponent . "<BR>";
 
 			// They are currently playing
 			if($bp_pk == $winning || $bp_pk == $opponent)
@@ -185,7 +186,7 @@ echo "Opponent:" . $opponent . "<BR>";
 
 				// print page with buttons
 				echo '<h3>Which Team Won?<h3>';
-				echo '<form name="input" action="html_form_action.asp" method="get">';
+				echo '<form name="input" action="./index.php" method="get">';
 				echo '<button type="button" onClick="location.href=\'./index.php?alost='.$o_a.'&blost='.$o_b.'\'">'.$winner_a . ' & ' .$winner_b.'</button>';
 				echo '<button type="button" onClick="location.href=\'./index.php?alost='.$w_a.'&blost='.$w_b.'\'">'.$opponent_a . ' & ' .$opponent_b.'</button>';
 				echo '</form>';
@@ -193,19 +194,30 @@ echo "Opponent:" . $opponent . "<BR>";
 			else
 			{
 				//minus the 2 players that are currently playing
-				echo "You are at position ". ($pos-2) . "<br/>";
+				$message = "You are at position ". ($pos-2) . "<br/>";
+				include '../../components/message.php';
 			}
 		}
 
 		//MAKE SURE (NOT IN QUEUE) ADDING A PAIR WORKS
-	// not in queue
+		// not in queue
 		else
 		{
 			$query = "SELECT accounts_pk FROM accounts WHERE pgid='". $safe_pgid . "' AND token='" .$safe_token. "'";
 			$result = $DB->query($query);
 			$row = $result->fetch_assoc();
 			$accounts_pk = $row['accounts_pk'];
-			echo $accounts_pk;
+
+			//echo "*".$accounts_pk."*";
+
+			if(is_null($accounts_pk))
+			{
+				//echo "Need to register";
+				$message = "You need to register your braclet before using the Beer Pong at the front desk!";
+				include '../../components/message.php';
+			}
+			else
+			{
 			$query = "SELECT * FROM beer_pong WHERE user_b = 0 AND state = 1";
 			$result = $DB->query($query);
 			$row = $result->fetch_assoc();
@@ -237,16 +249,18 @@ echo "Opponent:" . $opponent . "<BR>";
 							break;
 						}
 					}
-					echo "You have been added to the queue at position ". $pos . "<br/>";
+					$message = "You have been added to the queue at position ". $pos . "<br/>";
+					include '../../components/message.php';
 				}
 			}
 			else
 			{
-				echo $accounts_pk;
+				//echo $accounts_pk;
 				$query = "INSERT INTO beer_pong(user_a, user_b, state) VALUES (" . $accounts_pk . ",0, 1)";
-				echo " Added a new user";
+				//echo " Added a new user";
 				$DB->query($query);
-				//header("Location:./index.php?longwait=1");
+				header("Location:./index.php?longwait=1");
+			}
 			}
 		}
 	}

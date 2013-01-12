@@ -12,6 +12,6 @@ $row = mysql_fetch_array($result, MYSQL_ASSOC);
 $query = "select first_name, last_name FROM accounts WHERE accounts_pk = '" . $row['accounts_fk'] . "'";
 $result_name = mysql_query($query);
 $name = mysql_fetch_array($result_name, MYSQL_ASSOC);
-$trans[] = array("first_name" => name['first_name'], "last_name" => name['last_name'], "points" => row['points'], "reason" => row['reason'], "time" => row['created']);
+$trans = array("first_name" => $name['first_name'], "last_name" => $name['last_name'], "points" => $row['points'], "reason" => $row['reason'], "time" => $row['created']);
 header( 'Content-type: application/json');
 echo json_encode( $trans );
