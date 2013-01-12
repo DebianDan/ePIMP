@@ -130,7 +130,7 @@
 
 		//find in beer pong
 		$query = "select beer_pong.state, beer_pong.beer_pong_pk from beer_pong inner join accounts a on a.accounts_pk = user_a inner join accounts b on b.accounts_pk = user_b where ";
-		$query = $query."(state = 1 or state =2) and ( ( a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."' ) OR (b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."' ) )";
+		$query = $query."(state = 1 or state = 2) and ( ( a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."' ) OR (b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."' ) )";
 		$result =  $DB->query($query);
 		echo "Query:" . $query . "<BR>";
 		//in queue
@@ -185,11 +185,11 @@
 				$o_b = $row['bpk'];
 
 				// print page with buttons
-				echo '<h3>Which Team Won?<h3>';
-				echo '<form name="input" action="./index.php" method="get">';
-				echo '<button type="button" onClick="location.href=\'./index.php?alost='.$o_a.'&blost='.$o_b.'\'">'.$winner_a . ' & ' .$winner_b.'</button>';
-				echo '<button type="button" onClick="location.href=\'./index.php?alost='.$w_a.'&blost='.$w_b.'\'">'.$opponent_a . ' & ' .$opponent_b.'</button>';
-				echo '</form>';
+				$bodycode = '<h3>Which Team Won?<h3>';
+				$bodycode = $bodycode . '<form name="input" action="./index.php" method="get">';
+				$bodycode = $bodycode . '<button type="button" onClick="location.href=\'./index.php?alost='.$o_a.'&blost='.$o_b.'\'">'.$winner_a . ' & ' .$winner_b.'</button>';
+				$bodycode = $bodycode . '<button type="button" onClick="location.href=\'./index.php?alost='.$w_a.'&blost='.$w_b.'\'">'.$opponent_a . ' & ' .$opponent_b.'</button>';
+				$bodycode = $bodycode . '</form>';
 			}
 			else
 			{
@@ -249,17 +249,17 @@
 							break;
 						}
 					}
-					$message = "You have been added to the queue at position ". $pos . "<br/>";
+					$message = "You have been added to the queue at position ". ($pos-2) . "<br/>";
 					include '../../components/message.php';
 				}
 			}
 			else
 			{
-				//echo $accounts_pk;
+				echo $accounts_pk;
 				$query = "INSERT INTO beer_pong(user_a, user_b, state) VALUES (" . $accounts_pk . ",0, 1)";
 				//echo " Added a new user";
 				$DB->query($query);
-				header("Location:./index.php?longwait=1");
+				//header("Location:./index.php?longwait=1");
 			}
 			}
 		}
