@@ -103,3 +103,66 @@ function email_person( $pk, $template, $variables ){
 
     return true;
 }
+
+function getBeerpongPosition( $pgid, $token)
+{
+	//find in beer pong
+	$query = "select beer_pong.state, beer_pong.beer_pong_pk from beer_pong inner join accounts a on a.accounts_pk = user_a inner join accounts b on b.accounts_pk = user_b where ";
+	$query = $query."(state = 1 or state =2) and ( ( a.pgid = '".$pgid."' and a.token = '".$token."' ) OR (b.pgid = '".$pgid."' and b.token = '".$token."' ) )";
+	$result =  $DB->query($query);
+	echo "Query:" . $query . "<BR>";
+	//in queue
+	$row = $result->fetch_assoc();
+
+	if ($row['state'] == 1 || $row['state'] == 2)
+	{
+		$bp_pk = $row['beer_pong_pk'];
+		$query = "SELECT beer_pong_pk FROM beer_pong WHERE state = 2 OR state = 1 ORDER BY beer_pong_pk ASC";
+		$result = $DB->query($query);
+		$pos = 0;
+
+		while($row = $result->fetch_assoc())
+		{
+			$pos = $pos + 1;
+			if ($row['beer_pong_pk'] == $bp_pk) {
+				break;
+			}
+		}
+		if($pos == 1 && $pos == 2)
+				return 0;
+		return $pos - 2;
+			
+	}
+	else
+		return -1;
+	
+}
+
+function getPhotoshopPosition( $pgid, $token)
+{
+	//find in photoshop
+	$query = "SELECT * FROM photoshop ps JOIN accounts a ON ps.users_fk = a.accounts_pk WHERE pgid='". $pgid . "' AND token='" .$token. "' ORDER BY photoshop_pk DESC LIMIT 1";
+	$result =  $DB->query($query);
+	//in queue
+	$row = $result->fetch_assoc();
+	$pos = 0;
+	
+	if ($row['state'] == 1) 
+	{
+		$accounts_pk = $row['accounts_pk'];
+		$query = "SELECT photoshop_pk, users_fk FROM photoshop WHERE state=1 ORDER BY photoshop_pk ASC";
+		$result = $DB->query($query);
+		
+		while ($row = $result->fetch_assoc()) 
+		{
+			$pos = $pos + 1;;
+			if($row['users_fk'] == $accounts_pk){
+				break;
+			}
+		}
+		return $pos;
+	}
+	else
+		return -1;
+	
+}

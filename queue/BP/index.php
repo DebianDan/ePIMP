@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Bootstrap 101 Template</title>
+	<title>Beer Pong Queue</title>
 	<?php
 	if(isset($_GET['longwait']))
 	{
@@ -14,6 +14,8 @@
 	?>
 	<!-- Bootstrap -->
 	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="/css/queue.css" rel="stylesheet" media="screen">
+	
 </head>
 <body>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -35,7 +37,7 @@
 		printf("Connect failed: %s\n", mysqli_connect_error());
 		exit();
 	}
-	//no params
+	//no params (no user braclet contact)
 	if (!isset($_GET["pgid"]) and !isset($_GET["token"]))
 	{
 		//only delete after the longer timeout
@@ -45,41 +47,52 @@
 			$DB->query($query) or die($DB->error.__LINE__);
 		}
 
+
+		if (isset($_GET["alost"]) and isset($_GET["blost"])) {
+			//HANDLE THE LOST AND WIN POINTS CASES
+
+		}
+
 		//show query list
 		$query = 'SELECT a.first_name af, a.last_name al, b.first_name bf, b.last_name bl FROM beer_pong bp JOIN accounts a ON bp.user_a = a.accounts_pk ';
-		$query = $query.'JOIN accounts b ON bp.user_b = b.accounts_pk WHERE bp.state = 1 LIMIT 5';
+		$query = $query.'JOIN accounts b ON bp.user_b = b.accounts_pk WHERE bp.state = 1 or bp.state = 2 LIMIT 5';
 
 		$result = $DB->query($query) or die($DB->error.__LINE__);
 
-		$position = 1;
+
+//First position is always the current winner so format it and the second player is the opponent
+		//then display the top the 3 in the queue
+
+
+		//$position = 1;
 		$team = "";
 		$array = array();
 		while($row = $result->fetch_assoc()) {
 			$team = "";
-			$team = $team.$position;
+			//$team = $team.$position;
 			$team = $team.'  '.$row['af'].' ';
 			$team = $team.$row['al'].' & ';
 			$team = $team.$row['bf'].' '.$row['bl'];
 			array_push($array,$team);
-			$position = $position + 1;
+			//$position = $position + 1;
 		}
 		for($i=0;$i<5;$i++){
-			echo $array[$i] . "<BR>";
+			//echo $array[$i] . "<BR>";
 		}
-
+		include '../../components/queue.php';
 	}
-
 	// params
 	else
 	{
 		$safe_pgid = $DB->real_escape_string($_GET["pgid"]);
 		$safe_token = $DB->real_escape_string($_GET["token"]);
 
-		//find in beer pong
+	//find in beer pong
 		$query = "select beer_pong.state, beer_pong.beer_pong_pk from beer_pong inner join accounts a on a.accounts_pk = user_a inner join accounts b on b.accounts_pk = user_b where ";
 		$query = $query."(state = 1 or state =2) and ( ( a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."' ) OR (b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."' ) )";
 		$result =  $DB->query($query);
-		//in queue
+echo "Query:" . $query . "<BR>";
+	//in queue
 		$row = $result->fetch_assoc();
 
 		if ($row['state'] == 1 || $row['state'] == 2)
@@ -91,23 +104,23 @@
 
 			while($row = $result->fetch_assoc())
 			{
-				$winning = $row['beer_pong_pk'];
+				if($pos == 0){
+					$winning = $row['beer_pong_pk'];
+					if ($row = $result->fetch_assoc()) {
+						$opponent = $row['beer_pong_pk'];
+					}
+				}
 				$pos = $pos + 1;
-				if($winning == $bp_pk)
+				if($winning == $bp_pk || $opponent == $bp_pk)
 				{
 					break;
 				}
 			}
 echo "Winning:" . $winning . "<BR>";
-
-			if($row = $result->fetch_assoc())
-			{
-				$opponent = $row['beer_pong_pk'];
-			}
 echo "Opponent:" . $opponent . "<BR>";
 
 			// They are currently playing
-			if($pos == 1  || $row['state'] == 2)
+			if($bp_pk == $winning || $bp_pk == $opponent)
 			{
 				// get the pk_ids from the database.
 				// get the 2nd team from list - losing team
@@ -130,18 +143,21 @@ echo "Opponent:" . $opponent . "<BR>";
 				$o_b = $row['bpk'];
 
 				// print page with buttons
+				echo '<h3>Which Team Won?<h3>';
 				echo '<form name="input" action="html_form_action.asp" method="get">';
-				echo '<button type="button" onClick="location.href="index.html?alost='.$o_a.'&blost='.$o_b.'>'.$winner_a . '& ' .$winner_b.'</button>';
-				echo '<button type="button" onClick="location.href="index.html?alost='.$w_a.'&blost='.$w_b.'>'.$opponent_a . '& ' .$opponent_b.'</button>';
+				echo '<button type="button" onClick="location.href=\'./index.php?alost='.$o_a.'&blost='.$o_b.'\'">'.$winner_a . ' & ' .$winner_b.'</button>';
+				echo '<button type="button" onClick="location.href=\'./index.php?alost='.$w_a.'&blost='.$w_b.'\'">'.$opponent_a . ' & ' .$opponent_b.'</button>';
 				echo '</form>';
 			}
 			else
 			{
-				echo "You are at position ". $pos . "<br/>";
+				//minus the 2 players that are currently playing
+				echo "You are at position ". ($pos-2) . "<br/>";
 			}
 		}
-		// not in queue
-		// test data ASDFEW  12345
+
+		//MAKE SURE (NOT IN QUEUE) ADDING A PAIR WORKS
+	// not in queue
 		else
 		{
 			$query = "SELECT accounts_pk FROM accounts WHERE pgid='". $DB->real_escape_string($_GET["pgid"]) . "' AND token='" .$DB->real_escape_string($_GET["token"]). "'";
