@@ -13,11 +13,6 @@ if ($play_mingle == 0) {
   <title>User Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/css/jquery.mobile.min.css"/>
-  <style>
-    td {
-      font-size: 60px;
-    }
-  </style>
 </head>
 <body>
 
@@ -31,17 +26,20 @@ if ($play_mingle == 0) {
       <table data-role="table" id="points" data-mode="reflow">
         <thead>
           <tr>
-            <th>Total Points</th>
-            <th>Ranking</th>
+            <th>Your Points</th>
+            <th>Your Rank</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <?php
-              $points = get_total_points($pgid, $accounts_pk);
-              $ranking = 2;
-              echo "<td>".$points."</td>";
-              echo "<td>".$ranking."</td>";
+              //$points = get_total_points($pgid, $accounts_pk);
+              //11th row has own rankings
+              require_once('rank.php');
+              $ranks = get_ranks($pgid);
+              $n = count($ranks) -1;
+              echo "<td>".$ranks[$n]['points']."</td>";
+              echo "<td>".$ranks[$n]['rank']."</td>";
             ?>
           </tr>
           </tbody>
@@ -55,39 +53,36 @@ if ($play_mingle == 0) {
     </div>
 
     <div id="queue_positions">
-      <h2>Line Position</h2>
-      <table data-role="table" id="queue_positions" data-mode="reflow">
-        <thead>
-          <tr>
-            <th>Beer Pong Line</th>
-            <th>Photoshop Line</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <?php
-              $beerpong_pos = 100;
-              $photoshop_pos = 4;
-              echo "<td>".$beerpong_pos."</td>";
-              echo "<td>".$photoshop_pos."</td>";
-            ?>
-          </tr>
-          </tbody>
-      </table>
+      <h2>Queue Area</h2>
+      <?php
+        //get access to line queue
+        echo "<p>you are 2nd in line for beer pong</p>";
+        echo "<p>you are 3rd in line for photoshop</p>";
+      ?>
     </div>
 
     <div id="leaderboard">
       <h2>Leaderboard</h2>
-      <table>
-        <?php
-          // foreach($highscores as $highscore) {
-          //   echo "<tr>";
-          //   echo  "<td>" . $highscore['rank'] . "</td>";
-          //   echo  "<td>" . $highscore['firstname'] . ' ' . $highscore['lastname'] . "</td>";
-          //   echo  "<td>" . $highscore['points'] . "</td>";
-          //   echo "</tr>";
-          // }
-        ?>
+      <table data-role="table" id="movie-table-custom" data-mode="reflow" class="movie-list table-stroke ui-table ui-table-reflow">
+        <thead>
+          <thead>
+            <td class="title">Rank</td>
+            <td class="title">User</td>
+            <td class="title">Score</td>
+          </thead>
+        </thead>
+        <tbody>
+          <?php
+            for ($i=0; $i<$n; $i++)
+            {
+              echo "<tr>";
+              echo  "<td class='ui-table-cell-label'>" . $ranks[$i]['rank'] . "</td>";
+              echo  "<td class='ui-table-cell-label'>" . $ranks[$i]['first_name'] . ' ' . $ranks[$i]['last_name'] . "</td>";
+              echo  "<td class='ui-table-cell-label'>" . $ranks[$i]['points'] . "</td>";
+              echo "</tr>";
+            }
+          ?>
+        </tbody>
       </table>
     </div>
 
@@ -101,7 +96,7 @@ if ($play_mingle == 0) {
     <div id="mingle">
       <h2>Play Mingle</h2>
       <fieldset data-role="controlgroup">
-      <legend>Find and say hello to these people! They will be looking for you as well. Open their info box and click the "I met them!" button after you meet them!</legend>
+      <legend>Find and say hello to these people! They will be looking for you as well. Open their info box and click the "I have met this person!" button after you meet them!</legend>
       <ul data-role="listview" data-inset="true">
         <?php
           if (is_array($friends))
@@ -120,6 +115,7 @@ if ($play_mingle == 0) {
       }//end bracket for the stuff up top
     ?>
     <div id="roulette">
+      <h2>Play Roulette</h2>
       <ul data-role="listview" data-inset="true">
         <li>
           <?php
