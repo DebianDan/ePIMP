@@ -8,8 +8,25 @@
     <link href="/css/jquery.countdown.css" rel="stylesheet" media="screen">
 </head>
 <body>
-    <h1>Time 'til next spin</h1>
-    <div id="defaultCountdown"></div>
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <h2>Active Bets</h2>
+            </div>
+            <div class="span4">
+                <h2>Previous Round</h2>
+            </div>
+            <div class="span4">
+                <h2 id="clock"></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span4" id="bet-list-container"></div>
+            <div class="span4" id="winner-list-container"></div>
+            <div class="span4">
+            </div>
+        </div>
+    </div>
     <script src="/js/jquery-latest.js"></script>
     <script src="/js/jquery.plugin.min.js"></script>
     <script src="/js/jquery.timer.min.js"></script>
