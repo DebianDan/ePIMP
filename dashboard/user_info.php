@@ -46,7 +46,7 @@ function get_total_points($pgid, $accounts_pk)
 		mysql_select_db(DB_DATABASE, $con);
 
 		$safe_pgid = mysql_real_escape_string($pgid);
-		$query = 'SELECT points FROM points WHERE accounts_fk=' . $accounts_pk;
+		$query = 'SELECT points FROM points WHERE accounts_fk="' . $accounts_pk . '"';
 		$result = mysql_query($query);
 		$row = mysql_fetch_array($result, MYSQL_ASSOC);
     $sum = 0;

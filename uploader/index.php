@@ -60,9 +60,12 @@
 						$name,
 						array(
 							'fileUpload' => $_FILES['file']['tmp_name'],
-							'acl' => AmazonS3::ACL_PUBLIC
+							'acl' => AmazonS3::ACL_PUBLIC,
+							'contentType' => $_FILES["file"]["type"],
+							'headers' => array(
+								'Content-Disposition' => 'inline;filename='.$name,
 							)
-						);
+						));
 						
 					if ($response->isOK()) {
 						$link = "http://".$bucket.".s3.amazonaws.com/".$name;
@@ -77,7 +80,7 @@
 						$DB->query($query);
 						
 						// notify this user by email
-						email_person($pk, "Photoshop", array(
+						email_person($fk, "Photoshop", array(
 							"name" => $f,
 							"url" => $link
 						));

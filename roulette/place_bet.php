@@ -23,6 +23,8 @@ if(isset($_REQUEST['pkid'])) {
 	if($total_bling + $safe_bet >= 0) {
 		$query = "INSERT INTO bets (user_fk, color, award, state) VALUES ($safe_pkid, $safe_color, $safe_bet, 1)";
 		$DB->query($query);	
+		$query = 'INSERT INTO points(accounts_fk, points, reason) values ($safe_pkid, $safe_bet, "gambling loss to house")';
+		$DB->query($query);
 	}
 }
 
