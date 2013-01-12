@@ -30,3 +30,8 @@ body {
 	white-space: nowrap;
 	overflow: hidden;
 }
+button {
+	font-size: 1.2em !important;
+	height: 100px !important;
+	margin: 0 20px !important;
+}

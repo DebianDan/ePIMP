@@ -1,48 +1,53 @@
 $(function () {
-	update_time();
-
+	$(this).timer({
+		delay: 1000,
+		callback: update_time,
+		repeat: true
+	});
 });
 
-var remaining = 1;
 var timestamp = -1;
+var activebets = {};
 
 function update_time() {
 	$.ajax({
     	url:'/roulette/wheel_results.json',
 	    type:'POST',
     }).done(function(results){
+        var remaining = results.timestamp - Math.round($.now()/1000);
+		update_clock(remaining);
+		if (results.timestamp != timestamp) {
+			timestamp = results.timestamp;
+			spin(results);
+		}
+	});
 
-        remaining = results.timestamp - Math.round($.now()/1000); 
-		$('#defaultCountdown').countdown({until: +remaining, format: 'MS'});
-		$(this).timer({
-			delay:remaining*1000,
-			callback: function() { 
-				$.ajax({
-			    	url:'/roulette/wheel_results.json',
-				    type:'POST',
-			    }).done(function(results){	
-					if (results.timestamp != timestamp) {
-						timestamp = results.timestamp;
-						spin (results);
-					}else {
-						update_time();
-					}
-				})
-				.fail(function(){
-					update_time();
-				});
-			}});
-   		})
-    .fail(function() {
-		$(this).timer({
-			delay:30000,
-			callback: function() { 
-				update_time();
-			}
-		});
-    });
+	$.ajax({
+    	url:'/roulette/current_betters.php',
+	    type:'POST',
+	}).done(function(active_betters) {
+		update_active_betters(jQuery.parseJSON(active_betters));
+	});
 }
 
 function spin (results_block) {
-	console.log(results_block);
+	// alert(results_block);
+	// alert("Spin");
+	// location.reload();
+}
+
+function update_active_betters(active_betters) {
+	// $('#active-bets').empty();
+	var bettinglist = $('<ul/>',{
+		class:"betting-list"
+	});
+	$.each(active_betters,function() {
+		bettinglist.append($('<li/>').text(this.first_name+' '+this.last_name));
+	});
+	$("#bet-list-container").empty();
+	$("#bet-list-container").append(bettinglist);
+}
+
+function update_clock(remaining) {
+	$('#clock').text(Math.max(remaining,0));
 }
