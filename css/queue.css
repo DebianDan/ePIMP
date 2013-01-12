@@ -20,6 +20,11 @@ body {
 	background-color: #EEE;
 }
 .queue { counter-reset: c; }
+.tournament.queue { counter-reset: c -2; }
+.tournament .champion .entry { background-color: #FFCC00; }
+.tournament .challenger .entry { background-color: #99CCFF; }
+.tournament .champion .entry:before { content: "Champion: "; font-weight: bold; }
+.tournament .challenger .entry:before { content: "Challenger: "; font-weight: bold; }
 .entry:before {
 	counter-increment: c;
 	content: counter(c) ". ";

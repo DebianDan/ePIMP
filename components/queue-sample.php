@@ -6,6 +6,7 @@
 </head><body>
 <?php
 $array = array("foo", "bar", "bar", "foo", "fubar");
+$tournament = true;
 include 'queue.php';
 ?>
 </body></html>
