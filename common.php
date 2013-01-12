@@ -106,6 +106,7 @@ function email_person( $pk, $template, $variables ){
         'username' => 'AKIAJRLR2O6USXVH6KOQ',
         'password' => 'Av9VJWnHEmRmsguSuABCyIs6BzdOa+unctZfxxdPLBrA'));
 
+    pimplog( 'Sending template ' . $template . ' to ' . $to );
     $mail = $smtp->send($to, $headers, $text);
 
     return true;
