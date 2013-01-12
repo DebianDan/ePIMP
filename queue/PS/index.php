@@ -93,13 +93,15 @@
 
 		$pos = 1;
 
+		//array holds the a string of the top 5 users on in queue
 		$array = array();
 		while($row = $result->fetch_assoc()) {
+			$line = "";
 			$line = $pos.'  ';
-			$line = $row['f'].' ';
-			$line = $row['l'];
-			$line = "<BR>";
-			echo $line;
+			$line = $line . $row['f'].' ';
+			$line = $line . $row['l'];
+			$line = $line . "<BR>";
+			array_push($array, $line);
 			$pos = $pos + 1;
 		}
 	}
