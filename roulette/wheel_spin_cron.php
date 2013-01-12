@@ -29,6 +29,11 @@ if ($result = $DB->query($query))
 
 		if($color == $bet['color']){
 			$bet['award'] = -1 * $bet['award'];
+			if($color == 0) {
+				$bet['award'] = $bet['award'] * 2;
+			}elseif($color == 1) {
+				$bet['award'] = $bet['award'] * 3;
+			}
 			$query = "INSERT INTO bets (user_fk, color, award, state) VALUES (".$bet['user_fk'].", ".$bet['color'].", ".$bet['award'].", 0)";
 			$DB->query($query);
 			array_push($winners, $bet);
@@ -37,7 +42,7 @@ if ($result = $DB->query($query))
 
 
 	$storage = array();
-	$storage['timestamp'] = time();
+	$storage['timestamp'] = time() + ROULETTE_INTERVAL * 60;
 	$storage['color'] = $color;
 	$storage['winners'] = $winners;
 	write_to_json($storage);
