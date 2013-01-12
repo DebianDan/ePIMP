@@ -23,3 +23,4 @@ define( 'BEER_PONG_PLAY', '100' );
 define( 'BEER_PONG_WIN', '150' );
 define( 'PHOTOSHOP', '100' );
 define( 'MINGLE', '100' );
+define( 'JOBS', '200' );
