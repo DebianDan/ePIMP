@@ -1,3 +1,7 @@
+function isInt(n) {
+	return typeof n === 'number' && n % 1 == 0;
+}
+
 var get = [], hash;
 var q = document.URL.split('?')[1];
 if(q != undefined){
@@ -8,4 +12,13 @@ if(q != undefined){
 		get[hash[0]] = hash[1];
 	}
 }
+// .attr("disabled", "disabled")
+if(!('pk_id' in get)) {
+	$('input').attr("disabled", "disabled");
+	$('button').attr("disabled", "disabled");
+}
 $('#pkID').val(get['pk_id']);
+
+$(document).ready(function(){
+	$("#commentForm").validate();
+});
