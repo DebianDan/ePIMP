@@ -35,7 +35,8 @@ if (trim($pk_id) === '')
 {
 	$query = 'INSERT INTO accounts(token,pgid,minor) VALUES("'.$safe_token.'", "'. $safe_pgid . '",'.$minor.')';
 	$DB->query($query);
-	
+	echo "<BR>";
+	echo $query;	
 	$query = 'SELECT accounts_pk FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
 	$result = $DB->query($query);	
 	$row = $result->fetch_assoc();
@@ -44,7 +45,7 @@ if (trim($pk_id) === '')
 	/* free result set */
     	$result->free();
 
-	header("Location:/registration/register.html?pk_id=".$pk_id);
+	//header("Location:/registration/register.html?pk_id=".$pk_id);
 	$DB->close();
 
 	exit;
