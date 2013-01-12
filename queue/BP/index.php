@@ -74,7 +74,7 @@
 			array_push($array,$team);
 			$position = $position + 1;
 		}
-		for($i=0;$i<6;$i++){
+		for($i=0;$i<5;$i++){
 			echo $array[$i] . "<BR>";
 		}
 
@@ -104,7 +104,6 @@ echo "Query:" . $query . "<BR>";
 			{
 				if($pos == 0){
 					$winning = $row['beer_pong_pk'];
-					$pos = $pos + 1;
 					if ($row = $result->fetch_assoc()) {
 						$opponent = $row['beer_pong_pk'];
 					}
