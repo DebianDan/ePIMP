@@ -23,6 +23,7 @@ $DB->query($query);
 
 // Send the welcome email
 email_person( $pk_id, "Welcome", array(
+    "name" => $first_name,
     "url" => "http://expensiparty.com?pgid=$pg_id&token=$token"
 ) );
 
