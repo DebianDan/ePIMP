@@ -23,8 +23,8 @@ function get_accounts_pk($pgid)
 	}
 
 $mingle_status_pk = $_REQUEST["mingle_status_pk"];
-$pgid_a = $_REQUEST["pgid_a"]; // $pgid_a is current user
-$pgid_b = $_REQUEST["pgid_b"];
+$pgid_a = $_REQUEST["pgid"]; // $pgid_a is current user
+$pgid_b = $_REQUEST["friendID"];
 
 $result = mysql_query( "SELECT * FROM mingle_status WHERE mingle_status_pk=" . $mingle_status_pk);
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
