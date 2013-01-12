@@ -39,7 +39,7 @@ if ($row["status"] > 0 && time() - strtotime($row['time']) > 61) {// friendship 
   //echo $row['time'] . "<br />";
   //echo strtotime( $row['time']) . "<br />";
   //echo time() - strtotime($row['time']) . "<br />";
-	//echo "quit" . "<br />";
+	//echo "quit" . "<ˇbr />";
 	header("Location:index.php?". $_SERVER['QUERY_STRING']);
 	
 }

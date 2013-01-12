@@ -57,24 +57,28 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 /*
 Find new friends (to meet) for each user who has less than 5 friends.
 */
-foreach ($users as $user_a)
-	if ($open_friend[$user_a] < 5) {
-		echo $open_friend[$user_a];
-		foreach ($users as $user_b)
+
+foreach ($users as $user_a) {
+	$got = true;
+	while ($open_friend[$user_a] < 5 && $got) {
+		$got = false;
+		foreach ($users as $user_b)	
 			if ($open_friend[$user_b] < 5 && $map[$user_a][$user_b] == 0) {
 				// build new friendship
 				$open_friend[$user_a]++;
 				$open_friend[$user_b]++;
 				$map[$user_a][$user_b] = 1;
 				$map[$user_b][$user_a] = 1;
-				print_r($map);
+				// print_r($map);
 				// play with db
         $query = "INSERT INTO mingle_status (user_a, user_b, status, time) VALUES ('" . $user_a . "', '" . $user_b . "', '0', CURRENT_TIMESTAMP)";
         // echo $query;
 				mysql_query($query);
+				$got = true;
 				break;
 			}
 	}
+}
 
 mysql_close($con);
 
