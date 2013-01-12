@@ -41,7 +41,8 @@ if (trim($pk_id) === '')
 	$pk_id = $row['accounts_pk'];
 	$query = 'INSERT INTO points(accounts_fk, points, reason, created) VALUES (' . $pk_id . ', ' . STARTING . ', "starting points", CURRENT_TIMESTAMP())';
 	$result = $DB->query($query);
-
+	echo mysql_error();
+	
 	/* free result set */
     	$result->free();
 
