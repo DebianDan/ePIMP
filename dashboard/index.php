@@ -32,7 +32,7 @@ if ($play_mingle == 0) {
       <table data-role="table" class="" id="points" data-mode="reflow">
         <thead>
           <tr>
-            <th>Your Points</th>
+            <th>Your Bling</th>
             <th>Your Rank</th>
           </tr>
         </thead>
@@ -58,7 +58,7 @@ if ($play_mingle == 0) {
     </div>
 
     <div id="queue_positions">
-      <h2>Line up to win points!</h2>
+      <h2>Line Up to Play and Win Bling!</h2>
       <?php
         //get access to line queue
         $bppos = getBeerpongPosition($pgid, $token);
@@ -82,7 +82,7 @@ if ($play_mingle == 0) {
           echo "<p>You're up!  Report to Shawn's office to get PhotoShopped</p>";
         }
         if ($pspos == -1 && $bppos == -1) {
-          echo "<p>You are not playing any game! Check in to Beer Pong or Shawn's PhotoShop Booth with your NFC-powered bracelet to earn points toward winning a Galaxy Nexus 7!</p>";
+          echo "<p>You are not playing any game! Check in to Beer Pong or Shawn's PhotoShop Booth with your NFC-powered bracelet to earn Bling toward a Galaxy Nexus 7!</p>";
         }
 
       ?>
