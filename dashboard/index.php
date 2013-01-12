@@ -27,11 +27,14 @@ if ($play_mingle == 0) {
 
   <div data-role="content">
     <div id="points">
-      <h2>Total Points</h2>
+      <h2>Total Bling</h2>
       <?php
-        $points = get_total_points($pgid);
+        $points = get_total_points($pgid, $accounts_pk);
         echo "<strong>" . $points . "</strong>";
       ?>
+      <li>
+        <a href='/dashboard/about_bling.php' data-transition='slide'>What is Bling?</a>
+      </li>
     </div>
 
     <div id="queue_positions">

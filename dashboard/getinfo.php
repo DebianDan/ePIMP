@@ -23,7 +23,7 @@ require_once('user_info.php');
       <?php echo "<label for='intro'>Tell us a little about yourself, " . $first_name . ". We will use this for the Mingle game. </label>";?>
       <textarea name="intro" required="required" placeholder="Example: Once I ate so much mochi that it globbed up my intestines and I nearly died."></textarea>
       <input type="checkbox" name="optout" id="optoutcheckbox" class="custom" value="false">
-      <label for="optoutcheckbox">I DO NOT want to play Mingle</label>
+      <label for="optoutcheckbox">Opt out of playing Mingle</label>
       <?php echo "<input name='token' type='hidden' value=" . $token . ">";?>
       <?php echo "<input name='pgid' type='hidden' value=" . $pgid . ">"; ?>
       <input type="submit" value="Save">
