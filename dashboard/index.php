@@ -13,6 +13,12 @@ if ($play_mingle == 0) {
   <title>User Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/css/jquery.mobile.min.css"/>
+    <style>
+    table { width:95%; border-collapse:collapse; border: 1px solid white; }
+    table caption { text-align:left;  }
+    table thead th { text-align:left; border-bottom-width:1px; border-top-width:1px; font-weight: bold; color: #363636; }
+    table th, td { text-align:left; padding:6px; border: 1px solid white;} 
+    </style>
 </head>
 <body>
 
@@ -23,10 +29,10 @@ if ($play_mingle == 0) {
   </div><!-- /header -->
 
   <div data-role="content">
-      <table data-role="table" id="points" data-mode="reflow">
+      <table data-role="table" class="" id="points" data-mode="reflow">
         <thead>
           <tr>
-            <th>Your Points</th>
+            <th>Your Bling</th>
             <th>Your Rank</th>
           </tr>
         </thead>
@@ -52,7 +58,7 @@ if ($play_mingle == 0) {
     </div>
 
     <div id="queue_positions">
-      <h2>Queue Area</h2>
+      <h2>Line Up to Play and Win Bling!</h2>
       <?php
         //get access to line queue
         $bppos = getBeerpongPosition($pgid, $token);
@@ -62,21 +68,21 @@ if ($play_mingle == 0) {
           if ($bppos == 2) $bbpos = "2nd";
           if ($bppos == 3) $bbpos = "3rd";
           if ($bppos > 3) $bppos = strval($bppos) . "th";
-          echo "<p>You are " . $bppos . " in line for Beer Pong.</p>";
+          echo "<p>You are " . $bppos . " in line for Beer Pong; warm up!</p>";
         } else if ($bppos == 0) {
-          echo "<p>You are currently playing beer pong</p>";
+          echo "<p>You are currently playing Beer Pong, good luck!</p>";
         }
         if ($pspos > 0) {
           if ($pspos == 1) $pspos  = "1st";
           if ($pspos == 2) $pspos  = "2nd";
           if ($pspos == 3) $pspos  = "3rd";
           if ($pspos > 3)  $pspos  = strval($pspos) . "th";
-          echo "<p>You are " . $pspos . " in line for Photoshop.</p>";
+          echo "<p>You are " . $pspos . " in line for Shawn's terrifying PhotoShop booth: brace yourself.</p>";
         } else if ($pspos == 0 ) {
-          echo "<p>You are currently playing photoshop</p>";
+          echo "<p>You're up!  Report to Shawn's office to get PhotoShopped</p>";
         }
         if ($pspos == -1 && $bppos == -1) {
-          echo "<p>You are not playing any game! Go sign up with an NFC-enabled device!</p>";
+          echo "<p>You are not playing any game! Check in to Beer Pong or Shawn's PhotoShop Booth with your NFC-powered bracelet to earn Bling toward a Galaxy Nexus 7!</p>";
         }
 
       ?>
@@ -86,11 +92,11 @@ if ($play_mingle == 0) {
       <h2>Leaderboard</h2>
       <table data-role="table" data-mode="reflow" class="movie-list table-stroke ui-table ui-table-reflow">
         <thead>
-          <thead>
-            <td class="title">Rank</td>
-            <td class="title">User</td>
-            <td class="title">Score</td>
-          </thead>
+            <tr>
+            <td class="ttle"><b>Rank</b></td>
+            <td class="ttle"><b>User</b></td>
+            <td class="ttle"><b>Score</b></td>
+            </tr>
         </thead>
         <tbody>
           <?php
@@ -145,14 +151,15 @@ if ($play_mingle == 0) {
           ?>
         </li>
       </ul>
-    </div>
-
+    </div> 
+<br /><br />
+      <div data-theme="a" data-role="footer" data-position="fixed">
+        <h3>
+            ExpensiParty v3.7.2 <br />
+            <a target="_blank" href="http://blog.expensify.com">blog</a> | <a target="_blank" href="jobs.php?pgid=<?= $_REQUEST['pgid'] ?>&token=<?= $_REQUEST['token'] ?>">jobs</a>
+        </h3>
+      </div>
   </div><!-- /content -->
-  <div data-theme="a" data-role="footer" data-position="fixed">
-    <h3>
-        Expensiparty v3.7.2 - <a target="_blank" href="http://blog.expensify.com">blog</a> | <a target="_blank" href="jobs.php?pgid=<?= $_REQUEST['pgid'] ?>&token=<?= $_REQUEST['token'] ?>">jobs</a>
-    </h3>
-  </div>
 </div><!-- /page -->
 
 <script src="/js/jquery-latest.js"></script>
