@@ -5,6 +5,11 @@ $token_id = $_GET["token"];
 $pgid = $_GET["pgid"];
 $minor = $_GET["minor"];
 
+if($minor === 'true')
+	$minor = 1;
+else
+	$minor = 0;
+
 require_once("../config.php");
 
 $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
