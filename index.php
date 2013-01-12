@@ -14,6 +14,13 @@ $cookie = $_COOKIE['dispatcher'];
 switch( $cookie ){
     case "":
     case "registration":
+        // If the request is empty: no pgid or token, then no idea what they're doing.
+        // Send them to the welcome.html page.
+        if( !isset( $_REQUEST['token'] ) || !isset( $_REQUEST['pgid'] ) ){
+            header( 'location: /welcome.html' );
+            die();
+        }
+
         // This browser has no cookie (eg, is a user's phone) or is the registration tablet.  If no
         // account, create one.  If there is an account, if we're the registration device, go back
         // to the registration screen -- otherwise to the dashboard.

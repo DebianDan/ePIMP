@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Bootstrap 101 Template</title>
+	<title>Beer Pong Queue</title>
 	<?php
 	if(isset($_GET['longwait']))
 	{
@@ -14,6 +14,8 @@
 	?>
 	<!-- Bootstrap -->
 	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="/css/queue.css" rel="stylesheet" media="screen">
+	
 </head>
 <body>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -62,22 +64,22 @@
 		//then display the top the 3 in the queue
 
 
-		$position = 1;
+		//$position = 1;
 		$team = "";
 		$array = array();
 		while($row = $result->fetch_assoc()) {
 			$team = "";
-			$team = $team.$position;
+			//$team = $team.$position;
 			$team = $team.'  '.$row['af'].' ';
 			$team = $team.$row['al'].' & ';
 			$team = $team.$row['bf'].' '.$row['bl'];
 			array_push($array,$team);
-			$position = $position + 1;
+			//$position = $position + 1;
 		}
-		for($i=0;$i<6;$i++){
-			echo $array[$i] . "<BR>";
+		for($i=0;$i<5;$i++){
+			//echo $array[$i] . "<BR>";
 		}
-
+		include '../../components/queue.php';
 	}
 	// params
 	else
@@ -104,7 +106,6 @@ echo "Query:" . $query . "<BR>";
 			{
 				if($pos == 0){
 					$winning = $row['beer_pong_pk'];
-					$pos = $pos + 1;
 					if ($row = $result->fetch_assoc()) {
 						$opponent = $row['beer_pong_pk'];
 					}

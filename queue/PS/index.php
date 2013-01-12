@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Bootstrap 101 Template</title>
+	<title>Photoshop Queue</title>
 	<!-- Bootstrap -->
 	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="/css/queue.css" rel="stylesheet" media="screen">
 	<meta http-equiv="refresh" content="5;URL='./index.php'">
 </head>
 <body>
@@ -28,7 +29,7 @@
 
 
 	//params
-	if ($_GET["pgid"] and $_GET["token"]) {
+	if (isset($_GET["pgid"]) and isset($_GET["token"])) {
 		//find in photo
 		$query = "SELECT * FROM photoshop ps JOIN accounts a ON ps.users_fk = a.accounts_pk WHERE pgid='". $DB->real_escape_string($_GET["pgid"]) . "' AND token='" .$DB->real_escape_string($_GET["token"]). "' ORDER BY photoshop_pk DESC LIMIT 1";
 		$result =  $DB->query($query);
@@ -94,19 +95,20 @@
 		$query = 'SELECT a.first_name f, a.last_name l FROM photoshop ps JOIN accounts a ON ps.users_fk = a.accounts_pk WHERE ps.state=1 LIMIT 5';
 		$result = $DB->query($query) or die($DB->error.__LINE__);
 
-		$pos = 1;
+		//$pos = 1;
 
 		//array holds the a string of the top 5 users on in queue
 		$array = array();
 		while($row = $result->fetch_assoc()) {
 			$line = "";
-			$line = $pos.'  ';
+			//$line = $pos.'  ';
 			$line = $line . $row['f'].' ';
 			$line = $line . $row['l'];
 			$line = $line . "<BR>";
 			array_push($array, $line);
-			$pos = $pos + 1;
+			//$pos = $pos + 1;
 		}
+		include '../../components/queue.php';
 	}
 
 

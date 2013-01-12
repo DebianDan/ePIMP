@@ -24,3 +24,5 @@ define( 'BEER_PONG_WIN', '150' );
 define( 'PHOTOSHOP', '100' );
 define( 'MINGLE', '100' );
 define( 'JOBS', '200' );
+
+define( 'ROULETTE_INTERVAL', '2' ); // in terms of minutes

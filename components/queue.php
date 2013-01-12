@@ -16,8 +16,13 @@ include 'queue.php';
 		</div>
 		<div class="span6">
 			<?php
-				foreach ($array as $value) {
-					echo '<div class="row-fluid"><div class="span12 entry">'.$value.'</div></div>';
+				$length = count($array);
+				if ($length == 0) {
+					echo '<div class="row-fluid"><div class="span12 entry">Queue is empty.</div></div>';
+				} else {
+					foreach ($array as $value) {
+						echo '<div class="row-fluid"><div class="span12 entry">'.$value.'</div></div>';
+					}
 				}
 			?>
 			
