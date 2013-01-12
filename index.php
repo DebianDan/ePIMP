@@ -20,7 +20,6 @@ switch( $cookie ){
         $DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
         $safe_token = $DB->real_escape_string( $_REQUEST["token"] );
         $safe_pgid = $DB->real_escape_string( $_REQUEST["pgid"] );
-        $query = 'SELECT accounts_pk FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
         $account = $DB->query("SELECT * FROM accounts WHERE pgid='$safe_pgid';" );
         if( !$account->num_rows ) 
         {
