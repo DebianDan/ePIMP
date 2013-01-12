@@ -58,7 +58,7 @@ if ($play_mingle == 0) {
     </div>
 
     <div id="queue_positions">
-      <h2>Queue Area</h2>
+      <h2>Line up to win points!</h2>
       <?php
         //get access to line queue
         $bppos = getBeerpongPosition($pgid, $token);
@@ -68,21 +68,21 @@ if ($play_mingle == 0) {
           if ($bppos == 2) $bbpos = "2nd";
           if ($bppos == 3) $bbpos = "3rd";
           if ($bppos > 3) $bppos = strval($bppos) . "th";
-          echo "<p>You are " . $bppos . " in line for Beer Pong.</p>";
+          echo "<p>You are " . $bppos . " in line for Beer Pong; warm up!</p>";
         } else if ($bppos == 0) {
-          echo "<p>You are currently playing beer pong</p>";
+          echo "<p>You are currently playing Beer Pong, good luck!</p>";
         }
         if ($pspos > 0) {
           if ($pspos == 1) $pspos  = "1st";
           if ($pspos == 2) $pspos  = "2nd";
           if ($pspos == 3) $pspos  = "3rd";
           if ($pspos > 3)  $pspos  = strval($pspos) . "th";
-          echo "<p>You are " . $pspos . " in line for Photoshop.</p>";
+          echo "<p>You are " . $pspos . " in line for Shawn's terrifying PhotoShop booth: brace yourself.</p>";
         } else if ($pspos == 0 ) {
-          echo "<p>You are currently playing photoshop</p>";
+          echo "<p>You're up!  Report to Shawn's office to get PhotoShopped</p>";
         }
         if ($pspos == -1 && $bppos == -1) {
-          echo "<p>You are not playing any game! Go sign up with an NFC-enabled device!</p>";
+          echo "<p>You are not playing any game! Check in to Beer Pong or Shawn's PhotoShop Booth with your NFC-powered bracelet to earn points toward winning a Galaxy Nexus 7!</p>";
         }
 
       ?>
