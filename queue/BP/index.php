@@ -47,6 +47,7 @@
 	
 	// params
 	else{
+	/*
 		$query = "SELECT accounts_pk FROM accounts WHERE pgid='". $_GET["pgid"] . "' AND token='" .$_GET["token"]. "';";
 		//echo $query . "<br/>";
 		$result =  $DB->query($query) or die($DB->error.__LINE__);
