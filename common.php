@@ -13,6 +13,10 @@ function fatalErrorContactMatt( $message, $sendSms = false ){
     die();
 }
 
+function getBling( $pk ){
+    return 1000;
+}
+
 /*
  * Send a text message to a person given their PK
  *
@@ -85,6 +89,10 @@ function email_person( $pk, $template, $variables ){
         'auth' => true,
         'username' => 'AKIAJRLR2O6USXVH6KOQ',
         'password' => 'Av9VJWnHEmRmsguSuABCyIs6BzdOa+unctZfxxdPLBrA'));
+
+    if( $smtp != true ){
+       print_r( $smtp ); 
+    }
 
     return true;
 }
