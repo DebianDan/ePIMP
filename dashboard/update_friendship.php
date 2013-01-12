@@ -1,5 +1,7 @@
 <?php
 require_once("../config.php");
+
+
 $con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or
     die("Could not connect: " . mysql_error());
 mysql_select_db(DB_DATABASE, $con);
@@ -30,11 +32,12 @@ $result = mysql_query( "SELECT * FROM mingle_status WHERE mingle_status_pk='" . 
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 
 //echo "status: " . $row["status"];
-$curtime = gettimeofday(true);
-
-echo $curtime . '          hi' . strtotime('61', $row['time']);
-if ($row["status"] > 0 && $curtime > strtotime('61', $row["time"])) // friendship broken
+if ($row["status"] > 0 && time() - strtotime($row['time']) > 61) {// friendship broken
+  echo $row['time'] . "<br />";
+  echo strtotime( $row['time']) . "<br />";
+  echo time() - strtotime($row['time']);
 	die();
+}
 
 $status = $row["status"];
 if ($row["user_a"] == $pgid_a) {

@@ -1,4 +1,6 @@
 <?php
+//set GMT time zone
+date_default_timezone_set('Europe/London');
 
 function fatalErrorContactMatt( $message, $sendSms = false ){
     echo '<h3>There was a fatal error</h3>';
@@ -18,6 +20,8 @@ function getBling( $pk ){
     $account = intval( $pk );
     $result = $DB->query( 'SELECT sum( points ) as sum FROM points WHERE accounts_fk = ' . $account );
     $row = $result->fetch_assoc();
+    if( !isset( $row['sum'] ) )
+        return 0;
     return $row['sum'];
 }
 
