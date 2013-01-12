@@ -44,9 +44,10 @@ if ($play_mingle == 0) {
             <?php
               //$points = get_total_points($pgid, $accounts_pk);
               //11th row has own rankings
+              require_once('rank.php');
               $ranks = get_ranks($pgid);
-              echo "<td>".$ranks[10]['points']."</td>";
-              echo "<td>".$ranks[10]['ranking']."</td>";
+              echo "<td>".$ranks[-1]['points']."</td>";
+              echo "<td>".$ranks[-1]['ranking']."</td>";
             ?>
           </tr>
           </tbody>
