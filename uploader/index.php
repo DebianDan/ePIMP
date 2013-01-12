@@ -6,11 +6,11 @@
 </head>
 <body>
     <?php
-		if( !file_exists( '../config.php' ) ){
-			die( 'Config file doesn\' exist. Did you forget to copy config.php.default to config.php?');
+		if(!file_exists('../config.php')){
+			die('Config file doesn\' exist. Did you forget to copy config.php.default to config.php?');
 		}
 		
-		require_once( '../config.php' );
+		require_once('../config.php');
 		require_once '../libs/sdk-1.5.17.1/sdk.class.php';
 		
 		$bucket = S3_BUCKET; //."_test";
@@ -29,9 +29,9 @@
 				if ($_FILES["file"]["error"] > 0) {
 					echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
 				} else {
-					//echo "Upload: " . $_FILES["file"]["name"] . "<br>";
+					echo "Upload: " . $_FILES["file"]["name"] . "<br>";
 					//echo "Type: " . $_FILES["file"]["type"] . "<br>";
-					//echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
+					echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
 					//echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br>";
 					
 					// Instantiate the class
@@ -46,11 +46,13 @@
 							'acl' => AmazonS3::ACL_PUBLIC
 							)
 						);
-
+					
 					// Success?
-					if ($response->isOK()) {
-						echo "<img src=\"https://s3.amazonaws.com/".$bucket."/".$name."\" />";
-					}
+					//if ($response->isOK()) {
+						echo "<img src=\"http://".$bucket.".s3.amazonaws.com/".$name."\" alt=\"Image here...\" />";
+						//echo "<img src=\"http://s3.amazonaws.com/".$bucket."/".$name."\" />";
+					//}
+					
 				}
 			} else {
 				echo "Invalid file";
