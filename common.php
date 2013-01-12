@@ -2,6 +2,13 @@
 //set GMT time zone
 date_default_timezone_set('Europe/London');
 
+function log( $msg, $fatal = false) {
+    error_log( $msg );
+    if( $fatal ){
+        die();
+    }
+}
+
 function fatalErrorContactMatt( $message, $sendSms = false ){
     echo '<h3>There was a fatal error</h3>';
     echo '<p>This was embarassing for us unless you\'re being cheeky. Your best bet here is to find an Expensify employee and ask them for Matt.</p>';
