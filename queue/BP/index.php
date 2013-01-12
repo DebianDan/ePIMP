@@ -94,7 +94,9 @@
 		//show query list
 		$query = 'SELECT a.first_name af, a.last_name al, b.first_name bf, b.last_name bl FROM beer_pong bp JOIN accounts a ON bp.user_a = a.accounts_pk ';
 		$query = $query.'JOIN accounts b ON bp.user_b = b.accounts_pk WHERE bp.state = 1 or bp.state = 2 LIMIT 5';
-
+		
+		echo $query;
+		
 		$result = $DB->query($query) or die($DB->error.__LINE__);
 
 
@@ -126,8 +128,8 @@
 		$safe_pgid = $DB->real_escape_string($_GET["pgid"]);
 		$safe_token = $DB->real_escape_string($_GET["token"]);
 
-		//echo $safe_pgid;
-		//echo $safe_token;
+		echo $safe_pgid;
+		echo $safe_token;
 
 		//find in beer pong
 		$query = "(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts a on a.accounts_pk = user_a where (state=1 or state = 2)";
