@@ -117,6 +117,7 @@
 		for($i=0;$i<5;$i++){
 			//echo $array[$i] . "<BR>";
 		}
+		$tournament = true;
 		include '../../components/queue.php';
 	}
 	// params
@@ -129,16 +130,21 @@
 		//echo $safe_token;
 
 		//find in beer pong
-		$query = "select beer_pong.state, beer_pong.beer_pong_pk from beer_pong inner join accounts a on a.accounts_pk = user_a inner join accounts b on b.accounts_pk = user_b where ";
-		$query = $query."(state = 1 or state =2) and ( ( a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."' ) OR (b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."' ) )";
+		$query = "(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts a on a.accounts_pk = user_a where (state=1 or state = 2)";
+		$query = $query."and a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."')";
+		$query = $query." union ";
+		$query = $query."(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts b on b.accounts_pk = user_b where (state=1 or state = 2)";
+		$query = $query." and b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."')";
+		
 		$result =  $DB->query($query);
-		echo "Query:" . $query . "<BR>";
+		//echo "Query:" . $query . "<BR>";
 		//in queue
 		$row = $result->fetch_assoc();
 
-		echo $row['state'];
+		//echo $row['state'];
 		if ($row['state'] == 1 || $row['state'] == 2)
 		{
+			//echo " state is 1 or 2";
 			$bp_pk = $row['beer_pong_pk'];
 			$query = "SELECT beer_pong_pk FROM beer_pong WHERE state = 2 OR state = 1 ORDER BY beer_pong_pk ASC";
 			$result = $DB->query($query);
@@ -229,9 +235,13 @@
 				$DB->query($query);
 
 				//find in beer pong
-				$query = "select beer_pong.state, beer_pong.beer_pong_pk from beer_pong inner join accounts a on a.accounts_pk = user_a inner join accounts b on b.accounts_pk = user_b where ";
-				$query = $query."state = 1 and ( ( a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."' ) OR (b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."' ) )";
-				$result =  $DB->query($query);
+		$query = "(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts a on a.accounts_pk = user_a where (state=1 or state = 2)";
+		$query = $query."and a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."')";
+		$query = $query." union ";
+		$query = $query."(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts b on b.accounts_pk = user_b where (state=1 or state = 2)";
+		$query = $query." and b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."')";
+	
+		$result =  $DB->query($query);
 				//in queue
 				$row = $result->fetch_assoc();
 				if ($row['state'] == 1)

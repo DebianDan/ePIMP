@@ -155,7 +155,7 @@ if ($play_mingle == 0) {
 <br /><br />
       <div data-theme="a" data-role="footer" data-position="fixed">
         <h3>
-            ExpensiParty v3.7.2 <br />
+            #ExpensiParty v3.7.2 <br />
             <a target="_blank" href="http://blog.expensify.com">blog</a> | <a target="_blank" href="jobs.php?pgid=<?= $_REQUEST['pgid'] ?>&token=<?= $_REQUEST['token'] ?>">jobs</a>
         </h3>
       </div>
