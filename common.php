@@ -13,6 +13,10 @@ function fatalErrorContactMatt( $message, $sendSms = false ){
     die();
 }
 
+function getBling( $pk ){
+    return 1000;
+}
+
 /*
  * Send a text message to a person given their PK
  *
