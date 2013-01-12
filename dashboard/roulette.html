@@ -1,13 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>User Dashboard</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/css/jquery.mobile.min.css"/>
-<script src="/js/jquery-latest.js"></script>
-<script src="/js/jquery.mobile-1.2.0.min.js"></script>
+	<title>Place a bet</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="/css/bootstrap-responsive.min.css"/>
 </head>
 <body>
-	
+	<form action="/roulette/place_bet.php" method="post">
+	<fieldset data-type="horizontal" data-role="controlgroup" class="ui-corner-all ui-controlgroup ui-controlgroup-horizontal">
+		<legend>Red pays 2:1 and Black pays 3:1</legend>
+		<label class='radio inline' for="black_choice">
+			<input type="radio" name="color-choice" id="black_choice" value="0" checked/>Black
+		</label>
+
+		<label class='radio inline' for="red_choice">
+			<input type="radio" name="color-choice" id="red_choice" value="1"/>Red
+		</label>
+		<br>
+		<input type="number" placeholder="amount" name="amount" required>
+		<input type="hidden" name="pkid" id="pkid"/>
+		<input type="hidden" name="pgid" id="pgid"/>
+		<input type="hidden" name="token" id="token"/>
+		<br>
+		<button type="submit" class="btn">Submit</button>
+	</fieldset>
+	</form>
+	<script src="/js/jquery-latest.js"></script>
+	<script src="/js/common.js"></script>
+	<script src="/js/dashboard-roulette.js"></script>
 </body>
 </html>

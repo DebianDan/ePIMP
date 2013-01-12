@@ -7,7 +7,6 @@ if ($play_mingle == 0) {
 }
 
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -140,12 +139,12 @@ if ($play_mingle == 0) {
   </div><!-- /content -->
   <div data-theme="a" data-role="footer" data-position="fixed">
     <h3>
-        Footer - Expensify stuff can go here
+        Expensiparty v3.7.2 - <a target="_blank" href="http://blog.expensify.com">blog</a> | <a target="_blank" href="jobs.php?pgid=<?= $_REQUEST['pgid'] ?>&token=<?= $_REQUEST['token'] ?>">jobs</a>
     </h3>
   </div>
 </div><!-- /page -->
 
-</body>
 <script src="/js/jquery-latest.js"></script>
 <script src="/js/jquery.mobile-1.2.0.min.js"></script>
+</body>
 </html>

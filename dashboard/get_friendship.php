@@ -27,7 +27,8 @@ mysql_select_db(DB_DATABASE, $con);
 // Get all of the mingles involve current user.
 $pgid = $_REQUEST["pgid"];
 
-$result = mysql_query( "SELECT * FROM mingle_status WHERE user_a=" . $pgid . " OR user_b=" . $pgid);
+$query = "SELECT * FROM mingle_status WHERE user_a= '" . $pgid . "' OR user_b= '" . $pgid . "'";
+$result = mysql_query($query);
 // $friends is what you want
 while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	// eliminate non-open friendship
@@ -39,7 +40,8 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	else
 		$friend_id = $row["user_a"];
 
-	$frind_result = mysql_query("SELECT first_name, last_name, intro FROM accounts WHERE pgid=" . $friend_id);
+	$query = "SELECT first_name, last_name, intro FROM accounts WHERE pgid='" . $friend_id . "'";
+	$frind_result = mysql_query($query);
 	$friend_info = mysql_fetch_array($frind_result, MYSQL_ASSOC);
 	$friends[] = array("mingle_status_pk" => $row["mingle_status_pk"], "pgid" => $friend_id, "first_name" => $friend_info["first_name"], "last_name" => $friend_info["last_name"], "info" => $friend_info["intro"]);
 }

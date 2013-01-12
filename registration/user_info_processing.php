@@ -10,16 +10,29 @@ $phone = $_POST['phone'];
 $twitter = $_POST['twitter'];
 
 require_once("../config.php");
-$DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
+$DB = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 $safe_first_name = $DB->real_escape_string($first_name);
 $safe_last_name = $DB->real_escape_string($last_name);
 $safe_email = $DB->real_escape_string($email);
 $safe_phone = $DB->real_escape_string($phone);
 $safe_twitter = $DB->real_escape_string($twitter);
+$safe_pg_id = $DB->real_escape_string($pg_id);
 
-$query = 'UPDATE accounts SET first_name = "'.$safe_first_name.'", last_name = "'.$safe_last_name.'", email = "'.$safe_email.'", phone_number = "'.$safe_phone.'", twitter = "'.$safe_twitter.'" WHERE accounts_pk = '.$pk_id.' AND token = "'.$token.'" AND pgid = "'.$pg_id.'"';
-$DB->query($query);
+// token is validated by _before.php.  it's clean.
+
+$query = 'INSERT accounts SET first_name = "'.$safe_first_name.'", last_name = "'.$safe_last_name.'", email = "'.$safe_email.'", phone_number = "'.$safe_phone.'", twitter = "'.$safe_twitter.'" WHERE token = "'.$token.'" AND pgid = "'.$safe_pg_id.'"';
+
+$result = $DB->query($query);
+if( $DB->error ){
+    fatalErrorContactMatt( 'Insert acc:' . $DB->error );
+}
+
+$query = 'INSERT INTO points(accounts_fk, points, reason, created) VALUES (LAST_INSERT_ID(), ' . STARTING . ', "starting points", CURRENT_TIMESTAMP())';
+$result = $DB->query( $query );
+if( $DB->error ){
+    fatalErrorContactMatt( 'Insert init pt:' . $DB->error );
+}
 
 // Send the welcome email
 email_person( $pk_id, "Welcome", array(

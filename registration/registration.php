@@ -20,37 +20,14 @@ $safe_pgid = $DB->real_escape_string($pgid);
 
 $query = 'SELECT accounts_pk FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
 
-if ($result = $DB->query($query)) 
-{
-	$row = $result->fetch_assoc();
-	$pk_id = $row['accounts_pk'];
-	$result->free();
+$result = $DB->query($query);
+if( $result->num_rows > 0 ){ 
+    header('location:/registration/pre_existing_user.html');
+    exit;
 }
 else
 {
-	$pk_id = '';
-}
-
-if (trim($pk_id) === '')
-{
-	$query = 'INSERT INTO accounts(token,pgid,minor) VALUES("'.$safe_token.'", "'. $safe_pgid . '",'.$minor.')';
-	$DB->query($query);
-	$query = 'SELECT accounts_pk FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
-	$result = $DB->query($query);	
-	$row = $result->fetch_assoc();
-	$pk_id = $row['accounts_pk'];
-	
-	/* free result set */
-    	$result->free();
-
-	$DB->close();
-	header("Location:/registration/register.html?pk_id=".$pk_id."&token=".$safe_token."&pg_id=".$safe_pgid);
-	exit;
-}
-else
-{
-	$DB->close();
-	header("Location:/registration/pre_existing_user.html");
+	header("Location:/registration/register.html?token=".$safe_token."&pg_id=".$safe_pgid);
 	exit;
 }
 
