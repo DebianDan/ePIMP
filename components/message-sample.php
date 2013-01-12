@@ -6,6 +6,7 @@
 </head><body>
 <?php
 $message = "Hello.";
+$bodycode = '<form name="input" action="html_form_action.asp" method="get"><button type="button">sdfbjsdfkj sdfkj sfduikjs sdhjgf seiogf g</button><button type="button">Peroksd sdhjj sdufhj sdfkjkjsdf sdfh</button></form>';
 include 'message.php';
 ?>
 </body></html>
