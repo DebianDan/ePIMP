@@ -17,19 +17,11 @@ $safe_last_name = $DB->real_escape_string($last_name);
 $safe_email = $DB->real_escape_string($email);
 $safe_phone = $DB->real_escape_string($phone);
 $safe_twitter = $DB->real_escape_string($twitter);
+$safe_pg_id = $DB->real_escape_string($pg_id);
 
-$query = 'UPDATE accounts SET first_name = "'.$safe_first_name.'", last_name = "'.$safe_last_name.'", email = "'.$safe_email.'", phone_number = "'.$safe_phone.'", twitter = "'.$safe_twitter.'" WHERE accounts_pk = '.$pk_id.' AND token = "'.$token.'" AND pgid = "'.$pg_id.'"';
+$query = 'INSERT accounts SET first_name = "'.$safe_first_name.'", last_name = "'.$safe_last_name.'", email = "'.$safe_email.'", phone_number = "'.$safe_phone.'", twitter = "'.$safe_twitter.'" WHERE token = "'.$token.'" AND pgid = "'.$safe_pg_id.'"';
 
-if ($result = $DB->query($query)) {
-    $row_cnt = $result->num_rows;
-	/* close result set */
-	$result->close();
-	header("Location:/registration/index.html");
-	exit;
-} else {
-	header("Location:/registration/index.html");
-	exit;
-}
+$result = $DB->query($query);
 
 // Send the welcome email
 email_person( $pk_id, "Welcome", array(
