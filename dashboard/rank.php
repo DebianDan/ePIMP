@@ -35,7 +35,6 @@ function get_ranks($pgid)
 				}
 		for ($i = 0; $i < count($ranks); $i++)
 			$ranks[$i]["rank"] = $i + 1;
-
 		$n = count($users);
 		if ($n > 10)
 			$n = 10;
