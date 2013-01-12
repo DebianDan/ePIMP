@@ -280,9 +280,9 @@
 					$query = "INSERT INTO beer_pong(user_a, user_b, state) VALUES (" . $accounts_pk . ",0, 1)";
 				
 				echo $query;
-				//echo " Added a new user";
+				echo " Added a new user";
 				$DB->query($query);
-				header("Location:./index.php?longwait=1");
+				//header("Location:./index.php?longwait=1");
 			}
 			}
 		}
