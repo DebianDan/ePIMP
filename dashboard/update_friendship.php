@@ -87,12 +87,12 @@ if ($status == 3) {
 	echo $score_b . "<br />";
 	
 	if ($score_a > 0) {
-		$query = "INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_a . "', '" . $score_a . "', 'Mingling with " . $pk_b . "', CURRENT_TIMESTAMP";
+		$query = "INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_a . "', '" . $score_a . "', 'Mingling with " . $pk_b . "', CURRENT_TIMESTAMP)";
 		echo $query . "<br />";
 		mysql_query($query);
 	}
 	if ($score_b > 0) {
-		$query = "INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_b . "', '" . $score_b . "', 'Mingling with " . $pk_a . "', CURRENT_TIMESTAMP";
+		$query = "INSERT INTO points (accounts_fk, points, reason, created) VALUES ('" . $pk_b . "', '" . $score_b . "', 'Mingling with " . $pk_a . "', CURRENT_TIMESTAMP)";
 		echo $query . "<br />";
 		mysql_query($query);
 	}
