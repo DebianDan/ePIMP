@@ -16,7 +16,7 @@ if ($play_mingle == 0) {
   <link rel="stylesheet" href="/css/jquery.mobile.min.css"/>
   <style>
     td {
-      font-size: 40px;
+      font-size: 60px;
     }
   </style>
 </head>
@@ -29,17 +29,30 @@ if ($play_mingle == 0) {
   </div><!-- /header -->
 
   <div data-role="content">
-    <div id="points">
-      <h2>Total Bling</h2>
-      <?php
-        $points = get_total_points($pgid, $accounts_pk);
-        echo "<strong>" . $points . "</strong>";
-      ?>
+      <table data-role="table" id="points" data-mode="reflow">
+        <thead>
+          <tr>
+            <th>Total Points</th>
+            <th>Ranking</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <?php
+              $points = get_total_points($pgid, $accounts_pk);
+              $ranking = 2;
+              echo "<td>".$points."</td>";
+              echo "<td>".$ranking."</td>";
+            ?>
+          </tr>
+          </tbody>
+      </table>
       <ul data-role="listview" data-inset="true">
         <li>
           <a href='/dashboard/about_bling.php' data-transition='slide' data-ajax='false'>What is Bling?</a>
         </li>
       </ul>
+
     </div>
 
     <div id="queue_positions">
@@ -89,7 +102,7 @@ if ($play_mingle == 0) {
     <div id="mingle">
       <h2>Play Mingle</h2>
       <fieldset data-role="controlgroup">
-      <legend>Find and say hello to these people! They will be looking for you as well. Open their info box and click their check box when you meet them!</legend>
+      <legend>Find and say hello to these people! They will be looking for you as well. Open their info box and click the "I met them!" button after you meet them!</legend>
       <ul data-role="listview" data-inset="true">
         <?php
           if (is_array($friends))
