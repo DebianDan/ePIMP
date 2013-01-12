@@ -14,6 +14,7 @@ $safe_token = $DB->real_escape_string($token_id);
 $safe_pgid = $DB->real_escape_string($pgid);
 
 $query = 'SELECT accounts_pk FROM accounts WHERE token = "'.$safe_token.'" AND pgid = "' . $safe_pgid . '"';
+echo $query;
 
 if ($result = $DB->query($query)) 
 {
@@ -23,8 +24,10 @@ if ($result = $DB->query($query))
 }
 else
 {
-	$pk_id = 0;
+	$pk_id = '';
 }
+
+echo $pk_id;
 
 if (trim($pk_id) === '')
 {
