@@ -204,7 +204,7 @@
 			$result = $DB->query($query);
 			$row = $result->fetch_assoc();
 
-			if ($row['state'] == 0)
+			if (isset( $row['state'] ) )
 			{
 				$bp_pk = $row['beer_pong_pk'];
 				
@@ -232,7 +232,7 @@
 				$result =  $DB->query($query);
 				//in queue
 				$row = $result->fetch_assoc();
-				if ($row['state'] == 1)
+				if (isset ($row['state']))
 				{
 					$bp_pk = $row['beer_pong_pk'];
 					$query = "SELECT beer_pong_pk FROM beer_pong WHERE state=1 ORDER BY beer_pong_pk ASC";
