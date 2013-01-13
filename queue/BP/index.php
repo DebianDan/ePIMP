@@ -164,8 +164,8 @@
 					break;
 				}
 			}
-			//echo "Winning:" . $winning . "<BR>";
-			//echo "Opponent:" . $opponent . "<BR>";
+			echo "Winning:" . $winning . "<BR>";
+			echo "Opponent:" . $opponent . "<BR>";
 
 			// They are currently playing
 			if($bp_pk == $winning || $bp_pk == $opponent)
@@ -183,6 +183,8 @@
 
 				$query = "select a.accounts_pk apk, a.first_name af, a.last_name al, b.accounts_pk bpk, b.first_name bf,b.last_name bl from beer_pong bp inner join accounts a on a.accounts_pk = bp.user_a inner join accounts b on b.accounts_pk = bp.user_b where ";
 				$query = $query."beer_pong_pk = ".$opponent;
+				echo "<BR>";
+				echo $query;
 				$result = $DB->query($query);
 				$row = $result->fetch_assoc();
 				$opponent_a = $row['af'].' '.$row['al'];
@@ -280,9 +282,6 @@
 				echo $query;
 				echo " Added a new user";
 				$DB->query($query);
-                if( $DB->error ){
-                    fatalErrorContactMatt( 'Bad Insert: ' . $DB->error );
-                }
 				//header("Location:./index.php?longwait=1");
 			}
 			}

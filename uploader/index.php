@@ -83,10 +83,12 @@
 						$DB->query($query);
 						
 						// notify this user by email
-						email_person($fk, "Photoshop", array(
-							"name" => $f,
-							"url" => $link
-						));
+						email_person($fk, "Photoshop", array("name" => $f, "url" => $link));
+						
+						// add points for this user
+						$message = 'Vanity is the best sin.';
+						$query = 'INSERT INTO points (accounts_fk, points, reason, created) VALUES ('.$fk.', '.PHOTOSHOP.', \''.$message.'\', CURRENT_TIMESTAMP)';
+						$DB->query($query);
 						
 						printQueue($DB);
 					}
