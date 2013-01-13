@@ -38,7 +38,6 @@
   setInterval(function(){
     $.get('server.php', function(data){
       //check the table if it already has this piece of data. if not, append it to the top of the row.
-      console.log(data);
       if (window.last !== data.time) {
         if (data.points > 50) {
           var img = "/img/up_green_arrow.png";

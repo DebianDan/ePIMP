@@ -38,7 +38,6 @@ $(function() {
   $('#addfriend').click(function(){
     $('#addfriend').parent().remove();
 
-    console.log('sending data...');
     <?php
     //use php to render part of the script
       echo "var data = 'pgid=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "&mingle_status_pk=" . $_REQUEST['mingle_status_pk'] . "'";
