@@ -138,6 +138,7 @@
 					break;
 				}
 			}
+			
 			echo "Winning:" . $winning . "<BR>";
 			echo "Opponent:" . $opponent . "<BR>";
 
@@ -176,7 +177,10 @@
 			else
 			{
 				//minus the 2 players that are currently playing
-				$message = "You are at position ". ($pos-2) . "<br/>";
+				if($pos > 2)
+					$pos = $pos - 2;
+		
+				$message = "You are at position ". ($pos) . "<br/>";
 				include '../../components/message.php';
 			}
 		}
@@ -265,11 +269,8 @@
 			else
 			{
 				//echo $accounts_pk;
-				echo "<BR>";
 				$query = "INSERT INTO beer_pong(user_a, state, time) VALUES(" . $accounts_pk . ", 0, NOW())";
 				
-				echo $query;
-				echo " Added a new user";
 				$DB->query($query);
 				header("Location:./index.php");
 			}
