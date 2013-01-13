@@ -26,8 +26,8 @@ if ($result = $DB->query($query))
 	foreach ($bets as $key => $bet) {
 		$query = 'UPDATE bets SET state = 0 WHERE bets_pk = '.$bet['bets_pk'];
 		$DB->query($query);
-		$query = 'INSERT INTO points(accounts_fk, points, reason) values ('.$bet['user_fk'].', '.$bet['award'].', "gambling loss to house")';
-		$DB->query($query); 
+		//$query = 'INSERT INTO points(accounts_fk, points, reason) values ('.$bet['user_fk'].', '.$bet['award'].', "gambling loss to house")';
+		//$DB->query($query);
 
 		if($color == $bet['color']){
 			$bet['award'] = -1 * $bet['award'];

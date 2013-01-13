@@ -82,7 +82,7 @@ if ($play_mingle == 0) {
           echo "<p>You're up!  Report to Shawn's office to get PhotoShopped</p>";
         }
         if ($pspos == -1 && $bppos == -1) {
-          echo "<p>You are not playing any game! Check in to Beer Pong or Shawn's PhotoShop Booth with your NFC-powered bracelet to earn Bling toward a Galaxy Nexus 7!</p>";
+          echo "<p>You are not playing any games! Check in to Beer Pong or Shawn's PhotoShop Booth with your NFC-powered bracelet to earn Bling toward a Nexus 7!</p>";
         }
 
       ?>

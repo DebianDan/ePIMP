@@ -4,6 +4,7 @@ $(function () {
 		callback: update_time,
 		repeat: true
 	});
+	present();
 });
 
 var timestamp = -1;
@@ -31,6 +32,48 @@ function update_time() {
 }
 
 function spin (results_block) {
+
+	$('#myModal').modal('show');
+	// $('div').timer({
+	// 	callback: function(){
+	// 		$('#myModal').modal('hide');
+	// 	},
+	// 	delay: 30000,
+	// });
+	var color = parseInt(results_block.color);
+	$('div').timer({
+		callback: function(){
+			color = (color + 1) % 3;
+			if(color == 0) {
+				$('#winner-color').text('Black');
+				document.getElementById("winner-color").style.color = "black";
+				// $('.winner-type').attr('color','black');
+			} else if(color == 1) {
+				$('#winner-color').text('Red');
+				document.getElementById("winner-color").style.color = "red";
+				// $('.winner-type').attr('color','red');
+			} else {
+				$('#winner-color').text('Green');
+				document.getElementById("winner-color").style.color = "green";
+				// $('.winner-type').attr('color','green');
+			}
+		},
+		delay: 10,
+		repeat: 501
+	});
+	$(this).timer({
+		callback: function() {
+			$('#myModal').modal('hide');
+			var text_color = "Green";
+			if (results_block.color == "0") {
+				text_color = "Black";
+			} else if(results_block.color == "1"){
+				text_color = "Red";
+			};
+			$('#prev-round').text(text_color);
+		},
+		delay: 5010,
+	});
 	var winnerlist = $("#winner-list");
 	$.each(results_block.winners,function() {
 		var row = make_row(this);
@@ -65,4 +108,7 @@ function make_row(row_object){
 	} 
 	row.append($('<td/>').text(color));
 	return row;
+}
+
+function present() {
 }

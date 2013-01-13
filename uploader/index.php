@@ -1,3 +1,8 @@
+<?php
+if( !isset( $_COOKIE['dispatcher'] ) && $_COOKIE['dispatcher'] != 'boss' ){
+    die( 'oh no no.' );
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +12,9 @@
 		td input {
 			line-height: normal !important;
 			height: auto !important;
+		}
+		tr:nth-child(odd) {
+			background-color: #EEE;
 		}
 		form { margin: 0; }
 		table {
@@ -80,10 +88,12 @@
 						$DB->query($query);
 						
 						// notify this user by email
-						email_person($fk, "Photoshop", array(
-							"name" => $f,
-							"url" => $link
-						));
+						email_person($fk, "Photoshop", array("name" => $f, "url" => $link));
+						
+						// add points for this user
+						$message = 'Vanity is the best sin.';
+						$query = 'INSERT INTO points (accounts_fk, points, reason, created) VALUES ('.$fk.', '.PHOTOSHOP.', \''.$message.'\', CURRENT_TIMESTAMP)';
+						$DB->query($query);
 						
 						printQueue($DB);
 					}
@@ -107,7 +117,7 @@
 			echo '<table>';
 			while($row = $result->fetch_assoc()) {
 				$disp_name = $row['f'].' '.$row['l'];
-				echo '<tr><td><img src="'.$row['img'].'" width="50" height="50" /></td>';
+				echo '<tr><td><div style="height:50px;"><img src="'.$row['img'].'" width="50" height="50" /></div></td>';
 				echo '<td>'.$disp_name.'</td><td>';
 				if ($row['state'] == 1) {
 					echo '<form enctype="multipart/form-data" action="index.php" method="post">
