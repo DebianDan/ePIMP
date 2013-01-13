@@ -29,8 +29,11 @@ $mingle_status_pk = $_REQUEST["mingle_status_pk"];
 $pgid_a = $_REQUEST["pgid"]; // $pgid_a is current user
 $pgid_b = $_REQUEST["friendID"];
 
-$name_a = get_user_info($pgid_a)['first_name'];
-$name_b = get_user_info($pgid_b)['first_name'];
+$name_a = get_user_info($pgid_a);
+$name_b = get_user_info($pgid_b);
+
+$name_a = $name_a['first_name'];
+$name_b = $name_b['first_name'];
 
 $result = mysql_query( "SELECT * FROM mingle_status WHERE mingle_status_pk='" . $mingle_status_pk . "'");
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
