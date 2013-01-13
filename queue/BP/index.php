@@ -207,6 +207,13 @@
 			if (isset( $row['state'] ) )
 			{
 				$bp_pk = $row['beer_pong_pk'];
+				$usera = $row['user_a'];
+				
+				if($usera == $accounts_pk)
+				{
+					header("Location: /");
+					die();
+				}
 				
 				$query = "UPDATE beer_pong SET user_b = " . $accounts_pk . ", state = 1 WHERE beer_pong_pk = ". $bp_pk;
 				$DB->query($query);
