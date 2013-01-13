@@ -33,10 +33,10 @@ function update_time() {
 
 function spin (results_block) {
 
-	$('#myModal').modal('show');
+	// $('#myModal').modal('show');
 	// $('div').timer({
 	// 	callback: function(){
-	// 		$('#myModal').modal('hide');
+			// $('#myModal').modal('hide');
 	// 	},
 	// 	delay: 30000,
 	// });
@@ -45,36 +45,37 @@ function spin (results_block) {
 		callback: function(){
 			color = (color + 1) % 3;
 			if(color == 0) {
-				$('#winner-color').text('Black');
-				document.getElementById("winner-color").style.color = "black";
+				$('#prev-round').text('Black');
+				document.getElementById("prev-round").style.color = "black";
 				// $('.winner-type').attr('color','black');
 			} else if(color == 1) {
-				$('#winner-color').text('Red');
-				document.getElementById("winner-color").style.color = "red";
+				$('#prev-round').text('Red');
+				document.getElementById("prev-round").style.color = "red";
 				// $('.winner-type').attr('color','red');
 			} else {
-				$('#winner-color').text('Green');
-				document.getElementById("winner-color").style.color = "green";
+				$('#prev-round').text('Green');
+				document.getElementById("prev-round").style.color = "green";
 				// $('.winner-type').attr('color','green');
 			}
 		},
 		delay: 10,
 		repeat: 501
 	});
-	$(this).timer({
-		callback: function() {
-			$('#myModal').modal('hide');
-			var text_color = "Green";
-			if (results_block.color == "0") {
-				text_color = "Black";
-			} else if(results_block.color == "1"){
-				text_color = "Red";
-			};
-			$('#prev-round').text(text_color);
-		},
-		delay: 5010,
-	});
+	// $(this).timer({
+	// 	callback: function() {
+	// 		// $('#myModal').modal('hide');
+	// 		var text_color = "Green";
+	// 		if (results_block.color == "0") {
+	// 			text_color = "Black";
+	// 		} else if(results_block.color == "1"){
+	// 			text_color = "Red";
+	// 		};
+	// 		$('#prev-round').text(text_color);
+	// 	},
+	// 	delay: 5010,
+	// });
 	var winnerlist = $("#winner-list");
+	winnerlist.empty();
 	$.each(results_block.winners,function() {
 		var row = make_row(this);
 		winnerlist.append(row);
@@ -98,7 +99,7 @@ function make_row(row_object){
 	var row = $('<tr/>');
 	row.append($('<td/>').text(row_object.first_name));
 	row.append($('<td/>').text(row_object.last_name));
-	row.append($('<td/>').text(-1 * parseInt(row_object.award)));
+	row.append($('<td/>').text(Math.abs(parseInt(row_object.award))));
 	var color = "";
 	if(row_object.color == "0") {
 		color = "Black";	
