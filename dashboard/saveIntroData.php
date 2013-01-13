@@ -6,7 +6,7 @@ $con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or
     die("Could not connect: " . mysql_error());
 mysql_select_db(DB_DATABASE, $con);
 
-$intro = $_REQUEST["intro"];
+$intro = isset( $_REQUEST["intro"] ) ? $_REQUEST['intro'] : 'optedout';
 
 $optout = $_REQUEST['optout'];
 

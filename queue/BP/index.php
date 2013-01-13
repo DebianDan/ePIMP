@@ -254,7 +254,11 @@
 							break;
 						}
 					}
-					$message = "You have been added to the queue at position ". ($pos-2) . "<br/>";
+					
+					if($pos > 2)
+						$pos = $pos - 2;
+					
+					$message = "You have been added to the queue at position ". ($pos) . "<br/>";
 					include '../../components/message.php';
 				}
 			}

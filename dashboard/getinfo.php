@@ -24,8 +24,12 @@ require_once('../common.php');
       <?php echo "<input name='token' type='hidden' value=" . $token . ">";?>
       <?php echo "<input name='pgid' type='hidden' value=" . $pgid . ">"; ?>
       <input type="submit" name="optout" value="Play Mingle (more points)">
+    </form>
+    <form action="saveIntroData.php" method="get" data-ajax="false">
       <div style="margin-top:40px"></div>
       <input type="submit" name="optout" value="Opt out of playing Mingle (less points)">
+      <?php echo "<input name='token' type='hidden' value=" . $token . ">";?>
+      <?php echo "<input name='pgid' type='hidden' value=" . $pgid . ">"; ?>
     </form>
   </div><!-- /content -->
 </div><!-- /page -->
