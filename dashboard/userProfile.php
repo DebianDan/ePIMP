@@ -35,7 +35,7 @@ $friend = get_user_info($friendID);
 </div>
 <script>
 $(function() {
-  $('#addfriend').click(function(){
+  $('#addfriend').bind('touchstart',function(){
     $('#addfriend').parent().remove();
 
     <?php

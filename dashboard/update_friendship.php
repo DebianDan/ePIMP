@@ -62,7 +62,6 @@ $query = "UPDATE mingle_status SET status = '" . $status . "', time = CURRENT_TI
 mysql_query($query);
 // if( mysql_error() ){
   // echo "MYSQL ERROR:  ZOMG: " .mysql_error();
-
   //}
 
 
@@ -102,6 +101,6 @@ if ($status == 3) {
 	echo "Congratulations! Make sure your new friend clicks on your name right away, otherwise you won't be awarded Bling!";
 }
 
-header("Location:index.php?". $_SERVER['QUERY_STRING']);
+//header("Location:index.php?". $_SERVER['QUERY_STRING']);
 
 ?>
