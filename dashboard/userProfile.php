@@ -26,7 +26,7 @@ $friend = get_user_info($friendID);
 	<div data-role="content">
     <?php
       echo "<p>" . $friend['intro'] . "</p>";
-      echo "<button id='addfriend' data-icon='check'>i have met this person</button>";
+      echo "<a href='update_friendship.php?pgid=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "&mingle_status_pk=" . $_REQUEST['mingle_status_pk'] . "' data-role='button' data-ajax='false'>I have met this person!</a>";
       echo "<a href='index.php?pgid=" . $pgid . "&token=" . $token . "' data-role='button' data-icon='arrow-l'>Go Back</a>";
     ?>
 	  <p id="messages">
@@ -34,20 +34,19 @@ $friend = get_user_info($friendID);
   </div>
 </div>
 <script>
-$(function() {
-  $('#addfriend').bind('touchstart',function(){
-    $('#addfriend').parent().remove();
-
-    <?php
-    //use php to render part of the script
-      echo "var data = 'pgid=" . $pgid . "&token=" . $token . "&friendID=" . $friend['pgid'] . "&mingle_status_pk=" . $_REQUEST['mingle_status_pk'] . "'";
-      echo "\n";
-    ?>
-    $.get('update_friendship.php?'+data, function(res) {
-      $('#messages').text(res);
-    });
-  })
-});
+// $(function() {
+//   $('#addfriend').bind('touchstart',function(){
+//     $('#addfriend').parent().remove();
+//
+//     <?php
+//     //use php to render part of the script
+//       echo "\n";
+//     ?>
+//     $.get('update_friendship.php?'+data, function(res) {
+//       $('#messages').text(res);
+//     });
+//   })
+// });
 </script>
 
 </body>
