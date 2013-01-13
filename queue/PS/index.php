@@ -5,7 +5,7 @@
 	<!-- Bootstrap -->
 	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<link href="/css/queue.css" rel="stylesheet" media="screen">
-	<meta http-equiv="refresh" content="5;URL='./index.php'">
+	<meta http-equiv="refresh" content="30;URL='./index.php'">
 </head>
 <body>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
