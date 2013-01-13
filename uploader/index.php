@@ -1,7 +1,7 @@
 <?php
-//if( !isset( $_COOKIE['dispatcher'] ) && $_COOKIE['dispatcher'] != 'boss' ){
-    //die( 'oh no no.' );
-//}
+if( !isset( $_COOKIE['dispatcher'] ) && $_COOKIE['dispatcher'] != 'boss' ){
+  die( 'oh no no.' );
+}
 ?>
 <!DOCTYPE html>
 <html>
