@@ -103,9 +103,7 @@
 		$safe_pgid = $DB->real_escape_string($_GET["pgid"]);
 		$safe_token = $DB->real_escape_string($_GET["token"]);
 
-		echo $safe_pgid;
-		echo $safe_token;
-
+		
 		//find in beer pong
 		$query = "(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts a on a.accounts_pk = user_a where (state=1 or state = 2)";
 		$query = $query."and a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."')";
@@ -139,9 +137,7 @@
 				}
 			}
 			
-			echo "Winning:" . $winning . "<BR>";
-			echo "Opponent:" . $opponent . "<BR>";
-
+		
 			// They are currently playing
 			if($bp_pk == $winning || $bp_pk == $opponent)
 			{
@@ -158,8 +154,6 @@
 
 				$query = "select a.accounts_pk apk, a.first_name af, a.last_name al, b.accounts_pk bpk, b.first_name bf,b.last_name bl from beer_pong bp inner join accounts a on a.accounts_pk = bp.user_a inner join accounts b on b.accounts_pk = bp.user_b where ";
 				$query = $query."beer_pong_pk = ".$opponent;
-				echo "<BR>";
-				echo $query;
 				$result = $DB->query($query);
 				$row = $result->fetch_assoc();
 				$opponent_a = $row['af'].' '.$row['al'];
