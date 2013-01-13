@@ -3,14 +3,9 @@
 <head>
 	<title>Beer Pong Queue</title>
 	<?php
-	if(isset($_GET['longwait']))
-	{
-		echo "<meta http-equiv='refresh' content='20;url=./index.php'>";
-	}
-	else
-	{
-		echo "<meta http-equiv='refresh' content='5;url=./index.php'>";
-	}
+	
+	echo "<meta http-equiv='refresh' content='10;url=./index.php'>";
+	
 	?>
 	<!-- Bootstrap -->
 	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -40,14 +35,6 @@
 	//no params (no user braclet contact)
 	if (!isset($_GET["pgid"]) and !isset($_GET["token"]))
 	{
-		//only delete after the longer timeout
-		if (!isset($_GET["longwait"])){
-			//delete user if page refreshes without a partner
-			$query = "DELETE FROM beer_pong WHERE user_b IS NULL";
-			$DB->query($query) or die($DB->error.__LINE__);
-		}
-
-
 		if (isset($_GET["alost"]) and isset($_GET["blost"])) {
 			//HANDLE THE LOST AND WIN POINTS CASES
 			$usera = $_GET["alost"];
@@ -64,7 +51,6 @@
 			$top_open_team = $row['beer_pong_pk'];
 
 			$games_won = $top_open_team - $bp_pk_losing;
-			//echo $games_won;
 
 			$points = 0;
 			$points = $points + $games_won * BEER_PONG_WIN;
@@ -72,35 +58,26 @@
 
 			$query = "insert into points(accounts_fk, points, reason, created) values(".$usera.",".$points.", 'Beer Pong', NOW())";
 			$result = $DB->query($query);
-			//echo $query;
+
 			$query = "insert into points(accounts_fk, points, reason, created) values(".$userb.",".$points.", 'Beer Pong', NOW())";
 			$result = $DB->query($query);
-
 
 			// update the state
 			$query = "update beer_pong set state = 2 where beer_pong_pk = ". $top_open_team;
 			$DB->query($query);
-			//echo "<BR>";
-			//echo $query;
-
 
 			$query = "update beer_pong set state = 0 where beer_pong_pk = ". $bp_pk_losing;
 			$DB->query($query);
-			//echo "<BR>";
-			//echo $query;
-
 		}
 
 		//show query list
 		$query = 'SELECT a.first_name af, a.last_name al, b.first_name bf, b.last_name bl FROM beer_pong bp JOIN accounts a ON bp.user_a = a.accounts_pk ';
 		$query = $query.'JOIN accounts b ON bp.user_b = b.accounts_pk WHERE bp.state = 1 or bp.state = 2 LIMIT 5';
 		
-		echo $query;
-		
 		$result = $DB->query($query) or die($DB->error.__LINE__);
 
 
-//First position is always the current winner so format it and the second player is the opponent
+		//First position is always the current winner so format it and the second player is the opponent
 		//then display the top the 3 in the queue
 
 
@@ -137,14 +114,11 @@
 		$query = $query." and b.pgid = '".$safe_pgid."' and b.token = '".$safe_token."')";
 		
 		$result =  $DB->query($query);
-		//echo "Query:" . $query . "<BR>";
 		//in queue
 		$row = $result->fetch_assoc();
 
-		//echo $row['state'];
 		if ($row['state'] == 1 || $row['state'] == 2)
 		{
-			//echo " state is 1 or 2";
 			$bp_pk = $row['beer_pong_pk'];
 			$query = "SELECT beer_pong_pk FROM beer_pong WHERE state = 2 OR state = 1 ORDER BY beer_pong_pk ASC";
 			$result = $DB->query($query);
@@ -216,8 +190,6 @@
 			$row = $result->fetch_assoc();
 			$accounts_pk = $row['accounts_pk'];
 
-			//echo "*".$accounts_pk."*";
-
 			if(is_null($accounts_pk))
 			{
 				//echo "Need to register";
@@ -226,16 +198,30 @@
 			}
 			else
 			{
-			$query = "SELECT * FROM beer_pong WHERE user_b IS NULL AND state = 1";
+			
+			$query = "select * from beer_pong where user_b is null and time > DATE_SUB( NOW(), INTERVAL 20 SECOND )";
+			
 			$result = $DB->query($query);
 			$row = $result->fetch_assoc();
 
-			if ($row['state'] == 1)
+			if ($row['state'] == 0)
 			{
 				$bp_pk = $row['beer_pong_pk'];
-				$query = "UPDATE beer_pong SET user_b = " . $accounts_pk . " WHERE beer_pong_pk = ". $bp_pk;
+				
+				$query = "UPDATE beer_pong SET user_b = " . $accounts_pk . ", state = 1 WHERE beer_pong_pk = ". $bp_pk;
 				$DB->query($query);
 
+				$query = "SELECT COUNT(*) c FROM beer_pong where state = 1";
+				$result = $DB->query($query);
+				$row = $result->fetch_assoc();
+				$count = $row['c'];
+
+				if($count == 1)
+				{
+					$query = "UPDATE beer_pong SET user_b = " . $accounts_pk . ", state = 2 WHERE beer_pong_pk = ". $bp_pk;
+					$DB->query($query);
+				}
+				
 				//find in beer pong
 				$query = "(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts a on a.accounts_pk = user_a where (state=1 or state = 2)";
 				$query = $query."and a.pgid = '".$safe_pgid."' and a.token = '".$safe_token."')";
@@ -269,20 +255,12 @@
 			{
 				//echo $accounts_pk;
 				echo "<BR>";
-				$query = "SELECT COUNT(*) c FROM beer_pong WHERE state = 1 OR state = 2";
-				$result = $DB->query($query);
-				$row = $result->fetch_assoc();
-				$count = $row['c'];
-				
-				if($count == 0)
-					$query = "INSERT INTO beer_pong(user_a, state) VALUES(" . $accounts_pk . ", 2)";
-				else
-					$query = "INSERT INTO beer_pong(user_a, state) VALUES(" . $accounts_pk . ", 1)";
+				$query = "INSERT INTO beer_pong(user_a, state, time) VALUES(" . $accounts_pk . ", 0, NOW())";
 				
 				echo $query;
 				echo " Added a new user";
 				$DB->query($query);
-				//header("Location:./index.php?longwait=1");
+				header("Location:./index.php");
 			}
 			}
 		}
