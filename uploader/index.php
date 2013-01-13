@@ -1,7 +1,7 @@
 <?php
-if( !isset( $_COOKIE['dispatcher'] ) && $_COOKIE['dispatcher'] != 'boss' ){
-    die( 'oh no no.' );
-}
+//if( !isset( $_COOKIE['dispatcher'] ) && $_COOKIE['dispatcher'] != 'boss' ){
+    //die( 'oh no no.' );
+//}
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,6 +43,22 @@ if( !isset( $_COOKIE['dispatcher'] ) && $_COOKIE['dispatcher'] != 'boss' ){
 		
 		$bucket = S3_BUCKET; //."_test";
 		$allowedExts = array("jpg", "jpeg", "gif", "png");
+		
+		if (isset($_POST["fk_text"])) {
+			// notify via SMS
+			$fk = $_POST["fk_text"];
+			$text = "Get to the photo booth. It's your turn.";
+			//echo $text." ".$fk;
+			text_person($fk, $text);
+		}
+		
+		if (isset($_POST["fk_del"])) {
+			$fk = $_POST["fk_del"];
+			$pk = $_POST["pk_del"];
+			// close this user on queue
+			$query = "UPDATE photoshop SET state = 0 WHERE users_fk = ".$fk." AND photoshop_pk = ".$pk;
+			$DB->query($query);
+		}
 		
 		if (isset($_FILES["file"]) && isset($_POST["fk"]) && isset($_POST["pk"])) {
 
@@ -118,14 +134,23 @@ if( !isset( $_COOKIE['dispatcher'] ) && $_COOKIE['dispatcher'] != 'boss' ){
 			while($row = $result->fetch_assoc()) {
 				$disp_name = $row['f'].' '.$row['l'];
 				echo '<tr><td><div style="height:50px;"><img src="'.$row['img'].'" width="50" height="50" /></div></td>';
-				echo '<td>'.$disp_name.'</td><td>';
+				echo '<td>'.$disp_name.'</td>';
 				if ($row['state'] == 1) {
-					echo '<form enctype="multipart/form-data" action="index.php" method="post">
+					echo '<td width="40%"><form enctype="multipart/form-data" action="index.php" method="post">
 							<input type="file" name="file" />
 							<input type="hidden" name="fk" value="'.$row['fk'].'" />
 							<input type="hidden" name="pk" value="'.$row['pk'].'" />
 							<input type="hidden" name="f" value="'.$row['f'].'" />
-							<input type="submit" value="Upload" /></form>';
+							<input type="submit" value="Upload" /></form></td>';
+					echo '<td width="20%"><form action="index.php" method="post">
+							<input type="hidden" name="fk_text" value="'.$row['fk'].'" />
+							<input type="submit" value="Call to booth via SMS" /></form>';
+					echo '<td width="20%"><form action="index.php" method="post">
+							<input type="hidden" name="fk_del" value="'.$row['fk'].'" />
+							<input type="hidden" name="pk_del" value="'.$row['pk'].'" />
+							<input type="submit" value="Remove from queue" /></form>';
+				} else {
+					echo '<td colspan="3">';
 				}
 				echo '</td></tr>';
 			}

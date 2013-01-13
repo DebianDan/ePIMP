@@ -137,7 +137,10 @@
 				}
 			}
 			
-		
+			//echo $winning;
+			//echo $opponent;
+			//echo $bp_pk;
+			
 			// They are currently playing
 			if($bp_pk == $winning || $bp_pk == $opponent)
 			{
@@ -160,13 +163,16 @@
 				$opponent_b = $row['bf'].' '.$row['bl'];
 				$o_a = $row['apk'];
 				$o_b = $row['bpk'];
-
+				
+				//echo "here";
 				// print page with buttons
 				$bodycode = '<h3>Which Team Won?<h3>';
 				$bodycode = $bodycode . '<form name="input" action="./index.php" method="get">';
 				$bodycode = $bodycode . '<button type="button" onClick="location.href=\'./index.php?alost='.$o_a.'&blost='.$o_b.'\'">'.$winner_a . ' & ' .$winner_b.'</button>';
 				$bodycode = $bodycode . '<button type="button" onClick="location.href=\'./index.php?alost='.$w_a.'&blost='.$w_b.'\'">'.$opponent_a . ' & ' .$opponent_b.'</button>';
 				$bodycode = $bodycode . '</form>';
+				
+				include '../../components/message.php';
 			}
 			else
 			{
@@ -221,11 +227,12 @@
 				$row = $result->fetch_assoc();
 				$count = $row['c'];
 
+				/*
 				if($count == 1)
 				{
 					$query = "UPDATE beer_pong SET user_b = " . $accounts_pk . ", state = 2 WHERE beer_pong_pk = ". $bp_pk;
 					$DB->query($query);
-				}
+				}*/
 				
 				//find in beer pong
 				$query = "(select beer_pong.state, beer_pong.beer_pong_pk from beer_pong join accounts a on a.accounts_pk = user_a where (state=1 or state = 2)";
