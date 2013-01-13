@@ -171,6 +171,8 @@
 				$bodycode = $bodycode . '<button type="button" onClick="location.href=\'./index.php?alost='.$o_a.'&blost='.$o_b.'\'">'.$winner_a . ' & ' .$winner_b.'</button>';
 				$bodycode = $bodycode . '<button type="button" onClick="location.href=\'./index.php?alost='.$w_a.'&blost='.$w_b.'\'">'.$opponent_a . ' & ' .$opponent_b.'</button>';
 				$bodycode = $bodycode . '</form>';
+				
+				include '../../components/message.php';
 			}
 			else
 			{
