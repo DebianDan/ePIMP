@@ -2,6 +2,7 @@
 if( !isset( $_COOKIE['dispatcher'] ) && $_COOKIE['dispatcher'] != 'boss' ){
   die( 'oh no no.' );
 }
+require_once('../config.php');   
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,7 +33,6 @@ if( !isset( $_COOKIE['dispatcher'] ) && $_COOKIE['dispatcher'] != 'boss' ){
 			die('Config file doesn\' exist. Did you forget to copy config.php.default to config.php?');
 		}
 		
-		require_once('../config.php');
 		require_once '../libs/sdk-1.5.17.1/sdk.class.php';
 		
 		$DB = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
@@ -47,7 +47,7 @@ if( !isset( $_COOKIE['dispatcher'] ) && $_COOKIE['dispatcher'] != 'boss' ){
 		if (isset($_POST["fk_text"])) {
 			// notify via SMS
 			$fk = $_POST["fk_text"];
-			$text = "Get to the photo booth. It's your turn.";
+			$text = "Get to the photo booth in the hallway behind the whiteboard wall! It's your turn!";
 			//echo $text." ".$fk;
 			text_person($fk, $text);
 		}
