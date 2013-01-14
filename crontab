@@ -1,0 +1,5 @@
+
+
+#*/5 * * * * curl http://expensiparty.com/dashboard/buildmap.php 2>&1 > /dev/null
+
+#*/2 * * * * curl http://expensiparty.com/roulette/wheel_spin_cron.php 2>&1 > /dev/null
