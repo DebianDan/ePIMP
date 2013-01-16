@@ -1,6 +1,6 @@
 The BSD 3-Clause License
-Copyright (c) 2013, Eric Jang, Kevin Petrikas, Thach Hoang, Sal Testa,
-Dan Tucholski, David Barrett, Matt McNamara, Julaiti Alafate, Mal Raghavan
+Copyright (c) 2013, Eric Jang, Kevin Petrikas, Thach Hoang, Sal Testa, David Barrett
+Dan Tucholski, Matt McNamara, Julaiti Alafate, Mal Raghavan, and Expensify Inc.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are
