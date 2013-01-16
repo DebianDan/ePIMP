@@ -1,10 +1,5 @@
 <?php
 // generic registration stuff here.
-
-if( !file_exists( 'config.php' ) ){
-    die( 'Config file doesn\' exist.  Did you forget to copy config.php.default to config.php?');
-}
-
 require_once( 'config.php' );
 
 // Dispatch according to the cookie, if specified.  Every party tablet will have a cookie
