@@ -1,5 +1,8 @@
-Expensify Party Information Management Platform (ePIMP)
-====
+# Expensify Party Information Management Platform (ePIMP)
+*Copyright (c) 2013, Eric Jang, Kevin Petrikas, Thach Hoang, Sal Testa, David Barret, Dan Tucholski, Matt McNamara, Julaiti Alafate, Mal Raghavan, and Expensify Inc.*
+
+> This software is released under the BSD 3-Clause License.
+
 Created during the 2013 Hacker Olympics put on by SignalFire, ePIMP makes your party
 epic with NFC.
 
